@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://c322d1a0swdo3"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_4unef"]
+[ext_resource type="Texture2D" uid="uid://43e71e66bucy" path="res://Images/Piecesets/Shogi-kanji/Promoted Rook.png" id="1_hyj2c"]
+[ext_resource type="Resource" uid="uid://ctkqcnuwnibu" path="res://Resources/Moves/StampMoves/Shogi/shogi_king_stamps.tres" id="2_sea3j"]
+[ext_resource type="Resource" uid="uid://bkni1o1unl14a" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_down.tres" id="3_fvent"]
+[ext_resource type="Resource" uid="uid://c2aj0rrjdxufn" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_left.tres" id="4_roow0"]
+[ext_resource type="Resource" uid="uid://c6lxaj2bx7xqk" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_right.tres" id="5_dyn76"]
+[ext_resource type="Resource" uid="uid://2i7t6scd2g0d" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up.tres" id="6_lp7q7"]
+
+[resource]
+script = ExtResource("1_4unef")
+piece_name = "Dragon"
+fen_char = "+r"
+icon = Array[Texture]([ExtResource("1_hyj2c")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_sea3j"), ExtResource("3_fvent"), ExtResource("4_roow0"), ExtResource("5_dyn76"), ExtResource("6_lp7q7")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("1_4unef")]([])

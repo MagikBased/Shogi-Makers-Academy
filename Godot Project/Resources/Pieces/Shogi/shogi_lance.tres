@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=5 format=3 uid="uid://dxqb2nt82gp0l"]
+
+[ext_resource type="Texture2D" uid="uid://bnm7ypcla2can" path="res://Images/Piecesets/Shogi-kanji/Lance.png" id="1_88i4y"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_w6snk"]
+[ext_resource type="Resource" uid="uid://2i7t6scd2g0d" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up.tres" id="2_ax2qw"]
+[ext_resource type="Resource" uid="uid://obhmscwncn03" path="res://Resources/Pieces/Shogi/shogi_promoted_lance.tres" id="3_g0c7r"]
+
+[resource]
+script = ExtResource("1_w6snk")
+piece_name = "Lance"
+fen_char = "l"
+icon = Array[Texture]([ExtResource("1_88i4y")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_ax2qw")])
+can_promote = true
+is_promoted = false
+promotes_to = Array[ExtResource("1_w6snk")]([ExtResource("3_g0c7r")])

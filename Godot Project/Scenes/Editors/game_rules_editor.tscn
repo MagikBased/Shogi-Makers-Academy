@@ -1,3 +1,107 @@
 [gd_scene format=3 uid="uid://j22fhe1gxhg3"]
 
-[node name="GameRulesEditor" type="Node2D"]
+[node name="GameRulesEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(426.667, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameRulesTab" type="TabBar" parent="Panel/TabContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/TabContainer/GameRulesTab"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TabContainer/GameRulesTab/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="CheckBox4" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="CheckBox5" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="CheckBox6" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="CheckBox7" type="CheckBox" parent="Panel/TabContainer/GameRulesTab/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Some Text"
+
+[node name="TabBar2" type="TabBar" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/TabContainer/TabBar2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TabContainer/TabBar2/ScrollContainer"]
+layout_mode = 2
+
+[node name="TabBar3" type="TabBar" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/TabContainer/TabBar3"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TabContainer/TabBar3/ScrollContainer"]
+layout_mode = 2

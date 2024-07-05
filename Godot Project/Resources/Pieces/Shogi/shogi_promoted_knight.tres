@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://dq8g6jgo32pky"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_5r47t"]
+[ext_resource type="Texture2D" uid="uid://bhfgdj3i287c8" path="res://Images/Piecesets/Shogi-kanji/Promoted Knight.png" id="1_tba8b"]
+[ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_jhtr5"]
+
+[resource]
+script = ExtResource("1_5r47t")
+piece_name = "Promoted Knight"
+fen_char = "+n"
+icon = Array[Texture]([ExtResource("1_tba8b")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_jhtr5")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("1_5r47t")]([])

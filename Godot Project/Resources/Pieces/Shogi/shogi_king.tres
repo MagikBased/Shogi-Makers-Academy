@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://3ouksadeedxw"]
+
+[ext_resource type="Texture2D" uid="uid://cvngoiwegxsjc" path="res://Images/Piecesets/Shogi-kanji/King.png" id="1_uh6tm"]
+[ext_resource type="Resource" uid="uid://ctkqcnuwnibu" path="res://Resources/Moves/StampMoves/Shogi/shogi_king_stamps.tres" id="2_3f1ej"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_tuljx"]
+
+[resource]
+script = ExtResource("3_tuljx")
+piece_name = "king"
+fen_char = "k"
+icon = Array[Texture]([ExtResource("1_uh6tm")])
+is_royal = true
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_3f1ej")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("3_tuljx")]([])

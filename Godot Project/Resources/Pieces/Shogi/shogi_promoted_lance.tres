@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://obhmscwncn03"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_3hmos"]
+[ext_resource type="Texture2D" uid="uid://cxa60ffm3c4ti" path="res://Images/Piecesets/Shogi-kanji/Promoted Lance.png" id="1_7inj1"]
+[ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_ohx06"]
+
+[resource]
+script = ExtResource("1_3hmos")
+piece_name = "Promoted Lance"
+fen_char = "+l"
+icon = Array[Texture]([ExtResource("1_7inj1")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_ohx06")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("1_3hmos")]([])

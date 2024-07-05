@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=9 format=3 uid="uid://woiu1qaw8nap"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_c2omj"]
+[ext_resource type="Texture2D" uid="uid://bcdu058lstnjq" path="res://Images/Piecesets/Shogi-kanji/Bishop.png" id="1_ktoby"]
+[ext_resource type="Resource" uid="uid://ctkqcnuwnibu" path="res://Resources/Moves/StampMoves/Shogi/shogi_king_stamps.tres" id="2_o815c"]
+[ext_resource type="Resource" uid="uid://cwcrbiyk51bqr" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_down_left.tres" id="3_4ko7x"]
+[ext_resource type="Resource" uid="uid://dn7it50menj7g" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_down_right.tres" id="4_jp5hc"]
+[ext_resource type="Resource" uid="uid://c3sctafjicwyf" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up_left.tres" id="5_exvxy"]
+[ext_resource type="Resource" uid="uid://jeey2ak7swey" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up_right.tres" id="6_8ctfn"]
+[ext_resource type="Resource" uid="uid://tmg0qnnohpsk" path="res://Resources/Pieces/Shogi/shogi_horse.tres" id="7_rm3j6"]
+
+[resource]
+script = ExtResource("1_c2omj")
+piece_name = "Bishop"
+fen_char = "+b"
+icon = Array[Texture]([ExtResource("1_ktoby")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_o815c"), ExtResource("3_4ko7x"), ExtResource("4_jp5hc"), ExtResource("5_exvxy"), ExtResource("6_8ctfn")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("1_c2omj")]([ExtResource("7_rm3j6")])

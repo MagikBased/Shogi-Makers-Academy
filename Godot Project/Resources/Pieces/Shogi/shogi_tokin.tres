@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://dmhhgl4e1sr8w"]
+
+[ext_resource type="Texture2D" uid="uid://d2c6vn2es1efc" path="res://Images/Piecesets/Shogi-kanji/Promoted Pawn.png" id="1_h4qep"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="2_ew8o5"]
+[ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_i6k1v"]
+
+[resource]
+script = ExtResource("2_ew8o5")
+piece_name = "Token"
+fen_char = "+p"
+icon = Array[Texture]([ExtResource("1_h4qep")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_i6k1v")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("2_ew8o5")]([])

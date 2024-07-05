@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://bsrxvsa6y8tsp"]
+
+[ext_resource type="Texture2D" uid="uid://djl7c5sacmnnm" path="res://Images/Piecesets/Shogi-kanji/Promoted Silver General.png" id="1_iojxe"]
+[ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_7v6ay"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_mjaod"]
+
+[resource]
+script = ExtResource("3_mjaod")
+piece_name = "Promoted Silver"
+fen_char = "+s"
+icon = Array[Texture]([ExtResource("1_iojxe")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_7v6ay")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("3_mjaod")]([])

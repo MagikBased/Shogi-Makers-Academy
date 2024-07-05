@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SwingMove" load_steps=2 format=3 uid="uid://cwcrbiyk51bqr"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/swing_move.gd" id="1_d2olx"]
+
+[resource]
+script = ExtResource("1_d2olx")
+move_direction = Vector2(-1, 1)
+max_distance = -1
+restriction = 0

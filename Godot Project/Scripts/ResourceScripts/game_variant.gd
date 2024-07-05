@@ -12,5 +12,5 @@ enum WinConditions{
 @export var game_name: String
 @export var board_size: Vector2
 @export var pieces: Array[PieceBase]
-@export var win_condition: WinConditions = WinConditions.CHECKMATE
+@export var win_conditions: Array[WinConditions]
 @export var starting_fen: String

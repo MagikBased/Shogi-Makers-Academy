@@ -1,4 +1,5 @@
 extends Node2D
+class_name GameRoom
 
 @onready var board_scene = preload("res://Scenes/board.tscn")
 var board_padding: int = 54
@@ -10,7 +11,7 @@ func _ready():
 
 func resize_board(board) -> void:
 	var rect = get_viewport_rect().size
-	var board_size = min(rect.x - board_padding * 2, rect.y - board_padding * 2)  # Apply padding
+	var board_size = min(rect.x - board_padding * 2, rect.y - board_padding * 2)
 	var board_scale_x: float = board_size / board.texture.get_width()
 	var board_scale_y: float = board_size / board.texture.get_height()
 	board.scale = Vector2(board_scale_x, board_scale_y)

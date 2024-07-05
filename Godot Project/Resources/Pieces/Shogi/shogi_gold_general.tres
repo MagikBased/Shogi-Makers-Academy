@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://5bvjrpwblyxy"]
+
+[ext_resource type="Texture2D" uid="uid://b48tms53mmmq5" path="res://Images/Piecesets/Shogi-kanji/Gold General.png" id="1_5fkv8"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_vhgp7"]
+[ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_6m603"]
+
+[resource]
+script = ExtResource("1_vhgp7")
+piece_name = "Gold General"
+fen_char = "g"
+icon = Array[Texture]([ExtResource("1_5fkv8")])
+is_royal = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_6m603")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("1_vhgp7")]([])

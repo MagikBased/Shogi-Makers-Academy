@@ -1,4 +1,5 @@
 extends Sprite2D
+class_name Board
 
 @export var board_data: BoardResource
 var board_size: Vector2 = Vector2(9, 9)
