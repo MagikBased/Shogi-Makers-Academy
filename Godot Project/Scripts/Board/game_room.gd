@@ -1,11 +1,19 @@
 extends Node2D
 class_name GameRoom
 
-@onready var board_scene = preload("res://Scenes/board.tscn")
+var game_manager: GameManager
+@export var game_variant: GameVariant
+@onready var board_scene = preload("res://Scenes/GameBoardScenes/board.tscn")
+@onready var game_manager_scene = preload("res://Scenes/GameBoardScenes/game_manager.tscn")
+
 var board_padding: int = 54
 
 func _ready():
-	var board = board_scene.instantiate()
+	game_manager = game_manager_scene.instantiate() as GameManager
+	game_manager.set_variant(game_variant)
+	add_child(game_manager)
+	var board = board_scene.instantiate() as Board
+	board.set_variant(game_variant)
 	add_child(board)
 	resize_board(board)
 

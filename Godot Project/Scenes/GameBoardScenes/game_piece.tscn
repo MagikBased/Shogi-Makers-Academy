@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://Scripts/Board/game_piece.gd" id="1_sdr3s"]
 
-[node name="GamePiece" type="Sprite2D" groups=["game_piece"]]
+[node name="BaseGamePiece" type="Sprite2D" groups=["game_piece"]]
 script = ExtResource("1_sdr3s")
