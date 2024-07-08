@@ -57,8 +57,6 @@ func _ready():
 	create_piece(game_variant.pieces[5], Vector2(4,1), Player.Gote)
 	create_piece(game_variant.pieces[0], Vector2(5,1), Player.Gote)
 	
-	
-	
 
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / board.board_size.x

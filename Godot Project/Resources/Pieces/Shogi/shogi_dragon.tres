@@ -18,3 +18,5 @@ moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/mo
 can_promote = false
 is_promoted = true
 promotes_to = Array[ExtResource("1_4unef")]([])
+add_to_hand_on_capture = false
+fen_char_piece_to_add_on_capture = "R"

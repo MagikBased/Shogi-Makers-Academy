@@ -15,3 +15,5 @@ moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/mo
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_finrx")]([ExtResource("3_a388k")])
+add_to_hand_on_capture = true
+fen_char_piece_to_add_on_capture = "N"

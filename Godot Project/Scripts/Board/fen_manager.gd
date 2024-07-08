@@ -80,7 +80,6 @@ func get_piece_type_from_symbol(symbol: String) -> int:
 		print("Unknown piece symbol: ", symbol)
 		return -1
 
-
 func _on_get_fen_button_pressed():
 	fen_line_edit.text = get_fen_notation()
 

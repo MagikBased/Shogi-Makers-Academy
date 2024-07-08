@@ -11,3 +11,6 @@ class_name PieceBase
 @export var can_promote: bool
 @export var is_promoted: bool
 @export var promotes_to: Array[PieceBase]
+@export_category("Capture")
+@export var add_to_hand_on_capture: bool
+@export var fen_char_piece_to_add_on_capture: String
