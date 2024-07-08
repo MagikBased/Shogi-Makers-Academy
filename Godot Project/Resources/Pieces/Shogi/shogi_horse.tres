@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=7 format=3 uid="uid://tmg0qnnohpsk"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://tmg0qnnohpsk"]
 
 [ext_resource type="Texture2D" uid="uid://bl4gm7tkrhjat" path="res://Images/Piecesets/Shogi-kanji/Promoted Bishop.png" id="1_fcohu"]
 [ext_resource type="Resource" uid="uid://cwcrbiyk51bqr" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_down_left.tres" id="2_32odf"]
@@ -6,14 +6,15 @@
 [ext_resource type="Resource" uid="uid://c3sctafjicwyf" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up_left.tres" id="4_0lcee"]
 [ext_resource type="Resource" uid="uid://jeey2ak7swey" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up_right.tres" id="5_b0kqk"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="6_h6c2d"]
+[ext_resource type="Resource" uid="uid://ctkqcnuwnibu" path="res://Resources/Moves/StampMoves/Shogi/shogi_king_stamps.tres" id="6_xqtlm"]
 
 [resource]
 script = ExtResource("6_h6c2d")
-piece_name = "Bishop"
-fen_char = "b"
+piece_name = "Horse"
+fen_char = "+B"
 icon = Array[Texture]([ExtResource("1_fcohu")])
 is_royal = false
-moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_32odf"), ExtResource("3_bcsim"), ExtResource("4_0lcee"), ExtResource("5_b0kqk")])
-can_promote = true
-is_promoted = false
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_32odf"), ExtResource("3_bcsim"), ExtResource("4_0lcee"), ExtResource("5_b0kqk"), ExtResource("6_xqtlm")])
+can_promote = false
+is_promoted = true
 promotes_to = Array[ExtResource("6_h6c2d")]([])

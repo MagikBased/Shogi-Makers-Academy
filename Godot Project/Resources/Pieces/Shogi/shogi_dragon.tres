@@ -11,7 +11,7 @@
 [resource]
 script = ExtResource("1_4unef")
 piece_name = "Dragon"
-fen_char = "+r"
+fen_char = "+R"
 icon = Array[Texture]([ExtResource("1_hyj2c")])
 is_royal = false
 moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_sea3j"), ExtResource("3_fvent"), ExtResource("4_roow0"), ExtResource("5_dyn76"), ExtResource("6_lp7q7")])

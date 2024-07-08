@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_w6snk")
 piece_name = "Lance"
-fen_char = "l"
+fen_char = "L"
 icon = Array[Texture]([ExtResource("1_88i4y")])
 is_royal = false
 moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_ax2qw")])

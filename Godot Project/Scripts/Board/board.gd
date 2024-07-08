@@ -1,8 +1,6 @@
 extends Sprite2D
 class_name Board
 
-#@onready var game_manager = $GameManager
-
 @export var board_data: BoardResource
 var board_size: Vector2
 var line_size: int = 8  # should be divisible by 4 for even lines

@@ -18,10 +18,13 @@ var piece_scale: float = 1
 var valid_moves: Array[Vector2]
 
 func _ready():
-	scale *= piece_scale
 	initialize_values()
+	var scale_factor = game_manager.square_size / texture.get_size().x
+	scale *= scale_factor
 	snap_to_grid()
-	
+	if piece_owner == Player.Gote:
+		rotation_degrees += 180
+
 func initialize_values():
 	if piece_resource:
 		if piece_resource.icon.size() > 0:
@@ -33,5 +36,4 @@ func snap_to_grid() -> void:
 	var file: int = int(current_position.x)
 	var rank: int = int(current_position.y)
 	var new_position: Vector2 = game_manager.find_square_center(file, rank)
-	print(new_position)
 	position = new_position

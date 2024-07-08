@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://5mnjemfahr0k"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=5 format=3 uid="uid://5mnjemfahr0k"]
 
 [ext_resource type="Texture2D" uid="uid://d0kcbw4xnc6bv" path="res://Images/Piecesets/Shogi-kanji/Pawn.png" id="1_iv06e"]
 [ext_resource type="Resource" uid="uid://bjuesom3msldv" path="res://Resources/Moves/StampMoves/Shogi/shogi_pawn_stamps.tres" id="2_itv4h"]
+[ext_resource type="Resource" uid="uid://dmhhgl4e1sr8w" path="res://Resources/Pieces/Shogi/shogi_tokin.tres" id="3_50qpf"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_vsyv3"]
 
 [resource]
 script = ExtResource("3_vsyv3")
 piece_name = "Pawn"
-fen_char = "p"
+fen_char = "P"
 icon = Array[Texture]([ExtResource("1_iv06e")])
 is_royal = false
 moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_itv4h")])
 can_promote = true
 is_promoted = false
-promotes_to = Array[ExtResource("3_vsyv3")]([])
+promotes_to = Array[ExtResource("3_vsyv3")]([ExtResource("3_50qpf")])

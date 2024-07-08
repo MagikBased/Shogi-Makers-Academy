@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_3hmos")
 piece_name = "Promoted Lance"
-fen_char = "+l"
+fen_char = "+L"
 icon = Array[Texture]([ExtResource("1_7inj1")])
 is_royal = false
 moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_ohx06")])
