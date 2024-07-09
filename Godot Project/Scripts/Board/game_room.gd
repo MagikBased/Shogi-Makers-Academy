@@ -5,6 +5,7 @@ var game_manager: GameManager
 @export var game_variant: GameVariant
 @onready var board_scene = preload("res://Scenes/GameBoardScenes/board.tscn")
 @onready var game_manager_scene = preload("res://Scenes/GameBoardScenes/game_manager.tscn")
+@onready var in_hand_scene = preload("res://Scenes/GameBoardScenes/in_hand_manager.tscn")
 @onready var fen_manager_scene = preload("res://Scenes/GameBoardScenes/fen_manager.tscn")
 var board_padding: int = 54
 
@@ -21,6 +22,11 @@ func _ready():
 	game_manager.add_child(board)
 	game_manager.add_child(fen_manager)
 	add_child(game_manager)
+	if game_variant.in_hand_pieces:
+		var in_hand_manager = in_hand_scene.instantiate() as InHandManager
+		in_hand_manager.game_variant = game_variant
+		game_manager.add_child(in_hand_manager)
+		game_manager.in_hand_manager = in_hand_manager
 
 func resize_board(board) -> void:
 	var rect = get_viewport_rect().size

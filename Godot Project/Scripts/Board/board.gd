@@ -29,7 +29,7 @@ func initialize_values() -> void:
 		board_size = board_data.board_size
 		draw_hoshis = board_data.draw_hoshis
 	square_size = texture.get_width() / board_size.x
-	circle_radius = square_size * 0.15
+	circle_radius = square_size * 0.08
 	start_x = square_size / 2
 	start_y = square_size / 2
 	spacing_x = square_size

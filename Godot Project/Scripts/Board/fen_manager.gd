@@ -54,15 +54,19 @@ func get_fen_notation() -> String:
 	else:
 		sfen += "w"
 	sfen += " "
-
-	#var sente_hand = get_hand_notation(board.inHandSente)
-	#var gote_hand = get_hand_notation(board.inHandGote)
-#
-	#if sente_hand == "" and gote_hand == "":
-		#sfen += "-"
-	#else:
-		#sfen += sente_hand
-		#sfen += gote_hand
+	if game_manager.game_variant.in_hand_pieces:
+		var hand_notation = ""
+		var sente_hand = game_manager.in_hand_manager.sente_in_hand
+		var gote_hand = game_manager.in_hand_manager.gote_in_hand
+		for key in sente_hand.keys():
+			var count = sente_hand[key]
+			if count > 0:
+				hand_notation += str(count) + key if count > 1 else key
+		for key in gote_hand.keys():
+			var count = gote_hand[key]
+			if count > 0:
+				hand_notation += str(count) + key if count > 1 else key
+		sfen += hand_notation
 	sfen += "- " + str(game_manager.turn_count)
 	return sfen
 

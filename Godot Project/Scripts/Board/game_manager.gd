@@ -12,6 +12,7 @@ var square_size: float
 var pieces_on_board: Array[PieceInfo] = []
 var turn_count: int = 1
 var player_turn: Player = Player.Sente
+var in_hand_manager: InHandManager
 
 func _ready():
 	initialize_values()
