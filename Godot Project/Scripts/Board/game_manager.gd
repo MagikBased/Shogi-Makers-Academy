@@ -13,55 +13,14 @@ var pieces_on_board: Array[PieceInfo] = []
 var turn_count: int = 1
 var player_turn: Player = Player.Sente
 var in_hand_manager: InHandManager
+var fen_manager: FenManager
 
 func _ready():
 	initialize_values()
-	create_piece(game_variant.pieces[0], Vector2(5,9), Player.Sente)
-	create_piece(game_variant.pieces[1], Vector2(2,8), Player.Sente)
-	create_piece(game_variant.pieces[3], Vector2(8,8), Player.Sente)
-	create_piece(game_variant.pieces[5], Vector2(4,9), Player.Sente)
-	create_piece(game_variant.pieces[5], Vector2(6,9), Player.Sente)
-	create_piece(game_variant.pieces[6], Vector2(7,9), Player.Sente)
-	create_piece(game_variant.pieces[6], Vector2(3,9), Player.Sente)
-	create_piece(game_variant.pieces[8], Vector2(2,9), Player.Sente)
-	create_piece(game_variant.pieces[8], Vector2(8,9), Player.Sente)
-	create_piece(game_variant.pieces[10], Vector2(1,9), Player.Sente)
-	create_piece(game_variant.pieces[10], Vector2(9,9), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(1,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(2,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(3,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(4,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(5,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(6,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(7,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(8,7), Player.Sente)
-	create_piece(game_variant.pieces[12], Vector2(9,7), Player.Sente)
-	
-	create_piece(game_variant.pieces[12], Vector2(1,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(2,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(3,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(4,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(5,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(6,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(7,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(8,3), Player.Gote)
-	create_piece(game_variant.pieces[12], Vector2(9,3), Player.Gote)
-	create_piece(game_variant.pieces[3], Vector2(2,2), Player.Gote)
-	create_piece(game_variant.pieces[1], Vector2(8,2), Player.Gote)
-	create_piece(game_variant.pieces[10], Vector2(1,1), Player.Gote)
-	create_piece(game_variant.pieces[10], Vector2(9,1), Player.Gote)
-	create_piece(game_variant.pieces[8], Vector2(2,1), Player.Gote)
-	create_piece(game_variant.pieces[8], Vector2(8,1), Player.Gote)
-	create_piece(game_variant.pieces[6], Vector2(3,1), Player.Gote)
-	create_piece(game_variant.pieces[6], Vector2(7,1), Player.Gote)
-	create_piece(game_variant.pieces[5], Vector2(6,1), Player.Gote)
-	create_piece(game_variant.pieces[5], Vector2(4,1), Player.Gote)
-	create_piece(game_variant.pieces[0], Vector2(5,1), Player.Gote)
-	
+	fen_manager.create_board_from_fen(game_variant.starting_fen)
 
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / board.board_size.x
-	
 
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")
@@ -79,6 +38,14 @@ func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner
 	piece_info.instance_id = piece.get_instance_id()
 	pieces_on_board.append(piece_info)
 
+func clear_board() -> void:
+	for piece_info in pieces_on_board:
+		var piece_instance = instance_from_id(piece_info.instance_id)
+		if piece_instance:
+			piece_instance.queue_free()
+	pieces_on_board.clear()
+	if game_variant.in_hand_pieces:
+		in_hand_manager.reset_in_hand_pieces()
 
 func set_variant(game_varient: GameVariant) -> void:
 	game_variant = game_varient

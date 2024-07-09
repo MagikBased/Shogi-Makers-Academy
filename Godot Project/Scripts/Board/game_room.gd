@@ -19,14 +19,15 @@ func _ready():
 	var fen_manager = fen_manager_scene.instantiate() as FenManager
 	fen_manager.game_variant = game_variant
 	fen_manager.game_manager = game_manager
-	game_manager.add_child(board)
-	game_manager.add_child(fen_manager)
-	add_child(game_manager)
+	game_manager.fen_manager = fen_manager
 	if game_variant.in_hand_pieces:
 		var in_hand_manager = in_hand_scene.instantiate() as InHandManager
 		in_hand_manager.game_variant = game_variant
 		game_manager.add_child(in_hand_manager)
 		game_manager.in_hand_manager = in_hand_manager
+	game_manager.add_child(board)
+	game_manager.add_child(fen_manager)
+	add_child(game_manager)
 
 func resize_board(board) -> void:
 	var rect = get_viewport_rect().size

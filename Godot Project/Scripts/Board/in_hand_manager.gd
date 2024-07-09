@@ -21,8 +21,14 @@ func add_piece_to_hand(player: Player, piece: PieceBase) -> void:
 	elif player == Player.Gote:
 		gote_in_hand[piece.fen_char_piece_to_add_on_capture] += 1
 
-func remove_piece_from_hand(player: Player, piece: PieceBase) -> void:
+func remove_piece_from_hand(player: Player, piece: PieceBase) -> void: #Consider making this a bool
 	if player == Player.Sente and sente_in_hand[piece.fen_char] > 0:
 		sente_in_hand[piece.fen_char] -= 1
 	elif player == Player.Gote and gote_in_hand[piece.fen_char] > 0:
 		gote_in_hand[piece.fen_char] -= 1
+
+func reset_in_hand_pieces() -> void:
+	for key in sente_in_hand.keys():
+		sente_in_hand[key] = 0
+	for key in gote_in_hand.keys():
+		gote_in_hand[key] = 0
