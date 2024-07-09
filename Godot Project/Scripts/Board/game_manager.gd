@@ -15,6 +15,9 @@ var player_turn: Player = Player.Sente
 var in_hand_manager: InHandManager
 var fen_manager: FenManager
 
+var selected_piece: BaseGamePiece = null
+var is_promoting:bool = false
+
 func _ready():
 	initialize_values()
 	fen_manager.create_board_from_fen(game_variant.starting_fen)
