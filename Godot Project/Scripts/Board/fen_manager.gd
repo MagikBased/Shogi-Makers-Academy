@@ -17,7 +17,7 @@ func get_fen_notation() -> String:
 	var empty_count = 0
 	for rank in range(0, game_manager.board.board_size.y):
 		for file in range(game_manager.board.board_size.x - 1, -1, -1):
-			var current_position = Vector2(file + 1, rank + 1)
+			var current_position = Vector2i(file + 1, rank + 1)
 			var piece_found = false
 			for piece_info in game_manager.pieces_on_board:
 				if piece_info.position == current_position:
@@ -104,7 +104,7 @@ func create_board_from_fen(fen: String) -> void:
 				piece_owner = game_manager.Player.Sente
 			else:
 				piece_owner = game_manager.Player.Gote
-			game_manager.create_piece(piece_base, Vector2(game_manager.board.board_size.x - x, y + 1), piece_owner)
+			game_manager.create_piece(piece_base, Vector2i(game_manager.board.board_size.x - x, y + 1), piece_owner)
 			x += 1
 		
 		if x > game_manager.board.board_size.x - 1:

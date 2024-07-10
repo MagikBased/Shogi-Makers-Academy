@@ -23,7 +23,7 @@ func _ready():
 	fen_manager.create_board_from_fen(game_variant.starting_fen)
 
 func initialize_values() -> void:
-	square_size = (board.texture.get_width()) / board.board_size.x
+	square_size = (board.texture.get_width()) / float(board.board_size.x)
 
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")

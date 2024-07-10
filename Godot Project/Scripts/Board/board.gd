@@ -2,7 +2,7 @@ extends Sprite2D
 class_name Board
 
 @export var board_data: BoardResource
-var board_size: Vector2
+var board_size: Vector2i
 var line_size: int = 8  # should be divisible by 4 for even lines
 var square_size: float
 var circle_radius: float
@@ -28,7 +28,7 @@ func initialize_values() -> void:
 	if board_data:
 		board_size = board_data.board_size
 		draw_hoshis = board_data.draw_hoshis
-	square_size = texture.get_width() / board_size.x
+	square_size = texture.get_width() / float(board_size.x)
 	circle_radius = square_size * 0.08
 	start_x = square_size / 2
 	start_y = square_size / 2
@@ -58,10 +58,10 @@ func draw_grid() -> void:
 		draw_hoshi_circles()
 
 func draw_hoshi_circles() -> void:
-	var third_x1 = floor(board_size.x / 3)
-	var third_x2 = ceil(2 * board_size.x / 3)
-	var third_y1 = floor(board_size.y / 3)
-	var third_y2 = ceil(2 * board_size.y / 3)
+	var third_x1 = floor(float(board_size.x) / 3)
+	var third_x2 = ceil(2 * float(board_size.x) / 3)
+	var third_y1 = floor(float(board_size.y) / 3)
+	var third_y2 = ceil(2 * float(board_size.y) / 3)
 	var positions = [
 		Vector2(third_x1, third_y1),
 		Vector2(third_x1, third_y2),

@@ -6,7 +6,7 @@ enum Player{
 	Gote
 }
 
-@export var position: Vector2
+@export var position: Vector2i
 @export var owner: Player
 @export var piece_type: String
 @export var instance_id: int

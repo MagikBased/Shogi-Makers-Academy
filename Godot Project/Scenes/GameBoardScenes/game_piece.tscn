@@ -4,7 +4,9 @@
 [ext_resource type="Script" path="res://Scripts/Board/selection_highlight.gd" id="2_mha5q"]
 
 [node name="BaseGamePiece" type="Sprite2D" groups=["game_piece"]]
+z_index = 1
 script = ExtResource("1_sdr3s")
 
-[node name="SelectionHighlight" type="Node2D" parent="." groups=["highlight"]]
+[node name="SelectionHighlight" type="Node2D" parent="."]
+z_index = -1
 script = ExtResource("2_mha5q")
