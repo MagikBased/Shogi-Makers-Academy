@@ -20,7 +20,7 @@ var dragging: bool = false
 var piece_scale: float = 1
 var valid_moves: Array[Vector2i]
 
-func _ready():
+func _ready() -> void:
 	initialize_values()
 	var scale_factor = game_manager.square_size / texture.get_size().x
 	scale *= scale_factor
@@ -28,7 +28,7 @@ func _ready():
 	if piece_owner == Player.Gote:
 		rotation_degrees += 180
 
-func _input(event):
+func _input(event) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and (piece_owner == game_manager.player_turn) and event.button_index == MOUSE_BUTTON_LEFT and game_manager.is_promoting == false:
 		if get_rect().has_point(to_local(event.position)):
 			selected = !selected
@@ -42,7 +42,7 @@ func _input(event):
 				game_manager.selected_piece = self
 		queue_redraw()
 
-func initialize_values():
+func initialize_values() -> void:
 	if piece_resource:
 		if piece_resource.icon.size() > 0:
 			texture = piece_resource.icon[0]
@@ -89,7 +89,7 @@ func is_space_an_ally(move: Vector2i) -> bool:
 			return true
 	return false
 
-func _draw():
+func _draw() -> void:
 	if selected:
 		$SelectionHighlight.visible = true
 	else:

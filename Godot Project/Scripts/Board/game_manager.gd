@@ -18,7 +18,7 @@ var fen_manager: FenManager
 var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
 
-func _ready():
+func _ready() -> void:
 	initialize_values()
 	fen_manager.create_board_from_fen(game_variant.starting_fen)
 

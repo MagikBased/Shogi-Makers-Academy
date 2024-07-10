@@ -18,7 +18,7 @@ var font_size: int = 80
 var font_color: Color = Color(0, 0, 0)
 var font: Font
 
-func _ready():
+func _ready() -> void:
 	initialize_values()
 
 func set_variant(game_varient: GameVariant) -> void:
@@ -35,7 +35,7 @@ func initialize_values() -> void:
 	spacing_x = square_size
 	spacing_y = square_size
 
-func _draw():
+func _draw() -> void:
 	draw_grid()
 	font = ThemeDB.fallback_font
 	var char_size = font.get_string_size("1", HORIZONTAL_ALIGNMENT_CENTER, -1, font_size)

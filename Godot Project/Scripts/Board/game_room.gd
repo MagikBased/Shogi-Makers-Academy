@@ -9,7 +9,7 @@ var game_manager: GameManager
 @onready var fen_manager_scene = preload("res://Scenes/GameBoardScenes/fen_manager.tscn")
 var board_padding: int = 54
 
-func _ready():
+func _ready() -> void:
 	game_manager = game_manager_scene.instantiate() as GameManager
 	game_manager.set_variant(game_variant)
 	var board = board_scene.instantiate() as Board

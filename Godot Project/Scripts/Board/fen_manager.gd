@@ -9,7 +9,7 @@ var game_manager: GameManager
 var game_variant: GameVariant
 var piece_to_index: Dictionary = {}
 
-func _ready():
+func _ready() -> void:
 	initialize_piece_to_index()
 
 func get_fen_notation() -> String:

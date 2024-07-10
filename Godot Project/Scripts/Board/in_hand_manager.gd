@@ -9,7 +9,7 @@ var game_variant: GameVariant
 var sente_in_hand: Dictionary = {}
 var gote_in_hand: Dictionary = {}
 
-func _ready():
+func _ready() -> void:
 	for piece in game_variant.pieces:
 		if piece.fen_char_piece_to_add_on_capture and not sente_in_hand.has(piece.fen_char_piece_to_add_on_capture):
 			sente_in_hand[piece.fen_char] = 0
