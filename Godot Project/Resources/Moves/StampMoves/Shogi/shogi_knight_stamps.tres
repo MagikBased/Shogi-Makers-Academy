@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_p2whh")
-move_directions = Array[Vector2]([Vector2(-1, 2), Vector2(1, 2)])
+move_directions = Array[Vector2i]([Vector2i(-1, -2), Vector2i(1, -2)])
 restriction = 0

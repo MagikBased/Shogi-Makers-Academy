@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_widu3")
-move_direction = Vector2(-1, 0)
+move_direction = Vector2i(-1, 0)
 max_distance = -1
 restriction = 0

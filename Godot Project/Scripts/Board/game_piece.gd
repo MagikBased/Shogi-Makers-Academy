@@ -40,6 +40,7 @@ func _input(event) -> void:
 					game_manager.selected_piece.destroy_all_highlights()
 					game_manager.selected_piece.selected = false
 				game_manager.selected_piece = self
+				generate_moves()
 		queue_redraw()
 
 func initialize_values() -> void:
@@ -60,6 +61,39 @@ func destroy_all_highlights() -> void:
 	for child in get_children():
 		if child.is_in_group("highlight"):
 			child.queue_free()
+
+func generate_moves() -> void:
+	valid_moves.clear()
+	for move in piece_resource.moves:
+		if move is SwingMove:
+			handle_swinging_moves(move)
+		elif move is StampMove:
+			handle_stamp_moves(move)
+	print(valid_moves)
+
+func handle_stamp_moves(move:StampMove) -> void:
+	for direction in move.move_directions:
+		if piece_owner == Player.Gote:
+			direction = Vector2i(direction.x, -direction.y)
+		var target_position = current_position + direction
+		if check_move_legality(target_position) and not is_space_an_ally(target_position):
+			valid_moves.append(target_position)
+
+func handle_swinging_moves(move: SwingMove) -> void:
+	var direction = move.move_direction
+	if piece_owner == Player.Gote:
+		direction = Vector2i(direction.x, -direction.y)
+	var max_distance = move.max_distance
+	var target_position = current_position + direction
+	var distance = 0
+	while check_move_legality(target_position) and (max_distance == -1 or distance < max_distance):
+		if is_space_an_ally(target_position):
+			break
+		valid_moves.append(target_position)
+		if can_capture(target_position):
+			break
+		target_position += direction
+		distance += 1
 
 func check_move_legality(move: Vector2i) -> bool:
 	if !is_inside_board(move):

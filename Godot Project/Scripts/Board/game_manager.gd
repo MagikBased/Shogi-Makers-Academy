@@ -32,6 +32,7 @@ func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner
 	piece.current_position = starting_position
 	piece.game_manager = self
 	piece.piece_owner = piece_owner
+	piece.is_promoted = piece_base.is_promoted
 	board.add_child(piece)
 	
 	var piece_info: PieceInfo = PieceInfo.new()
