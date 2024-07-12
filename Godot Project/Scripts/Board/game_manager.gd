@@ -40,6 +40,7 @@ func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner
 	piece_info.owner = piece.piece_owner
 	piece_info.piece_type = piece_base.fen_char
 	piece_info.instance_id = piece.get_instance_id()
+	piece_info.piece_base = piece.piece_resource
 	pieces_on_board.append(piece_info)
 
 func clear_board() -> void:

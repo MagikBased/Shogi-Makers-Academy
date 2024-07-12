@@ -20,6 +20,8 @@ var dragging: bool = false
 var piece_scale: float = 1
 var valid_moves: Array[Vector2i]
 
+var square_highlight = load("res://Scenes/GameBoardScenes/square_highlight.tscn")
+
 func _ready() -> void:
 	initialize_values()
 	var scale_factor = game_manager.square_size / texture.get_size().x
@@ -41,6 +43,15 @@ func _input(event) -> void:
 					game_manager.selected_piece.selected = false
 				game_manager.selected_piece = self
 				generate_moves()
+				for move in valid_moves:
+					var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
+					highlight.current_position = move
+					var board_position: Vector2 = (current_position - highlight.current_position) * (highlight.texture.get_width())
+					if piece_owner == Player.Sente:
+						board_position.y *= -1
+					highlight.position = board_position
+					highlight.connect("move_piece", Callable(self, "_on_move_piece"))
+					add_child(highlight)
 		queue_redraw()
 
 func initialize_values() -> void:
@@ -69,7 +80,6 @@ func generate_moves() -> void:
 			handle_swinging_moves(move)
 		elif move is StampMove:
 			handle_stamp_moves(move)
-	print(valid_moves)
 
 func handle_stamp_moves(move:StampMove) -> void:
 	for direction in move.move_directions:
@@ -77,7 +87,8 @@ func handle_stamp_moves(move:StampMove) -> void:
 			direction = Vector2i(direction.x, -direction.y)
 		var target_position = current_position + direction
 		if check_move_legality(target_position) and not is_space_an_ally(target_position):
-			valid_moves.append(target_position)
+			if target_position not in valid_moves:
+				valid_moves.append(target_position)
 
 func handle_swinging_moves(move: SwingMove) -> void:
 	var direction = move.move_direction
@@ -89,7 +100,8 @@ func handle_swinging_moves(move: SwingMove) -> void:
 	while check_move_legality(target_position) and (max_distance == -1 or distance < max_distance):
 		if is_space_an_ally(target_position):
 			break
-		valid_moves.append(target_position)
+		if target_position not in valid_moves:
+			valid_moves.append(target_position)
 		if can_capture(target_position):
 			break
 		target_position += direction
@@ -129,3 +141,30 @@ func _draw() -> void:
 	else:
 		$SelectionHighlight.visible = false
 	draw_texture(texture,Vector2(float(-texture.get_width())/2,float(-texture.get_height())/2),modulate)
+
+func _on_move_piece(move_position: Vector2i) -> void:
+	var piece_info: PieceInfo = null
+	for piece in game_manager.pieces_on_board:
+		if piece.instance_id == game_manager.selected_piece.get_instance_id():
+			piece_info = piece
+			break
+	if piece_info == null:
+		return
+	piece_info.position = move_position
+	if can_capture(move_position):
+		capture_piece(move_position)
+	current_position = move_position
+	snap_to_grid()
+
+func capture_piece(capture_position: Vector2i) -> void:
+	for i in range(game_manager.pieces_on_board.size()):
+		if game_manager.pieces_on_board[i].position == capture_position:
+			var captured_piece_info: PieceInfo = game_manager.pieces_on_board[i]
+			var captured_piece_instance := instance_from_id(captured_piece_info.instance_id)
+			if captured_piece_instance:
+				captured_piece_instance.queue_free()
+			game_manager.pieces_on_board.remove_at(i)
+			if game_manager.game_variant.in_hand_pieces and game_manager.in_hand_manager != null:
+				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
+				print(game_manager.in_hand_manager.sente_in_hand)
+			break
