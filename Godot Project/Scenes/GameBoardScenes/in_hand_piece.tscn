@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://da4papvjqgcsb"]
+
+[ext_resource type="Script" path="res://Scripts/Board/in_hand_piece.gd" id="1_k53g3"]
+
+[node name="InHandPiece" type="Node2D"]
+script = ExtResource("1_k53g3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
