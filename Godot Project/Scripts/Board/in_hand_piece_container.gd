@@ -1,26 +1,30 @@
-extends GridContainer
+extends Node2D
 class_name InHandContainer
 
 @export var player: InHandManager.Player
-@export var square_size: float = 64
-@export var max_height: float = 400
-@export var h_separation: int = 4
-@export var v_separation: int = 4
+@export var square_size: float = 64.0
+@export var max_height: float = 400.0
+@export var columns: int = 1
+@export var h_separation: float = 4.0
+@export var v_separation: float = 4.0
 
-func _ready() -> void:
-	set_columns(1)
-	set("custom_constants/h_separation", h_separation)
-	set("custom_constants/v_separation", v_separation)
-	set_custom_minimum_size(Vector2(square_size, square_size))
-	
-	
-func adjust_size() -> void:
-	var num_children: int = get_child_count()
-	var num_rows: int = ceil(float(num_children) / columns) 
-	var container_height = num_rows * square_size + (num_rows - 1) * v_separation
-	if container_height > max_height:
-		columns += 1
-		adjust_size()
-	else:
-		var container_width = columns * square_size + (columns - 1) * h_separation
-		custom_minimum_size = Vector2(container_width, container_height)
+#func _ready() -> void:
+	#arrange_children()
+
+func arrange_children() -> void:
+	var x_offset = 0.0
+	var y_offset = 0.0
+	var row_height = square_size + v_separation
+	var column_width = square_size + h_separation
+	var num_children = get_child_count()
+	var current_column = 0
+	for i in range(num_children):
+		var child = get_child(i)
+		if child is Sprite2D:
+			child.position = Vector2(x_offset, y_offset)
+			x_offset += column_width
+			current_column += 1
+			if current_column >= columns or y_offset + row_height > max_height:
+				x_offset = 0
+				y_offset += row_height
+				current_column = 0
