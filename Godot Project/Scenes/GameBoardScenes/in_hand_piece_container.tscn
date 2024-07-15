@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://d0lv5nrd12h47"]
+[gd_scene load_steps=3 format=3 uid="uid://d0lv5nrd12h47"]
 
-[node name="InHandPieceContainer" type="Node2D"]
+[ext_resource type="Script" path="res://Scripts/Board/in_hand_piece_container.gd" id="1_5o4ae"]
+[ext_resource type="PackedScene" uid="uid://da4papvjqgcsb" path="res://Scenes/GameBoardScenes/in_hand_piece.tscn" id="2_vstfp"]
+
+[node name="InHandPieceContainer" type="GridContainer"]
+script = ExtResource("1_5o4ae")
+
+[node name="InHandPiece" parent="." instance=ExtResource("2_vstfp")]
