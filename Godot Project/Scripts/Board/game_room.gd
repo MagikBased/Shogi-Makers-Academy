@@ -28,6 +28,7 @@ func _ready() -> void:
 		game_manager.add_child(in_hand_manager)
 	game_manager.add_child(board)
 	game_manager.add_child(fen_manager)
+	game_manager.square_size = (board.texture.get_width()) / float(game_variant.board_data.board_size.x)
 	add_child(game_manager)
 
 func resize_board(board) -> void:

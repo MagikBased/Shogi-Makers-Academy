@@ -54,6 +54,7 @@ func populate_hand_containers() -> void:
 		in_hand_piece.piece_resource = piece_base
 		in_hand_piece.player = Player.Sente
 		in_hand_piece.square_size = game_manager.square_size
+		in_hand_piece.scale *= game_manager.board.scale
 		sente_container.add_child(in_hand_piece)
 	for fen_char in gote_in_hand.keys():
 		var piece_base = get_piece_base_from_fen_char(fen_char)
@@ -61,9 +62,10 @@ func populate_hand_containers() -> void:
 		in_hand_piece.piece_resource = piece_base
 		in_hand_piece.player = Player.Gote
 		in_hand_piece.square_size = game_manager.square_size
+		in_hand_piece.scale *= game_manager.board.scale
 		gote_container.add_child(in_hand_piece)
-		sente_container.arrange_children()
-		gote_container.arrange_children()
+	sente_container.arrange_children()
+	gote_container.arrange_children()
 
 func add_piece_to_hand(player: Player, piece: PieceBase) -> void:
 	if player == Player.Sente:
