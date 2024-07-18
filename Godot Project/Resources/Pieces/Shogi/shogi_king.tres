@@ -14,5 +14,7 @@ moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/mo
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("3_tuljx")]([])
+promotion_squares = Array[Resource("res://Scripts/ResourceScripts/promotion_square.gd")]([])
 add_to_hand_on_capture = false
 fen_char_piece_to_add_on_capture = ""
+can_deliver_checkmate = true
