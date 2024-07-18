@@ -18,4 +18,4 @@ promotes_to = Array[ExtResource("3_vsyv3")]([ExtResource("3_50qpf")])
 promotion_squares = Array[Resource("res://Scripts/ResourceScripts/promotion_square.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "P"
-can_deliver_checkmate = true
+can_deliver_checkmate = false
