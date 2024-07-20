@@ -42,7 +42,7 @@ func _input(event) -> void:
 					game_manager.selected_piece.destroy_all_highlights()
 					game_manager.selected_piece.selected = false
 				game_manager.selected_piece = self
-				generate_moves()
+				valid_moves = generate_moves()
 				for move in valid_moves:
 					var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
 					highlight.current_position = move
@@ -73,13 +73,14 @@ func destroy_all_highlights() -> void:
 		if child.is_in_group("highlight"):
 			child.queue_free()
 
-func generate_moves() -> void:
+func generate_moves() -> Array[Vector2i]:
 	valid_moves.clear()
 	for move in piece_resource.moves:
 		if move is SwingMove:
 			handle_swinging_moves(move)
 		elif move is StampMove:
 			handle_stamp_moves(move)
+	return valid_moves
 
 func handle_stamp_moves(move:StampMove) -> void:
 	for direction in move.move_directions:
@@ -166,5 +167,4 @@ func capture_piece(capture_position: Vector2i) -> void:
 			game_manager.pieces_on_board.remove_at(i)
 			if game_manager.game_variant.in_hand_pieces and game_manager.in_hand_manager != null and captured_piece_info.piece_base.fen_char_piece_to_add_on_capture:
 				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
-				print(game_manager.in_hand_manager.sente_in_hand)
 			break

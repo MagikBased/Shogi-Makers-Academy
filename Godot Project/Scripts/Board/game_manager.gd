@@ -43,6 +43,29 @@ func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner
 	piece_info.piece_base = piece.piece_resource
 	pieces_on_board.append(piece_info)
 
+func get_legal_moves(player: Player) -> Array:
+	var legal_moves: Array = []
+	for piece_info in pieces_on_board:
+		if piece_info.owner == player:
+			var piece_instance = instance_from_id(piece_info.instance_id)
+			var piece_moves = piece_instance.generate_moves()
+			for move in piece_moves:
+				if is_legal_move(piece_instance, move):
+					legal_moves.append(move)
+	return legal_moves
+
+func is_legal_move(piece: BaseGamePiece, move: Vector2) -> bool:
+	#needs logic
+	return not move_puts_king_in_check(piece, move)
+
+func move_puts_king_in_check(piece: BaseGamePiece, _move: Vector2) -> bool:
+	#needs logic	
+	return is_king_in_check(piece.piece_owner)
+
+func is_king_in_check(_player: Player) -> bool:
+	#needs logic
+	return false
+
 func clear_board() -> void:
 	for piece_info in pieces_on_board:
 		var piece_instance = instance_from_id(piece_info.instance_id)

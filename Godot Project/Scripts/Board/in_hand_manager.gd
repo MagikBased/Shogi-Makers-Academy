@@ -22,6 +22,7 @@ func _ready() -> void:
 	if game_variant.in_hand_pieces:
 		initalize_hand_containers()
 		populate_hand_containers()
+		update_hand()
 		#for fen_char in sente_in_hand.keys():
 			#var piece_base = get_piece_base_from_fen_char(fen_char)
 			#var in_hand_piece = in_hand_piece_scene.instantiate() as InHandPiece
@@ -74,18 +75,32 @@ func add_piece_to_hand(player: Player, piece: PieceBase) -> void:
 		sente_in_hand[piece.fen_char_piece_to_add_on_capture] += 1
 	elif player == Player.Gote:
 		gote_in_hand[piece.fen_char_piece_to_add_on_capture] += 1
+	update_hand()
 
 func remove_piece_from_hand(player: Player, piece: PieceBase) -> void: #Consider making this a bool
 	if player == Player.Sente and sente_in_hand[piece.fen_char] > 0:
 		sente_in_hand[piece.fen_char] -= 1
 	elif player == Player.Gote and gote_in_hand[piece.fen_char] > 0:
 		gote_in_hand[piece.fen_char] -= 1
+	update_hand()
 
 func reset_in_hand_pieces() -> void:
 	for key in sente_in_hand.keys():
 		sente_in_hand[key] = 0
 	for key in gote_in_hand.keys():
 		gote_in_hand[key] = 0
+
+func update_hand() -> void:
+	for piece_node in sente_container.get_children():
+		if piece_node is InHandPiece:
+			var fen_char = piece_node.piece_resource.fen_char_piece_to_add_on_capture
+			var piece_count = sente_in_hand[fen_char] if sente_in_hand.has(fen_char) else 0
+			piece_node.update_alpha(piece_count)
+	for piece_node in gote_container.get_children():
+		if piece_node is InHandPiece:
+			var fen_char = piece_node.piece_resource.fen_char_piece_to_add_on_capture
+			var piece_count = gote_in_hand[fen_char] if gote_in_hand.has(fen_char) else 0
+			piece_node.update_alpha(piece_count)
 
 func get_piece_base_from_fen_char(fen_char: String) -> PieceBase:
 	for piece in game_variant.pieces:
