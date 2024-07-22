@@ -49,6 +49,8 @@ func _input(event) -> void:
 					var board_position: Vector2 = (current_position - highlight.current_position) * (highlight.texture.get_width())
 					if piece_owner == Player.Sente:
 						board_position.y *= -1
+					if piece_owner == Player.Gote:
+						board_position.x *= -1
 					highlight.position = board_position
 					highlight.connect("move_piece", Callable(self, "_on_move_piece"))
 					add_child(highlight)
@@ -85,7 +87,7 @@ func generate_moves() -> Array[Vector2i]:
 func handle_stamp_moves(move:StampMove) -> void:
 	for direction in move.move_directions:
 		if piece_owner == Player.Gote:
-			direction = Vector2i(direction.x, -direction.y)
+			direction = Vector2i(-direction.x, -direction.y)
 		var target_position = current_position + direction
 		if check_move_legality(target_position) and not is_space_an_ally(target_position):
 			if target_position not in valid_moves:
@@ -94,7 +96,7 @@ func handle_stamp_moves(move:StampMove) -> void:
 func handle_swinging_moves(move: SwingMove) -> void:
 	var direction = move.move_direction
 	if piece_owner == Player.Gote:
-		direction = Vector2i(direction.x, -direction.y)
+		direction = Vector2i(-direction.x, -direction.y)
 	var max_distance = move.max_distance
 	var target_position = current_position + direction
 	var distance = 0
@@ -107,6 +109,18 @@ func handle_swinging_moves(move: SwingMove) -> void:
 			break
 		target_position += direction
 		distance += 1
+
+func capture_piece(capture_position: Vector2i) -> void:
+	for i in range(game_manager.pieces_on_board.size()):
+		if game_manager.pieces_on_board[i].position == capture_position:
+			var captured_piece_info: PieceInfo = game_manager.pieces_on_board[i]
+			var captured_piece_instance := instance_from_id(captured_piece_info.instance_id)
+			if captured_piece_instance:
+				captured_piece_instance.queue_free()
+			game_manager.pieces_on_board.remove_at(i)
+			if game_manager.game_variant.in_hand_pieces and game_manager.in_hand_manager != null and captured_piece_info.piece_base.fen_char_piece_to_add_on_capture:
+				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
+			break
 
 func check_move_legality(move: Vector2i) -> bool:
 	if !is_inside_board(move):
@@ -156,15 +170,3 @@ func _on_move_piece(move_position: Vector2i) -> void:
 		capture_piece(move_position)
 	current_position = move_position
 	snap_to_grid()
-
-func capture_piece(capture_position: Vector2i) -> void:
-	for i in range(game_manager.pieces_on_board.size()):
-		if game_manager.pieces_on_board[i].position == capture_position:
-			var captured_piece_info: PieceInfo = game_manager.pieces_on_board[i]
-			var captured_piece_instance := instance_from_id(captured_piece_info.instance_id)
-			if captured_piece_instance:
-				captured_piece_instance.queue_free()
-			game_manager.pieces_on_board.remove_at(i)
-			if game_manager.game_variant.in_hand_pieces and game_manager.in_hand_manager != null and captured_piece_info.piece_base.fen_char_piece_to_add_on_capture:
-				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
-			break

@@ -59,7 +59,7 @@ func is_legal_move(piece: BaseGamePiece, move: Vector2) -> bool:
 	return not move_puts_king_in_check(piece, move)
 
 func move_puts_king_in_check(piece: BaseGamePiece, _move: Vector2) -> bool:
-	#needs logic	
+	#needs logic
 	return is_king_in_check(piece.piece_owner)
 
 func is_king_in_check(_player: Player) -> bool:
