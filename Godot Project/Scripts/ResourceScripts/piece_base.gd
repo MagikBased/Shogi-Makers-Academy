@@ -18,3 +18,4 @@ class_name PieceBase
 
 @export_category("Drop Rules")
 @export var can_deliver_checkmate: bool = true
+@export var illegal_drop_squares: Array[IllegalDropSquare] = []

@@ -107,3 +107,9 @@ func get_piece_base_from_fen_char(fen_char: String) -> PieceBase:
 		if piece.fen_char == fen_char or piece.fen_char.to_lower() == fen_char:
 			return piece
 	return null
+
+func get_piece_count_in_hand(player: Player, piece_fen_char: String) -> int:
+	if player == Player.Sente:
+		return sente_in_hand.get(piece_fen_char, 0)
+	else:
+		return gote_in_hand.get(piece_fen_char, 0)

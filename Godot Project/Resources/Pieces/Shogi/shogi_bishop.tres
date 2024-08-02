@@ -347,3 +347,4 @@ promotion_squares = Array[ExtResource("7_ygbr0")]([SubResource("Resource_7q06d")
 add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "B"
 can_deliver_checkmate = true
+illegal_drop_squares = Array[Resource("res://Scripts/ResourceScripts/illegal_drop_square.gd")]([])

@@ -1,10 +1,101 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=60 format=3 uid="uid://dxqb2nt82gp0l"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=79 format=3 uid="uid://dxqb2nt82gp0l"]
 
 [ext_resource type="Texture2D" uid="uid://bnm7ypcla2can" path="res://Images/Piecesets/Shogi-kanji/Lance.png" id="1_88i4y"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_w6snk"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_76dmb"]
 [ext_resource type="Resource" uid="uid://2i7t6scd2g0d" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up.tres" id="2_ax2qw"]
 [ext_resource type="Resource" uid="uid://obhmscwncn03" path="res://Resources/Pieces/Shogi/shogi_promoted_lance.tres" id="3_g0c7r"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_xlra0"]
+
+[sub_resource type="Resource" id="Resource_ghdub"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(1, 1)
+
+[sub_resource type="Resource" id="Resource_wm0n7"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(2, 1)
+
+[sub_resource type="Resource" id="Resource_k7s5q"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(3, 1)
+
+[sub_resource type="Resource" id="Resource_gutve"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(4, 1)
+
+[sub_resource type="Resource" id="Resource_ktp1v"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(5, 1)
+
+[sub_resource type="Resource" id="Resource_8ljmb"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(6, 1)
+
+[sub_resource type="Resource" id="Resource_kr2iy"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(7, 1)
+
+[sub_resource type="Resource" id="Resource_hipp0"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(8, 1)
+
+[sub_resource type="Resource" id="Resource_2pxni"]
+script = ExtResource("2_76dmb")
+player = 0
+move_position = Vector2i(9, 1)
+
+[sub_resource type="Resource" id="Resource_1fqvq"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(1, 9)
+
+[sub_resource type="Resource" id="Resource_cf6a4"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(2, 9)
+
+[sub_resource type="Resource" id="Resource_dc3j0"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(3, 9)
+
+[sub_resource type="Resource" id="Resource_nn1xq"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(4, 9)
+
+[sub_resource type="Resource" id="Resource_vafbs"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(5, 9)
+
+[sub_resource type="Resource" id="Resource_ddku4"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(6, 9)
+
+[sub_resource type="Resource" id="Resource_fj4o3"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(7, 9)
+
+[sub_resource type="Resource" id="Resource_e2wjn"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(8, 9)
+
+[sub_resource type="Resource" id="Resource_a8yle"]
+script = ExtResource("2_76dmb")
+player = 1
+move_position = Vector2i(9, 9)
 
 [sub_resource type="Resource" id="Resource_tko5s"]
 script = ExtResource("4_xlra0")
@@ -344,3 +435,4 @@ promotion_squares = Array[ExtResource("4_xlra0")]([SubResource("Resource_tko5s")
 add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "L"
 can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_76dmb")]([SubResource("Resource_ghdub"), SubResource("Resource_wm0n7"), SubResource("Resource_k7s5q"), SubResource("Resource_gutve"), SubResource("Resource_ktp1v"), SubResource("Resource_8ljmb"), SubResource("Resource_kr2iy"), SubResource("Resource_hipp0"), SubResource("Resource_2pxni"), SubResource("Resource_1fqvq"), SubResource("Resource_cf6a4"), SubResource("Resource_dc3j0"), SubResource("Resource_nn1xq"), SubResource("Resource_vafbs"), SubResource("Resource_ddku4"), SubResource("Resource_fj4o3"), SubResource("Resource_e2wjn"), SubResource("Resource_a8yle")])
