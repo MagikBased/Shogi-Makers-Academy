@@ -43,16 +43,20 @@ func _input(event) -> void:
 					game_manager.selected_piece = self
 					get_valid_moves()
 					for moves in valid_moves:
+						var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
 						var highlight = square_highlight.instantiate()
 						add_child(highlight)
 						highlight.current_position = moves
-						var board_position: Vector2 = (current_position - highlight.current_position) * (highlight.texture.get_width())
+						var board_position: Vector2 = game_manager.board.global_position
+						board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
 						if piece_owner == Player.Sente:
-							board_position.y *= -1
-						if piece_owner == Player.Gote:
-							board_position.x *= -1
-						highlight.position = board_position
-						print(highlight.position)
+							board_position.y += (moves.y - 1) * global_square_size.y
+						elif piece_owner == Player.Gote:
+							board_position.y += (game_manager.board.board_size.y - moves.y) * global_square_size.y
+						highlight.global_position = board_position
+						highlight.position.x += highlight.texture.get_width() / 2
+						highlight.position.y +=  highlight.texture.get_height() / 2
+						highlight.z_index = game_manager.board.z_index + 1
 
 func get_valid_moves() -> void:
 	valid_moves.clear()
@@ -63,7 +67,6 @@ func get_valid_moves() -> void:
 			if is_inside_board(move_position) and not is_space_taken(move_position):
 				if not is_illegal_drop_square(move_position):
 					valid_moves.append(move_position)
-	#print(valid_moves)
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y)

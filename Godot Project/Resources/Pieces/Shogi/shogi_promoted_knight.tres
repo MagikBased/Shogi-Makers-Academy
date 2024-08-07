@@ -18,3 +18,4 @@ promotion_squares = Array[Resource("res://Scripts/ResourceScripts/promotion_squa
 add_to_hand_on_capture = false
 fen_char_piece_to_add_on_capture = "N"
 can_deliver_checkmate = true
+illegal_drop_squares = Array[Resource("res://Scripts/ResourceScripts/illegal_drop_square.gd")]([])
