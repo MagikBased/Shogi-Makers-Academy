@@ -1,11 +1,20 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=79 format=3 uid="uid://5mnjemfahr0k"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=81 format=3 uid="uid://5mnjemfahr0k"]
 
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1ms3i"]
 [ext_resource type="Texture2D" uid="uid://d0kcbw4xnc6bv" path="res://Images/Piecesets/Shogi-kanji/Pawn.png" id="1_iv06e"]
 [ext_resource type="Resource" uid="uid://bjuesom3msldv" path="res://Resources/Moves/StampMoves/Shogi/shogi_pawn_stamps.tres" id="2_itv4h"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_sy37c"]
 [ext_resource type="Resource" uid="uid://dmhhgl4e1sr8w" path="res://Resources/Pieces/Shogi/shogi_tokin.tres" id="3_50qpf"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_vsyv3"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_gy7t6"]
+
+[sub_resource type="Resource" id="Resource_l0lip"]
+script = ExtResource("1_1ms3i")
+piece_type = "P"
+ownership_type = 0
+count = 1
+check_rank = false
+check_file = true
 
 [sub_resource type="Resource" id="Resource_ydssx"]
 script = ExtResource("2_sy37c")
@@ -436,3 +445,4 @@ add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "P"
 can_deliver_checkmate = false
 illegal_drop_squares = Array[ExtResource("2_sy37c")]([SubResource("Resource_ydssx"), SubResource("Resource_hv1t5"), SubResource("Resource_n83c3"), SubResource("Resource_2rdei"), SubResource("Resource_4h667"), SubResource("Resource_88i0w"), SubResource("Resource_ti8fo"), SubResource("Resource_ws4vb"), SubResource("Resource_3dop2"), SubResource("Resource_xo0gc"), SubResource("Resource_o5bfb"), SubResource("Resource_vnaco"), SubResource("Resource_rtyv3"), SubResource("Resource_o5tno"), SubResource("Resource_nxylw"), SubResource("Resource_wqn03"), SubResource("Resource_mat58"), SubResource("Resource_j30t4")])
+drop_restrictions = Array[ExtResource("1_1ms3i")]([SubResource("Resource_l0lip")])

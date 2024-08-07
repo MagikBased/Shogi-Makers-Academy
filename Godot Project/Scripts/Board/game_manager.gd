@@ -62,9 +62,21 @@ func move_puts_king_in_check(piece: BaseGamePiece, _move: Vector2) -> bool:
 	#needs logic
 	return is_king_in_check(piece.piece_owner)
 
-func is_king_in_check(_player: Player) -> bool:
-	#needs logic
+func is_king_in_check(player: Player) -> bool:
+	var king_positions = find_kings(player)
+	var opponent = Player.Gote if player == Player.Sente else Player.Sente
+	var opponent_legal_moves = get_legal_moves(opponent)
+	for king_position in king_positions:
+		if king_position in opponent_legal_moves:
+			return true
 	return false
+
+func find_kings(player: Player) -> Array[Vector2i]:
+	var king_positions: Array[Vector2i] = []
+	for piece_info in pieces_on_board:
+		if piece_info.owner == player and piece_info.piece_base.is_royal:
+			king_positions.append(piece_info.position)
+	return king_positions
 
 func clear_board() -> void:
 	for piece_info in pieces_on_board:
@@ -82,3 +94,8 @@ func find_square_center(file: int,rank: int) -> Vector2:
 	var center_x = (game_variant.board_data.board_size.x + 1 - file) * square_size - square_size / 2
 	var center_y = rank * square_size - square_size / 2
 	return Vector2(center_x, center_y)
+
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		print(is_king_in_check(Player.Gote))
+

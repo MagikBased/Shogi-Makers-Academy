@@ -170,3 +170,4 @@ func _on_move_piece(move_position: Vector2i) -> void:
 		capture_piece(move_position)
 	current_position = move_position
 	snap_to_grid()
+	#game_manager.is_king_in_check(GameManager.Player.Gote)

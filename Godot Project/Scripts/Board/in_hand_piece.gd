@@ -23,6 +23,7 @@ func _ready() -> void:
 		if piece_resource.icon.size() > 0:
 			texture = piece_resource.icon[0]
 	scale *= square_size / texture.get_size().x
+	rect_size = Vector2(texture.get_width(),texture.get_height())
 
 func _input(event) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
@@ -45,6 +46,7 @@ func _input(event) -> void:
 					for moves in valid_moves:
 						var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
 						var highlight = square_highlight.instantiate()
+						highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
 						add_child(highlight)
 						highlight.current_position = moves
 						var board_position: Vector2 = game_manager.board.global_position
@@ -65,7 +67,7 @@ func get_valid_moves() -> void:
 		for y in range(1, board_size.y + 1):
 			var move_position = Vector2i(x,y)
 			if is_inside_board(move_position) and not is_space_taken(move_position):
-				if not is_illegal_drop_square(move_position):
+				if not is_illegal_drop_square(move_position) and not violates_drop_restrictions(move_position):
 					valid_moves.append(move_position)
 
 func is_inside_board(move: Vector2i) -> bool:
@@ -85,6 +87,33 @@ func is_illegal_drop_square(move_position: Vector2i) -> bool:
 			return true
 	return false
 
+func violates_drop_restrictions(move_position: Vector2i) -> bool:
+	for restriction in piece_resource.drop_restrictions:
+		var rank_count = 0
+		var file_count = 0
+		for piece_info in game_manager.pieces_on_board:
+			var is_allied = piece_info.owner == piece_owner
+			var is_opponent = piece_info.owner != piece_owner
+			var valid_rank_check = restriction.check_rank and piece_info.position.y == move_position.y
+			var valid_file_check = restriction.check_file and piece_info.position.x == move_position.x
+			var matches_type = piece_info.piece_type == restriction.piece_type
+			var matches_ownership = false
+			match restriction.ownership_type:
+				DropRestriction.OwnershipType.Allied:
+					matches_ownership = is_allied
+				DropRestriction.OwnershipType.Opponent:
+					matches_ownership = is_opponent
+				DropRestriction.OwnershipType.Both:
+					matches_ownership = true
+			if matches_type and matches_ownership:
+				if valid_rank_check:
+					rank_count += 1
+				if valid_file_check:
+					file_count += 1
+		if (restriction.check_rank and rank_count >= restriction.count) or (restriction.check_file and file_count >= restriction.count):
+			return true
+	return false
+
 func update_alpha(count: int) -> void:
 	self.modulate.a = 1.0 if count > 0 else 0.3
 	count_label.text = str(count)
@@ -96,6 +125,15 @@ func destroy_all_highlights() -> void:
 	for child in get_children():
 		if child.is_in_group("highlight"):
 			child.queue_free()
+
+func _on_drop_piece(move_position: Vector2i) -> void:
+	game_manager.in_hand_manager.remove_piece_from_hand(player, piece_resource)
+	if player == InHandManager.Player.Sente:  #this needs a rework later to unify the Enums
+		game_manager.create_piece(piece_resource, move_position, GameManager.Player.Sente)
+	else:
+		game_manager.create_piece(piece_resource, move_position, GameManager.Player.Gote)
+	destroy_all_highlights()
+	
 
 func _draw() -> void:
 	if selected:
