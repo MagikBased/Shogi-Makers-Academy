@@ -436,3 +436,4 @@ add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "L"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("2_76dmb")]([SubResource("Resource_ghdub"), SubResource("Resource_wm0n7"), SubResource("Resource_k7s5q"), SubResource("Resource_gutve"), SubResource("Resource_ktp1v"), SubResource("Resource_8ljmb"), SubResource("Resource_kr2iy"), SubResource("Resource_hipp0"), SubResource("Resource_2pxni"), SubResource("Resource_1fqvq"), SubResource("Resource_cf6a4"), SubResource("Resource_dc3j0"), SubResource("Resource_nn1xq"), SubResource("Resource_vafbs"), SubResource("Resource_ddku4"), SubResource("Resource_fj4o3"), SubResource("Resource_e2wjn"), SubResource("Resource_a8yle")])
+drop_restrictions = Array[Resource("res://Scripts/ResourceScripts/drop_restriction.gd")]([])

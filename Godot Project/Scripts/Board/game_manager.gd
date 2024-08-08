@@ -50,8 +50,8 @@ func get_legal_moves(player: Player) -> Array:
 			var piece_instance = instance_from_id(piece_info.instance_id)
 			var piece_moves = piece_instance.generate_moves()
 			for move in piece_moves:
-				if is_legal_move(piece_instance, move):
-					legal_moves.append(move)
+				#if is_legal_move(piece_instance, move):
+				legal_moves.append(move)
 	return legal_moves
 
 func is_legal_move(piece: BaseGamePiece, move: Vector2) -> bool:
@@ -95,7 +95,7 @@ func find_square_center(file: int,rank: int) -> Vector2:
 	var center_y = rank * square_size - square_size / 2
 	return Vector2(center_x, center_y)
 
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		print(is_king_in_check(Player.Gote))
+#func _input(event):
+	#if event is InputEventKey and event.pressed:
+		#print(is_king_in_check(Player.Gote))
 
