@@ -133,7 +133,6 @@ func _on_drop_piece(move_position: Vector2i) -> void:
 	else:
 		game_manager.create_piece(piece_resource, move_position, GameManager.Player.Gote)
 	destroy_all_highlights()
-	
 
 func _draw() -> void:
 	if selected:
