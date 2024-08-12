@@ -3,27 +3,117 @@ class_name  GameManager
 
 enum Player{
 	Sente,
-	Gote
+	Gote,
+	Neutral
 }
 
 var game_variant: GameVariant
 var board: Board
 var square_size: float
 var pieces_on_board: Array[PieceInfo] = []
-var turn_count: int = 1
 var player_turn: Player = Player.Sente
+var turn_count: int = 1
+var current_phase: TurnPhase = null
+var current_action_count: int = 0
 var in_hand_manager: InHandManager
 var fen_manager: FenManager
 
 var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
 
+var attack_cache = {
+	"Sente": {},
+	"Gote": {}
+}
+
 func _ready() -> void:
 	initialize_values()
 	fen_manager.create_board_from_fen(game_variant.starting_fen)
+	initialize_attack_cache()
+	start_phase()
 
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / float(board.board_size.x)
+	current_phase = game_variant.turn_phases[0]
+
+func start_phase() -> void:
+	print("Starting phase: ", current_phase.phase_name)
+	current_action_count = 0
+
+#func handle_action(piece_type: String, action_type: TurnAction.ActionType, piece_owner: Player) -> bool:
+	#if current_phase.player != player_turn:
+		#print("It's not your turn!")
+		#return false
+#
+	#for action in current_phase.actions:
+		#if action.action_type == action_type and can_perform_action(action, piece_type, piece_owner):
+			#print("Action allowed: ", action_type, " for piece: ", piece_type)
+			#current_action_count += 1
+			#if current_action_count >= current_phase.max_actions_per_turn:
+				#end_phase()
+			#return true
+	#print("Action not allowed: ", action_type, " for piece: ", piece_type)
+	#return false
+
+#func can_perform_action(action: TurnAction, piece_type: String, piece_owner: Player) -> bool:
+	#if current_action_count >= action.max_actions:
+		#return false
+	#if action.specific_pieces.size() > 0 and piece_type in action.specific_pieces:
+		#return true
+	#match action.piece_ownership:
+		#TurnAction.PiecesForAction.Allied:
+			#return piece_owner == player_turn
+		#TurnAction.PiecesForAction.Enemy:
+			#return piece_owner != player_turn
+		#TurnAction.PiecesForAction.Neutral:
+			#return piece_owner == Player.Neutral
+		#TurnAction.PiecesForAction.Any:
+			#return true
+	#return false
+
+func end_phase() -> void:
+	advance_turn()
+
+func advance_turn() -> void:
+	print("Ending phase for player: ", player_turn)
+	turn_count += 1
+	switch_turn()
+
+func switch_turn() -> void:
+	player_turn = Player.Sente if player_turn == Player.Gote else Player.Gote
+	current_phase = game_variant.get_current_phase(turn_count)
+	start_phase()
+
+func initialize_attack_cache() -> void:
+	for piece in game_variant.pieces:
+		attack_cache["Sente"][piece.fen_char] = get_piece_attack_vectors(piece, Player.Sente)
+		attack_cache["Gote"][piece.fen_char] = get_piece_attack_vectors(piece, Player.Gote)
+		#print(attack_cache["Sente"])
+
+func get_piece_attack_vectors(piece_base: PieceBase, player: Player) -> Array:
+	var attack_vectors = []
+	for move in piece_base.moves:
+		if move is StampMove:
+			for direction in move.move_directions:
+				var adjusted_direction = direction
+				if player == Player.Gote:
+					adjusted_direction = Vector2i(-direction.x, -direction.y)
+				attack_vectors.append(adjusted_direction)
+	return attack_vectors
+
+func piece_threatens_king(piece_info: PieceInfo, king_position: Vector2i) -> bool:
+	var piece_base = piece_info.piece_base
+	var attack_vectors = []
+	if piece_info.owner == Player.Sente:
+		attack_vectors = attack_cache["Sente"][piece_base.fen_char]
+	else:
+		attack_vectors = attack_cache["Gote"][piece_base.fen_char]
+
+	for direction in attack_vectors:
+		var attack_position = piece_info.position + direction
+		if attack_position == king_position:
+			return true
+	return false
 
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")
@@ -89,6 +179,9 @@ func clear_board() -> void:
 
 func set_variant(game_varient: GameVariant) -> void:
 	game_variant = game_varient
+
+#func get_current_phase(turn_count: int) -> TurnPhase:
+	#return turn_phases[(turn_count - 1) % turn_phases.size()]
 
 func find_square_center(file: int,rank: int) -> Vector2:
 	var center_x = (game_variant.board_data.board_size.x + 1 - file) * square_size - square_size / 2
