@@ -137,6 +137,25 @@ func can_capture(move: Vector2i) -> bool:
 			return true
 	return false
 
+func can_promote_check(start_position: Vector2i, move_position: Vector2i) -> bool:
+	if !can_promote:
+		return false
+	for promotion_square in piece_resource.promotion_squares:
+		if promotion_square.player == PromotionSquare.Player.Both or promotion_square.player == piece_owner:
+			if promotion_square.position == move_position:
+				if promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.Both:
+					return true
+				elif promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.MovesInto:
+					if start_position != move_position:
+						return true
+			elif promotion_square.position == start_position:
+				if promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.Both:
+					return true
+				elif promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.MovesOutOf:
+					if start_position != move_position:
+						return true
+	return false
+
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y)
 
@@ -169,6 +188,7 @@ func _on_move_piece(move_position: Vector2i) -> void:
 		return
 	if can_capture(move_position):
 		capture_piece(move_position)
+	#print("can promote: ", can_promote_check(current_position,move_position))
 	piece_info.position = move_position
 	current_position = move_position
 	snap_to_grid()
