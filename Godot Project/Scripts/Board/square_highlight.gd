@@ -3,12 +3,13 @@ class_name SquareHighlight
 
 var current_position: Vector2i
 var is_dropping: bool = false
-var parent_node: Node2D = get_parent()
+var parent_node: Node2D
 signal move_piece(position: Vector2i)
 signal drop_piece(position: Vector2i)
 
 
 func _ready() -> void:
+	parent_node = get_parent() as BaseGamePiece
 	set_process_input(true)
 
 func _input(event) -> void:

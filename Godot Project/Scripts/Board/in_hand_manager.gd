@@ -54,15 +54,17 @@ func populate_hand_containers() -> void:
 		var in_hand_piece = in_hand_piece_scene.instantiate() as InHandPiece
 		in_hand_piece.piece_resource = piece_base
 		in_hand_piece.player = Player.Sente
+		in_hand_piece.piece_owner = Player.Sente
 		in_hand_piece.square_size = game_manager.square_size
 		in_hand_piece.scale *= game_manager.board.scale
 		in_hand_piece.game_manager = game_manager
 		sente_container.add_child(in_hand_piece)
 	for fen_char in gote_in_hand.keys():
-		var piece_base = get_piece_base_from_fen_char(fen_char)
+		var piece_base = get_piece_base_from_fen_char(fen_char.to_lower())
 		var in_hand_piece = in_hand_piece_scene.instantiate() as InHandPiece
 		in_hand_piece.piece_resource = piece_base
 		in_hand_piece.player = Player.Gote
+		in_hand_piece.piece_owner = Player.Gote
 		in_hand_piece.square_size = game_manager.square_size
 		in_hand_piece.scale *= game_manager.board.scale
 		in_hand_piece.game_manager = game_manager
@@ -74,14 +76,14 @@ func add_piece_to_hand(player: Player, piece: PieceBase) -> void:
 	if player == Player.Sente:
 		sente_in_hand[piece.fen_char_piece_to_add_on_capture] += 1
 	elif player == Player.Gote:
-		gote_in_hand[piece.fen_char_piece_to_add_on_capture] += 1
+		gote_in_hand[piece.fen_char_piece_to_add_on_capture.to_lower()] += 1
 	update_hand()
 
 func remove_piece_from_hand(player: Player, piece: PieceBase) -> void: #Consider making this a bool
 	if player == Player.Sente and sente_in_hand[piece.fen_char] > 0:
 		sente_in_hand[piece.fen_char] -= 1
-	elif player == Player.Gote and gote_in_hand[piece.fen_char] > 0:
-		gote_in_hand[piece.fen_char] -= 1
+	elif player == Player.Gote and gote_in_hand[piece.fen_char.to_lower()] > 0:
+		gote_in_hand[piece.fen_char.to_lower()] -= 1
 	update_hand()
 
 func reset_in_hand_pieces() -> void:
@@ -98,7 +100,7 @@ func update_hand() -> void:
 			piece_node.update_alpha(piece_count)
 	for piece_node in gote_container.get_children():
 		if piece_node is InHandPiece:
-			var fen_char = piece_node.piece_resource.fen_char_piece_to_add_on_capture
+			var fen_char = piece_node.piece_resource.fen_char_piece_to_add_on_capture.to_lower()
 			var piece_count = gote_in_hand[fen_char] if gote_in_hand.has(fen_char) else 0
 			piece_node.update_alpha(piece_count)
 

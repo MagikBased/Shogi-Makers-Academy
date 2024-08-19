@@ -113,11 +113,13 @@ func handle_swinging_moves(move: SwingMove) -> void:
 func capture_piece(capture_position: Vector2i) -> void:
 	for i in range(game_manager.pieces_on_board.size()):
 		if game_manager.pieces_on_board[i].position == capture_position:
+			#print(game_manager.pieces_on_board[i].piece_type)
 			var captured_piece_info: PieceInfo = game_manager.pieces_on_board[i]
 			var captured_piece_instance := instance_from_id(captured_piece_info.instance_id)
+			#print(captured_piece_info.owner)
+			game_manager.pieces_on_board.remove_at(i)
 			if captured_piece_instance:
 				captured_piece_instance.queue_free()
-			game_manager.pieces_on_board.remove_at(i)
 			if game_manager.game_variant.in_hand_pieces and game_manager.in_hand_manager != null and captured_piece_info.piece_base.fen_char_piece_to_add_on_capture:
 				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
 			break
@@ -165,9 +167,14 @@ func _on_move_piece(move_position: Vector2i) -> void:
 			break
 	if piece_info == null:
 		return
-	piece_info.position = move_position
 	if can_capture(move_position):
 		capture_piece(move_position)
+	piece_info.position = move_position
 	current_position = move_position
 	snap_to_grid()
+	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.MovePiece):
+		game_manager.selected_piece = null
+		selected = false
+		destroy_all_highlights()
+		queue_redraw()
 	#game_manager.is_king_in_check(GameManager.Player.Gote)

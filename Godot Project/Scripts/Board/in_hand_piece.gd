@@ -29,7 +29,7 @@ func _input(event) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		var local_mouse_position = to_local(event.position)
 		if get_rect().has_point(local_mouse_position):
-			var piece_count = game_manager.in_hand_manager.get_piece_count_in_hand(player, piece_resource.fen_char_piece_to_add_on_capture)
+			var piece_count = game_manager.in_hand_manager.get_piece_count_in_hand(player, piece_resource.fen_char_piece_to_add_on_capture if player == Player.Sente else piece_resource.fen_char_piece_to_add_on_capture.to_lower())
 			if piece_owner == game_manager.player_turn and piece_count > 0 and not game_manager.is_promoting:
 				selected = !selected
 				if !selected:
@@ -51,10 +51,11 @@ func _input(event) -> void:
 						highlight.current_position = moves
 						var board_position: Vector2 = game_manager.board.global_position
 						board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
-						if piece_owner == Player.Sente:
-							board_position.y += (moves.y - 1) * global_square_size.y
-						elif piece_owner == Player.Gote:
-							board_position.y += (game_manager.board.board_size.y - moves.y) * global_square_size.y
+						board_position.y += (moves.y - 1) * global_square_size.y
+						#if piece_owner == Player.Sente:
+							#board_position.y += (moves.y - 1) * global_square_size.y
+						#elif piece_owner == Player.Gote:
+							#board_position.y += (moves.y - 1) * global_square_size.y
 						highlight.global_position = board_position
 						highlight.position.x += highlight.texture.get_width() / 2
 						highlight.position.y +=  highlight.texture.get_height() / 2
@@ -133,6 +134,10 @@ func _on_drop_piece(move_position: Vector2i) -> void:
 	else:
 		game_manager.create_piece(piece_resource, move_position, GameManager.Player.Gote)
 	destroy_all_highlights()
+	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.DropPiece):
+		game_manager.selected_piece = null
+		selected = false
+		queue_redraw()
 
 func _draw() -> void:
 	if selected:

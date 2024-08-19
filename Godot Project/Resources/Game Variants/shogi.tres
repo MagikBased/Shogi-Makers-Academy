@@ -35,7 +35,7 @@ pieces_for_action_override = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_jn31d"]
 script = ExtResource("18_maa4n")
-phase_name = ""
+phase_name = "Sente Turn"
 player = 0
 actions = Array[ExtResource("17_l141l")]([SubResource("Resource_p03xh"), SubResource("Resource_eijoo")])
 max_actions_per_turn = 1
@@ -56,7 +56,7 @@ pieces_for_action_override = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_oqkgv"]
 script = ExtResource("18_maa4n")
-phase_name = ""
+phase_name = "Gote Turn"
 player = 1
 actions = Array[ExtResource("17_l141l")]([SubResource("Resource_jcx1i"), SubResource("Resource_j0bhv")])
 max_actions_per_turn = 1

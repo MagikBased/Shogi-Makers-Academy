@@ -37,23 +37,23 @@ func initialize_values() -> void:
 	current_phase = game_variant.turn_phases[0]
 
 func start_phase() -> void:
-	print("Starting phase: ", current_phase.phase_name)
+	#print("Starting phase: ", current_phase.phase_name)
 	current_action_count = 0
 
-#func handle_action(piece_type: String, action_type: TurnAction.ActionType, piece_owner: Player) -> bool:
-	#if current_phase.player != player_turn:
-		#print("It's not your turn!")
-		#return false
-#
-	#for action in current_phase.actions:
-		#if action.action_type == action_type and can_perform_action(action, piece_type, piece_owner):
+func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
+	if current_phase.player != player_turn:
+		print("It's not your turn!")
+		return false
+
+	for action in current_phase.actions:
+		if action.action_type == action_type:
 			#print("Action allowed: ", action_type, " for piece: ", piece_type)
-			#current_action_count += 1
-			#if current_action_count >= current_phase.max_actions_per_turn:
-				#end_phase()
-			#return true
-	#print("Action not allowed: ", action_type, " for piece: ", piece_type)
-	#return false
+			current_action_count += 1
+			if current_action_count >= current_phase.max_actions_per_turn:
+				end_phase()
+			return true
+	print("Action not allowed: ", action_type, " for piece: ", piece_type)
+	return false
 
 #func can_perform_action(action: TurnAction, piece_type: String, piece_owner: Player) -> bool:
 	#if current_action_count >= action.max_actions:
@@ -75,13 +75,15 @@ func end_phase() -> void:
 	advance_turn()
 
 func advance_turn() -> void:
-	print("Ending phase for player: ", player_turn)
+	#print("Ending phase for player: ", player_turn)
 	turn_count += 1
 	switch_turn()
 
 func switch_turn() -> void:
 	player_turn = Player.Sente if player_turn == Player.Gote else Player.Gote
-	current_phase = game_variant.get_current_phase(turn_count)
+	var phase_index = (turn_count - 1) % game_variant.turn_phases.size()
+	current_phase = game_variant.turn_phases[phase_index]
+	#print("Player Turn: ", player_turn)
 	start_phase()
 
 func initialize_attack_cache() -> void:
@@ -191,4 +193,3 @@ func find_square_center(file: int,rank: int) -> Vector2:
 #func _input(event):
 	#if event is InputEventKey and event.pressed:
 		#print(is_king_in_check(Player.Gote))
-
