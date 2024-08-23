@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ch2f53j44q1"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_choice.gd" id="1_8ju8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otrnv"]
+
+[node name="PromotionChoice" type="Node2D"]
+script = ExtResource("1_8ju8v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("RectangleShape2D_otrnv")

@@ -171,6 +171,38 @@ func is_space_an_ally(move: Vector2i) -> bool:
 			return true
 	return false
 
+func get_promotion_square(square_position: Vector2i) -> PromotionSquare:
+	for promotion_square in piece_resource.promotion_squares:
+		if promotion_square.position == square_position and (promotion_square.player == PromotionSquare.Player.Both or promotion_square.player == piece_owner):
+			return promotion_square
+	return null
+
+func apply_promotion() -> void:
+	if piece_resource.promotes_to.size() > 0:
+		piece_resource = piece_resource.promotes_to[0] #needs to extend this to check what piece the forced promotion is.
+		is_promoted = true
+		#texture = piece_resource.icon[0]
+
+func show_promotion_choice() -> void:
+	var options_parent = Node2D.new()
+	add_child(options_parent)
+	var promotion_option_scene = load("res://Scenes/GameBoardScenes/promotion_choice.tscn")
+	var x_offset = 0.0
+	for promotion_base in piece_resource.promotes_to:
+		var promotion_option = promotion_option_scene.instantiate() as Node2D
+		promotion_option.piece_base = promotion_base
+		promotion_option.position = position + Vector2(x_offset, -50)
+		promotion_option.connect("promotion_selected", Callable(self, "_on_promotion_selected"))
+		options_parent.add_child(promotion_option)
+		x_offset += promotion_option.get_child(0).texture.get_size().x + 10
+	
+	var no_promotion_option = promotion_option_scene.instantiate() as Node2D
+	no_promotion_option.piece_base = null
+	no_promotion_option.position = position + Vector2(x_offset, -50)
+	no_promotion_option.get_child(0).texture = texture
+	no_promotion_option.connect("promotion_selected", Callable(self, "_on_promotion_selected"))
+	options_parent.add_child(no_promotion_option)
+
 func _draw() -> void:
 	if selected:
 		$SelectionHighlight.visible = true
@@ -188,6 +220,13 @@ func _on_move_piece(move_position: Vector2i) -> void:
 		return
 	if can_capture(move_position):
 		capture_piece(move_position)
+	if can_promote_check(current_position, move_position):
+		var promotion_square: PromotionSquare = get_promotion_square(move_position)
+		if promotion_square and promotion_square.forced_promotion:
+			apply_promotion()
+		else:
+			show_promotion_choice()
+		#return
 	#print("can promote: ", can_promote_check(current_position,move_position))
 	piece_info.position = move_position
 	current_position = move_position
