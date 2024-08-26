@@ -69,4 +69,5 @@ turn_phases = Array[ExtResource("18_maa4n")]([SubResource("Resource_jn31d"), Sub
 pieces = Array[Resource("res://Scripts/ResourceScripts/piece_base.gd")]([ExtResource("1_tjotn"), ExtResource("2_avbdu"), ExtResource("3_2llmf"), ExtResource("4_yb7ag"), ExtResource("5_5th78"), ExtResource("6_i74m5"), ExtResource("7_aitu7"), ExtResource("8_xglgv"), ExtResource("9_rx2td"), ExtResource("10_k3gp8"), ExtResource("11_mhjmy"), ExtResource("12_3ls30"), ExtResource("1_y318i"), ExtResource("14_u2dqn")])
 win_conditions = Array[int]([0])
 starting_fen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
+debug_fen = ""
 in_hand_pieces = true

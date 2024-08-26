@@ -15,4 +15,5 @@ enum WinConditions{
 @export var pieces: Array[PieceBase]
 @export var win_conditions: Array[WinConditions]
 @export var starting_fen: String
+@export var debug_fen: String
 @export var in_hand_pieces: bool

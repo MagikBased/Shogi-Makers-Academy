@@ -22,14 +22,25 @@ var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
 
 var attack_cache = {
-	"Sente": {},
-	"Gote": {}
+	"Sente": {
+		"swinging": {},
+		"stamp": {},
+	},
+	"Gote": {
+		"swinging": {},
+		"stamp": {},
+	}
 }
+
 
 func _ready() -> void:
 	initialize_values()
-	fen_manager.create_board_from_fen(game_variant.starting_fen)
+	if game_variant.debug_fen.strip_edges() != "":
+		fen_manager.create_board_from_fen(game_variant.debug_fen)
+	else:
+		fen_manager.create_board_from_fen(game_variant.starting_fen)
 	initialize_attack_cache()
+	print(attack_cache)
 	start_phase()
 
 func initialize_values() -> void:
@@ -44,7 +55,6 @@ func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bo
 	if current_phase.player != player_turn:
 		print("It's not your turn!")
 		return false
-
 	for action in current_phase.actions:
 		if action.action_type == action_type:
 			#print("Action allowed: ", action_type, " for piece: ", piece_type)
@@ -88,34 +98,64 @@ func switch_turn() -> void:
 
 func initialize_attack_cache() -> void:
 	for piece in game_variant.pieces:
-		attack_cache["Sente"][piece.fen_char] = get_piece_attack_vectors(piece, Player.Sente)
-		attack_cache["Gote"][piece.fen_char] = get_piece_attack_vectors(piece, Player.Gote)
-		#print(attack_cache["Sente"])
+		var swing_vectors_sente = get_piece_attack_vectors(piece, Player.Sente, "swinging")
+		var stamp_vectors_sente = get_piece_attack_vectors(piece, Player.Sente, "stamp")
+		var swing_vectors_gote = get_piece_attack_vectors(piece, Player.Gote, "swinging")
+		var stamp_vectors_gote = get_piece_attack_vectors(piece, Player.Gote, "stamp")
+		if swing_vectors_sente.size() > 0:
+			attack_cache["Sente"]["swinging"][piece.fen_char] = swing_vectors_sente
+		if stamp_vectors_sente.size() > 0:
+			attack_cache["Sente"]["stamp"][piece.fen_char] = stamp_vectors_sente
+		if swing_vectors_gote.size() > 0:
+			attack_cache["Gote"]["swinging"][piece.fen_char] = swing_vectors_gote
+		if stamp_vectors_gote.size() > 0:
+			attack_cache["Gote"]["stamp"][piece.fen_char] = stamp_vectors_gote
 
-func get_piece_attack_vectors(piece_base: PieceBase, player: Player) -> Array:
+func get_piece_attack_vectors(piece_base: PieceBase, player: Player, move_type: String) -> Array:
 	var attack_vectors = []
 	for move in piece_base.moves:
-		if move is StampMove:
-			for direction in move.move_directions:
-				var adjusted_direction = direction
-				if player == Player.Gote:
-					adjusted_direction = Vector2i(-direction.x, -direction.y)
-				attack_vectors.append(adjusted_direction)
+		match move_type:
+			"swinging":
+				if move is SwingMove:
+					var direction = move.move_direction
+					if player == Player.Gote:
+						direction = Vector2i(-direction.x, -direction.y)
+					attack_vectors.append(direction)
+			"stamp":
+				if move is StampMove:
+					for direction in move.move_directions:
+						var adjusted_direction = direction
+						if player == Player.Gote:
+							adjusted_direction = Vector2i(-direction.x, -direction.y)
+						attack_vectors.append(adjusted_direction)
 	return attack_vectors
+
 
 func piece_threatens_king(piece_info: PieceInfo, king_position: Vector2i) -> bool:
 	var piece_base = piece_info.piece_base
-	var attack_vectors = []
-	if piece_info.owner == Player.Sente:
-		attack_vectors = attack_cache["Sente"][piece_base.fen_char]
-	else:
-		attack_vectors = attack_cache["Gote"][piece_base.fen_char]
+	var swing_attack_vectors = []
+	var stamp_attack_vectors = []
 
-	for direction in attack_vectors:
+	if piece_info.owner == Player.Sente:
+		swing_attack_vectors = attack_cache["Sente"]["swinging"][piece_base.fen_char]
+		stamp_attack_vectors = attack_cache["Sente"]["stamp"][piece_base.fen_char]
+	else:
+		swing_attack_vectors = attack_cache["Gote"]["swinging"][piece_base.fen_char]
+		stamp_attack_vectors = attack_cache["Gote"]["stamp"][piece_base.fen_char]
+
+	for direction in stamp_attack_vectors:
 		var attack_position = piece_info.position + direction
 		if attack_position == king_position:
 			return true
+
+	for direction in swing_attack_vectors:
+		var target_position = piece_info.position + direction
+		while is_inside_board(target_position):
+			if target_position == king_position:
+				return true
+			target_position += direction
 	return false
+
 
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")
@@ -193,3 +233,6 @@ func find_square_center(file: int,rank: int) -> Vector2:
 #func _input(event):
 	#if event is InputEventKey and event.pressed:
 		#print(is_king_in_check(Player.Gote))
+
+func is_inside_board(move: Vector2i) -> bool:
+	return(move.x > 0 and move.x <= board.board_size.x and move.y > 0 and move.y <= board.board_size.y)

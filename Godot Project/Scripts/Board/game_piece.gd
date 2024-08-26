@@ -181,24 +181,34 @@ func apply_promotion() -> void:
 	if piece_resource.promotes_to.size() > 0:
 		piece_resource = piece_resource.promotes_to[0] #needs to extend this to check what piece the forced promotion is.
 		is_promoted = true
+		if piece_resource.icon.size() > 0:
+			texture = piece_resource.icon[0]
 		#texture = piece_resource.icon[0]
 
 func show_promotion_choice() -> void:
+	game_manager.is_promoting = true
 	var options_parent = Node2D.new()
 	add_child(options_parent)
 	var promotion_option_scene = load("res://Scenes/GameBoardScenes/promotion_choice.tscn")
-	var x_offset = 0.0
-	for promotion_base in piece_resource.promotes_to:
+	var x_offset = 0
+	var center_position = Vector2.ZERO
+	for i in range(piece_resource.promotes_to.size()):
+		var promotion_base = piece_resource.promotes_to[i]
 		var promotion_option = promotion_option_scene.instantiate() as Node2D
 		promotion_option.piece_base = promotion_base
-		promotion_option.position = position + Vector2(x_offset, -50)
+		var position_offset = Vector2()
+		if i % 2 == 0:
+			position_offset.x = x_offset * (game_manager.square_size / scale.x)
+		else:
+			x_offset += 1
+			position_offset.x = -x_offset * (game_manager.square_size / scale.x)
+		promotion_option.position = center_position + position_offset
 		promotion_option.connect("promotion_selected", Callable(self, "_on_promotion_selected"))
 		options_parent.add_child(promotion_option)
-		x_offset += promotion_option.get_child(0).texture.get_size().x + 10
-	
 	var no_promotion_option = promotion_option_scene.instantiate() as Node2D
-	no_promotion_option.piece_base = null
-	no_promotion_option.position = position + Vector2(x_offset, -50)
+	no_promotion_option.piece_base = piece_resource
+	var no_promotion_position_offset = Vector2(0, game_manager.square_size / scale.y)
+	no_promotion_option.position = center_position + no_promotion_position_offset
 	no_promotion_option.get_child(0).texture = texture
 	no_promotion_option.connect("promotion_selected", Callable(self, "_on_promotion_selected"))
 	options_parent.add_child(no_promotion_option)
@@ -237,3 +247,16 @@ func _on_move_piece(move_position: Vector2i) -> void:
 		destroy_all_highlights()
 		queue_redraw()
 	#game_manager.is_king_in_check(GameManager.Player.Gote)
+
+func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
+	if selected_piece_base == null:
+		return
+	piece_resource = selected_piece_base
+	is_promoted = true
+	if piece_resource.icon.size() > 0:
+		texture = piece_resource.icon[0]
+	scale = Vector2.ONE * (game_manager.square_size / texture.get_size().x)
+	snap_to_grid()
+	var options_parent = get_child(get_child_count() - 1)
+	options_parent.queue_free()
+	game_manager.is_promoting = false
