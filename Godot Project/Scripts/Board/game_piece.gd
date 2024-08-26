@@ -19,6 +19,7 @@ var selected: bool = false
 var dragging: bool = false
 var piece_scale: float = 1
 var valid_moves: Array[Vector2i]
+var constrained_moves: Array[Vector2i] = []
 
 var square_highlight = load("res://Scenes/GameBoardScenes/square_highlight.tscn")
 
@@ -77,11 +78,16 @@ func destroy_all_highlights() -> void:
 
 func generate_moves() -> Array[Vector2i]:
 	valid_moves.clear()
-	for move in piece_resource.moves:
-		if move is SwingMove:
-			handle_swinging_moves(move)
-		elif move is StampMove:
-			handle_stamp_moves(move)
+	if constrained_moves.size() > 0:
+		for move in constrained_moves:
+			if is_inside_board(move) and not is_space_an_ally(move):
+				valid_moves.append(move)
+	else:
+		for move in piece_resource.moves:
+			if move is SwingMove:
+				handle_swinging_moves(move)
+			elif move is StampMove:
+				handle_stamp_moves(move)
 	return valid_moves
 
 func handle_stamp_moves(move:StampMove) -> void:
@@ -238,6 +244,8 @@ func _on_move_piece(move_position: Vector2i) -> void:
 			show_promotion_choice()
 		#return
 	#print("can promote: ", can_promote_check(current_position,move_position))
+	if constrained_moves.size() > 0 and not constrained_moves.has(move_position):
+		return
 	piece_info.position = move_position
 	current_position = move_position
 	snap_to_grid()

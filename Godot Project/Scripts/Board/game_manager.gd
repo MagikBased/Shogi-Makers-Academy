@@ -32,7 +32,6 @@ var attack_cache = {
 	}
 }
 
-
 func _ready() -> void:
 	initialize_values()
 	if game_variant.debug_fen.strip_edges() != "":
@@ -40,7 +39,6 @@ func _ready() -> void:
 	else:
 		fen_manager.create_board_from_fen(game_variant.starting_fen)
 	initialize_attack_cache()
-	print(attack_cache)
 	start_phase()
 
 func initialize_values() -> void:
@@ -130,24 +128,20 @@ func get_piece_attack_vectors(piece_base: PieceBase, player: Player, move_type: 
 						attack_vectors.append(adjusted_direction)
 	return attack_vectors
 
-
 func piece_threatens_king(piece_info: PieceInfo, king_position: Vector2i) -> bool:
 	var piece_base = piece_info.piece_base
 	var swing_attack_vectors = []
 	var stamp_attack_vectors = []
-
 	if piece_info.owner == Player.Sente:
-		swing_attack_vectors = attack_cache["Sente"]["swinging"][piece_base.fen_char]
-		stamp_attack_vectors = attack_cache["Sente"]["stamp"][piece_base.fen_char]
+		swing_attack_vectors = attack_cache["Sente"]["swinging"].get(piece_base.fen_char, [])
+		stamp_attack_vectors = attack_cache["Sente"]["stamp"].get(piece_base.fen_char, [])
 	else:
-		swing_attack_vectors = attack_cache["Gote"]["swinging"][piece_base.fen_char]
-		stamp_attack_vectors = attack_cache["Gote"]["stamp"][piece_base.fen_char]
-
+		swing_attack_vectors = attack_cache["Gote"]["swinging"].get(piece_base.fen_char, [])
+		stamp_attack_vectors = attack_cache["Gote"]["stamp"].get(piece_base.fen_char, [])
 	for direction in stamp_attack_vectors:
 		var attack_position = piece_info.position + direction
 		if attack_position == king_position:
 			return true
-
 	for direction in swing_attack_vectors:
 		var target_position = piece_info.position + direction
 		while is_inside_board(target_position):
@@ -156,6 +150,58 @@ func piece_threatens_king(piece_info: PieceInfo, king_position: Vector2i) -> boo
 			target_position += direction
 	return false
 
+func determine_pins(king_position: Vector2i, player: Player) -> Array:
+	clear_constrained_moves()
+	var opponent = Player.Gote if player == Player.Sente else Player.Sente
+	var potential_pins = []
+	var opponent_str = "Sente" if opponent == Player.Gote else "Gote"
+	for piece_info in pieces_on_board:
+		if piece_info.owner == opponent:
+			var swing_attack_vectors = attack_cache[opponent_str]["swinging"].get(piece_info.piece_base.fen_char, [])
+			for direction in swing_attack_vectors:
+				var path: Array[Vector2i] = []
+				var target_position = piece_info.position + direction
+				var piece_in_path = null
+				while is_inside_board(target_position):
+					path.append(target_position)
+					if is_space_taken(target_position):
+						var occupying_piece_info = get_piece_info_at_position(target_position)
+						if occupying_piece_info.piece_base.is_royal:
+							break
+						if occupying_piece_info.owner == player:
+							if piece_in_path != null: 
+								piece_in_path = null
+								break
+							else:
+								piece_in_path = occupying_piece_info
+						elif occupying_piece_info.owner == opponent:
+							break
+					target_position += direction
+				if piece_in_path != null and target_position == king_position:
+					constrain_moves(piece_in_path, path)
+					potential_pins.append(piece_in_path)
+	return potential_pins
+
+func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) -> void:
+	var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
+	if piece_instance:
+		var legal_constrained_moves: Array[Vector2i] = []
+		for move in piece_instance.generate_moves():
+			if move in constrained_moves:
+				legal_constrained_moves.append(move)
+		piece_instance.constrained_moves = legal_constrained_moves
+
+func clear_constrained_moves() -> void:
+	for piece_info in pieces_on_board:
+		var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
+		if piece_instance:
+			piece_instance.constrained_moves.clear()
+
+func get_piece_info_at_position(board_position: Vector2i) -> PieceInfo:
+	for piece_info in pieces_on_board:
+		if piece_info.position == board_position:
+			return piece_info
+	return null
 
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")
@@ -230,9 +276,18 @@ func find_square_center(file: int,rank: int) -> Vector2:
 	var center_y = rank * square_size - square_size / 2
 	return Vector2(center_x, center_y)
 
-#func _input(event):
-	#if event is InputEventKey and event.pressed:
-		#print(is_king_in_check(Player.Gote))
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		print(determine_pins(find_kings(Player.Sente)[0], Player.Sente))
+		#print(determine_pins(find_kings(Player.Gote)[0], Player.Gote))
+		#print(find_kings(Player.Sente)[0])
+		pass
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= board.board_size.x and move.y > 0 and move.y <= board.board_size.y)
+
+func is_space_taken(move: Vector2i) -> bool:
+	for piece_info in pieces_on_board:
+		if piece_info.position == move:
+			return true
+	return false
