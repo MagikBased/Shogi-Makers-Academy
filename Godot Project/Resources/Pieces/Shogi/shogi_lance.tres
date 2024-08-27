@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=79 format=3 uid="uid://dxqb2nt82gp0l"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=81 format=3 uid="uid://dxqb2nt82gp0l"]
 
 [ext_resource type="Texture2D" uid="uid://bnm7ypcla2can" path="res://Images/Piecesets/Shogi-kanji/Lance.png" id="1_88i4y"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_eie0y"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_w6snk"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_76dmb"]
 [ext_resource type="Resource" uid="uid://2i7t6scd2g0d" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up.tres" id="2_ax2qw"]
 [ext_resource type="Resource" uid="uid://obhmscwncn03" path="res://Resources/Pieces/Shogi/shogi_promoted_lance.tres" id="3_g0c7r"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_gbgbv"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_xlra0"]
 
 [sub_resource type="Resource" id="Resource_ghdub"]
@@ -481,7 +483,7 @@ piece_name = "Lance"
 fen_char = "L"
 icon = Array[Texture]([ExtResource("1_88i4y")])
 is_royal = false
-moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_ax2qw")])
+moves = Array[ExtResource("4_gbgbv")]([ExtResource("2_ax2qw")])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_w6snk")]([ExtResource("3_g0c7r")])
@@ -490,4 +492,4 @@ add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "L"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("2_76dmb")]([SubResource("Resource_ghdub"), SubResource("Resource_wm0n7"), SubResource("Resource_k7s5q"), SubResource("Resource_gutve"), SubResource("Resource_ktp1v"), SubResource("Resource_8ljmb"), SubResource("Resource_kr2iy"), SubResource("Resource_hipp0"), SubResource("Resource_2pxni"), SubResource("Resource_1fqvq"), SubResource("Resource_cf6a4"), SubResource("Resource_dc3j0"), SubResource("Resource_nn1xq"), SubResource("Resource_vafbs"), SubResource("Resource_ddku4"), SubResource("Resource_fj4o3"), SubResource("Resource_e2wjn"), SubResource("Resource_a8yle")])
-drop_restrictions = Array[Resource("res://Scripts/ResourceScripts/drop_restriction.gd")]([])
+drop_restrictions = Array[ExtResource("1_eie0y")]([])

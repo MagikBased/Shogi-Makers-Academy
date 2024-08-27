@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://cokw1yjwkbsln"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_r3ruc"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_3o0jx"]
+[ext_resource type="Texture2D" uid="uid://d3qsrq4ovequ" path="res://Images/Piecesets/Tori_Shogi_International/0Goose.svg" id="2_k4lqv"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_f1yni"]
+[ext_resource type="Resource" uid="uid://lh4djqjurhad" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_goose_stamps.tres" id="4_o6x4i"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_udm1q"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_uddog"]
+
+[resource]
+script = ExtResource("4_udm1q")
+piece_name = "Wild Goose"
+fen_char = "+S"
+icon = Array[Texture]([ExtResource("2_k4lqv")])
+is_royal = false
+moves = Array[ExtResource("3_f1yni")]([ExtResource("4_o6x4i")])
+can_promote = false
+is_promoted = true
+promotes_to = Array[ExtResource("4_udm1q")]([])
+promotion_squares = Array[ExtResource("5_uddog")]([])
+add_to_hand_on_capture = true
+fen_char_piece_to_add_on_capture = "S"
+can_deliver_checkmate = false
+illegal_drop_squares = Array[ExtResource("2_3o0jx")]([])
+drop_restrictions = Array[ExtResource("1_r3ruc")]([])

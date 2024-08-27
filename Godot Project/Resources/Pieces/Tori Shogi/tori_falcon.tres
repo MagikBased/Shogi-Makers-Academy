@@ -1,0 +1,223 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=37 format=3 uid="uid://bsixsq8k3cy73"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1l60a"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_3e6od"]
+[ext_resource type="Texture2D" uid="uid://b4r57t2l0gybt" path="res://Images/Piecesets/Tori_Shogi_International/0Falcon.svg" id="2_3oi8b"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_gyiel"]
+[ext_resource type="Resource" uid="uid://ca4af0p1tric" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_falcon_stamps.tres" id="4_2godf"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_e2gaq"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_3cwgr"]
+[ext_resource type="Resource" uid="uid://c3nxhsbx1v0h5" path="res://Resources/Pieces/Tori Shogi/tori_eagle.tres" id="6_x6kuu"]
+
+[sub_resource type="Resource" id="Resource_4f54j"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(1, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_uwq2g"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(2, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_w6t0b"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(3, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_adsvl"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(4, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_yts8c"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(5, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_vfv7s"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(6, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_ntlpj"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(7, 1)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_cb5fu"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(1, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_nrnk4"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(2, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_ujum1"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(3, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_ybxa2"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(4, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_tdsxi"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(5, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_8qb30"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(6, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_qu7dw"]
+script = ExtResource("5_3cwgr")
+player = 0
+position = Vector2i(7, 2)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_08pdd"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(1, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_e7cjy"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(2, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_oigd6"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(3, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_e1px0"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(4, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_1mnxc"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(5, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_20d6b"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(6, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_atdx4"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(7, 6)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_ywxw3"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(1, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_fg8nn"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(2, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_12jj3"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(3, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_eq4cc"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(4, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_3nwno"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(5, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_wtio1"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(6, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[sub_resource type="Resource" id="Resource_pfskt"]
+script = ExtResource("5_3cwgr")
+player = 1
+position = Vector2i(7, 7)
+forced_promotion = false
+promotion_move_rule = 2
+
+[resource]
+script = ExtResource("4_e2gaq")
+piece_name = "Falcon"
+fen_char = "F"
+icon = Array[Texture]([ExtResource("2_3oi8b")])
+is_royal = false
+moves = Array[ExtResource("3_gyiel")]([ExtResource("4_2godf")])
+can_promote = true
+is_promoted = false
+promotes_to = Array[ExtResource("4_e2gaq")]([ExtResource("6_x6kuu")])
+promotion_squares = Array[ExtResource("5_3cwgr")]([SubResource("Resource_4f54j"), SubResource("Resource_uwq2g"), SubResource("Resource_w6t0b"), SubResource("Resource_adsvl"), SubResource("Resource_yts8c"), SubResource("Resource_vfv7s"), SubResource("Resource_ntlpj"), SubResource("Resource_cb5fu"), SubResource("Resource_nrnk4"), SubResource("Resource_ujum1"), SubResource("Resource_ybxa2"), SubResource("Resource_tdsxi"), SubResource("Resource_8qb30"), SubResource("Resource_qu7dw"), SubResource("Resource_08pdd"), SubResource("Resource_e7cjy"), SubResource("Resource_oigd6"), SubResource("Resource_e1px0"), SubResource("Resource_1mnxc"), SubResource("Resource_20d6b"), SubResource("Resource_atdx4"), SubResource("Resource_ywxw3"), SubResource("Resource_fg8nn"), SubResource("Resource_12jj3"), SubResource("Resource_eq4cc"), SubResource("Resource_3nwno"), SubResource("Resource_wtio1"), SubResource("Resource_pfskt")])
+add_to_hand_on_capture = true
+fen_char_piece_to_add_on_capture = "F"
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_3e6od")]([])
+drop_restrictions = Array[ExtResource("1_1l60a")]([])

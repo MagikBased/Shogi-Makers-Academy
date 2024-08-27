@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://r6xuh6cguh7d"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_jg8cj"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_iesrx"]
+[ext_resource type="Texture2D" uid="uid://b1e53351ybhxr" path="res://Images/Piecesets/Tori_Shogi_International/0Pheasant.svg" id="2_tdxpl"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_ixpa0"]
+[ext_resource type="Resource" uid="uid://diysvar1nd8tw" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_pheasant_stamps.tres" id="4_rl6pd"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_t7ves"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_gf4yv"]
+
+[resource]
+script = ExtResource("4_t7ves")
+piece_name = "Pheasant"
+fen_char = "P"
+icon = Array[Texture]([ExtResource("2_tdxpl")])
+is_royal = false
+moves = Array[ExtResource("3_ixpa0")]([ExtResource("4_rl6pd")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("4_t7ves")]([])
+promotion_squares = Array[ExtResource("5_gf4yv")]([])
+add_to_hand_on_capture = true
+fen_char_piece_to_add_on_capture = "P"
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_iesrx")]([])
+drop_restrictions = Array[ExtResource("1_jg8cj")]([])
