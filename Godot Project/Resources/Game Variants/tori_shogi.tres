@@ -25,6 +25,6 @@ board_data = SubResource("Resource_ly5nf")
 turn_phases = Array[ExtResource("3_eq0qq")]([])
 pieces = Array[ExtResource("1_h3f75")]([ExtResource("3_fn4bb"), ExtResource("4_ak55r"), ExtResource("5_7m3d8"), ExtResource("6_k1b6f"), ExtResource("7_iimhh"), ExtResource("8_g2ymk"), ExtResource("9_6qq4i"), ExtResource("10_0r2nj")])
 win_conditions = Array[int]([0])
-starting_fen = "rpckcpl/3f3/sssssss/2s1S2/SSSSSSS/3F3/LPCKCPR[-] w 0 1"
+starting_fen = "rpckcpl/3f3/sssssss/2s1S2/SSSSSSS/3F3/LPCKCPR - w 0 1"
 debug_fen = ""
 in_hand_pieces = true
