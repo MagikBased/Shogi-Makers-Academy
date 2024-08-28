@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="GameVariant" load_steps=26 format=3 uid="uid://nxgouio0mngd"]
+[gd_resource type="Resource" script_class="GameVariant" load_steps=25 format=3 uid="uid://nxgouio0mngd"]
 
 [ext_resource type="Resource" uid="uid://dpw10gbbf6mv7" path="res://Resources/Boards/shogi_board.tres" id="1_lroaw"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/game_variant.gd" id="1_sv2v5"]
 [ext_resource type="Resource" uid="uid://3ouksadeedxw" path="res://Resources/Pieces/Shogi/shogi_king.tres" id="1_tjotn"]
 [ext_resource type="Resource" uid="uid://5mnjemfahr0k" path="res://Resources/Pieces/Shogi/shogi_pawn.tres" id="1_y318i"]
 [ext_resource type="Resource" uid="uid://bs3qulnrn0u1" path="res://Resources/Pieces/Shogi/shogi_rook.tres" id="2_avbdu"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="2_h82tu"]
 [ext_resource type="Resource" uid="uid://c322d1a0swdo3" path="res://Resources/Pieces/Shogi/shogi_dragon.tres" id="3_2llmf"]
 [ext_resource type="Resource" uid="uid://woiu1qaw8nap" path="res://Resources/Pieces/Shogi/shogi_bishop.tres" id="4_yb7ag"]
 [ext_resource type="Resource" uid="uid://tmg0qnnohpsk" path="res://Resources/Pieces/Shogi/shogi_horse.tres" id="5_5th78"]
@@ -67,7 +66,7 @@ script = ExtResource("1_sv2v5")
 game_name = "Shogi"
 board_data = ExtResource("1_lroaw")
 turn_phases = Array[ExtResource("18_maa4n")]([SubResource("Resource_jn31d"), SubResource("Resource_oqkgv")])
-pieces = Array[ExtResource("2_h82tu")]([ExtResource("1_tjotn"), ExtResource("2_avbdu"), ExtResource("3_2llmf"), ExtResource("4_yb7ag"), ExtResource("5_5th78"), ExtResource("6_i74m5"), ExtResource("7_aitu7"), ExtResource("8_xglgv"), ExtResource("9_rx2td"), ExtResource("10_k3gp8"), ExtResource("11_mhjmy"), ExtResource("12_3ls30"), ExtResource("1_y318i"), ExtResource("14_u2dqn")])
+pieces = Array[Resource("res://Scripts/ResourceScripts/piece_base.gd")]([ExtResource("1_tjotn"), ExtResource("2_avbdu"), ExtResource("3_2llmf"), ExtResource("4_yb7ag"), ExtResource("5_5th78"), ExtResource("6_i74m5"), ExtResource("7_aitu7"), ExtResource("8_xglgv"), ExtResource("9_rx2td"), ExtResource("10_k3gp8"), ExtResource("11_mhjmy"), ExtResource("12_3ls30"), ExtResource("1_y318i"), ExtResource("14_u2dqn")])
 win_conditions = Array[int]([0])
 starting_fen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
 debug_fen = "3k5/9/9/9/b7b/9/9/3G5/4K4 b - 1"

@@ -48,6 +48,13 @@ func initialize_values() -> void:
 func start_phase() -> void:
 	#print("Starting phase: ", current_phase.phase_name)
 	current_action_count = 0
+	if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
+		var king_position = find_kings(player_turn)[0]
+		determine_pins(king_position, player_turn)
+		if is_king_in_check(player_turn):
+			var attacking_piece = find_attacking_piece(king_position, player_turn)
+			#print(attacking_piece.position)
+			constrain_moves_due_to_check(king_position, attacking_piece)
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
 	if current_phase.player != player_turn:
@@ -57,6 +64,9 @@ func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bo
 		if action.action_type == action_type:
 			#print("Action allowed: ", action_type, " for piece: ", piece_type)
 			current_action_count += 1
+			if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
+				var king_position = find_kings(player_turn)[0]
+				determine_pins(king_position, player_turn)
 			if current_action_count >= current_phase.max_actions_per_turn:
 				end_phase()
 			return true
@@ -86,6 +96,9 @@ func advance_turn() -> void:
 	#print("Ending phase for player: ", player_turn)
 	turn_count += 1
 	switch_turn()
+	if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
+		var king_position = find_kings(player_turn)[0]
+		determine_pins(king_position, player_turn)
 
 func switch_turn() -> void:
 	player_turn = Player.Sente if player_turn == Player.Gote else Player.Gote
@@ -93,6 +106,9 @@ func switch_turn() -> void:
 	current_phase = game_variant.turn_phases[phase_index]
 	#print("Player Turn: ", player_turn)
 	start_phase()
+	if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
+		var king_position = find_kings(player_turn)[0]
+		determine_pins(king_position, player_turn)
 
 func initialize_attack_cache() -> void:
 	for piece in game_variant.pieces:
@@ -151,7 +167,6 @@ func piece_threatens_king(piece_info: PieceInfo, king_position: Vector2i) -> boo
 	return false
 
 func determine_pins(king_position: Vector2i, player: Player) -> Array:
-	clear_constrained_moves()
 	var opponent = Player.Gote if player == Player.Sente else Player.Sente
 	var potential_pins = []
 	var opponent_str = "Sente" if opponent == Player.Gote else "Gote"
@@ -180,7 +195,18 @@ func determine_pins(king_position: Vector2i, player: Player) -> Array:
 				if piece_in_path != null and target_position == king_position:
 					constrain_moves(piece_in_path, path)
 					potential_pins.append(piece_in_path)
+	#print(potential_pins)
 	return potential_pins
+
+func determine_checks(king_position: Vector2i, player: Player) -> Array:
+	var opponent = Player.Gote if player == Player.Sente else Player.Sente
+	var checking_pieces = []
+	var opponent_str = "Sente" if opponent == Player.Gote else "Gote"
+	for piece_info in pieces_on_board:
+		if piece_info.owner == opponent:
+			if piece_threatens_king(piece_info, king_position):
+				checking_pieces.append(piece_info)
+	return checking_pieces
 
 func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) -> void:
 	var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
@@ -190,6 +216,42 @@ func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) 
 			if move in constrained_moves:
 				legal_constrained_moves.append(move)
 		piece_instance.constrained_moves = legal_constrained_moves
+
+func constrain_moves_due_to_check(king_position: Vector2i, attacking_piece_info: PieceInfo) -> void:
+	for piece_info in pieces_on_board:
+		if piece_info.owner == player_turn:
+			var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
+			if piece_instance:
+				var legal_constrained_moves: Array[Vector2i] = []
+				var piece_moves = piece_instance.generate_moves()
+				for move in piece_moves:
+					if piece_info.piece_base.is_royal:
+						if not piece_threatens_king(attacking_piece_info, move):
+							legal_constrained_moves.append(move)
+					else:
+						if move == attacking_piece_info.position:
+							legal_constrained_moves.append(move)
+						elif is_blocking_move_valid(king_position, move, attacking_piece_info):
+							legal_constrained_moves.append(move)
+				piece_instance.constrained_moves = legal_constrained_moves
+
+func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
+	var direction = (king_position - attacking_piece_info.position)
+	var blocking_position = attacking_piece_info.position + direction
+	while blocking_position != king_position:
+		if blocking_position == move:
+			return true
+		blocking_position += direction
+	return false
+
+func find_attacking_piece(king_position: Vector2i, player: Player) -> PieceInfo:
+	var opponent = Player.Gote if player == Player.Sente else Player.Sente
+	for piece_info in pieces_on_board:
+		if piece_info.owner == opponent:
+			if piece_threatens_king(piece_info, king_position):
+				print(piece_info.position)
+				return piece_info
+	return null
 
 func clear_constrained_moves() -> void:
 	for piece_info in pieces_on_board:
@@ -276,12 +338,12 @@ func find_square_center(file: int,rank: int) -> Vector2:
 	var center_y = rank * square_size - square_size / 2
 	return Vector2(center_x, center_y)
 
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		print(determine_pins(find_kings(Player.Sente)[0], Player.Sente))
-		#print(determine_pins(find_kings(Player.Gote)[0], Player.Gote))
-		#print(find_kings(Player.Sente)[0])
-		pass
+#func _input(event):
+	#if event is InputEventKey and event.pressed:
+		#print(determine_pins(find_kings(Player.Sente)[0], Player.Sente))
+		##print(determine_pins(find_kings(Player.Gote)[0], Player.Gote))
+		##print(find_kings(Player.Sente)[0])
+		#pass
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= board.board_size.x and move.y > 0 and move.y <= board.board_size.y)

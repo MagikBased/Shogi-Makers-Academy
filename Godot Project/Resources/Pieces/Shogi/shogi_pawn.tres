@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=82 format=3 uid="uid://5mnjemfahr0k"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=81 format=3 uid="uid://5mnjemfahr0k"]
 
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1ms3i"]
 [ext_resource type="Texture2D" uid="uid://d0kcbw4xnc6bv" path="res://Images/Piecesets/Shogi-kanji/Pawn.png" id="1_iv06e"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_sy37c"]
 [ext_resource type="Resource" uid="uid://dmhhgl4e1sr8w" path="res://Resources/Pieces/Shogi/shogi_tokin.tres" id="3_50qpf"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_vsyv3"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_dyd3d"]
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_gy7t6"]
 
 [sub_resource type="Resource" id="Resource_l0lip"]
@@ -491,7 +490,7 @@ piece_name = "Pawn"
 fen_char = "P"
 icon = Array[Texture]([ExtResource("1_iv06e")])
 is_royal = false
-moves = Array[ExtResource("4_dyd3d")]([ExtResource("2_itv4h")])
+moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_itv4h")])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("3_vsyv3")]([ExtResource("3_50qpf")])
