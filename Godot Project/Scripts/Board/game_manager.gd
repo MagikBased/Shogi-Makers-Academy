@@ -252,14 +252,30 @@ func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Arra
 						piece_instance.constrained_moves.append(move)
 
 func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
-	var direction = (king_position - attacking_piece_info.position)
-	var blocking_position = attacking_piece_info.position + direction
-	print(direction)
-	while blocking_position != king_position:
-		if blocking_position == move:
-			return true
-		blocking_position += direction
-	return false
+	var blocking_positions = []
+	# Get the attack vectors for swinging moves
+	var opponent_str = ""
+	if attacking_piece_info.owner == Player.Sente:
+		opponent_str = "Sente"
+	else:
+		opponent_str = "Gote"
+	var swing_attack_vectors = attack_cache[opponent_str]["swinging"].get(attacking_piece_info.piece_base.fen_char, [])
+	for direction in swing_attack_vectors:
+		var target_position = attacking_piece_info.position + direction
+		while is_inside_board(target_position):
+			if target_position == king_position:
+				# If this swing move threatens the king, generate the blocking positions
+				target_position = attacking_piece_info.position + direction
+				while target_position != king_position:
+					blocking_positions.append(target_position)
+					target_position += direction
+				break
+			elif is_space_taken(target_position):
+				break
+			target_position += direction
+	# Check if the move is in the list of blocking positions
+	return move in blocking_positions
+
 
 func find_attacking_piece(king_position: Vector2i, player: Player) -> PieceInfo:
 	var opponent = Player.Gote if player == Player.Sente else Player.Sente
