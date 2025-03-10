@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="GameVariant" load_steps=14 format=3 uid="uid://nlpwcbfyij0e"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_h3f75"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/board_resource.gd" id="1_j86xq"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/game_variant.gd" id="2_6iuxp"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/turn_phase.gd" id="3_eq0qq"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_h3f75"]
+[ext_resource type="Script" uid="uid://cchmki0dnj3ev" path="res://Scripts/ResourceScripts/board_resource.gd" id="1_j86xq"]
+[ext_resource type="Script" uid="uid://b6puk4du7bdg8" path="res://Scripts/ResourceScripts/game_variant.gd" id="2_6iuxp"]
+[ext_resource type="Script" uid="uid://crfchrb021i2d" path="res://Scripts/ResourceScripts/turn_phase.gd" id="3_eq0qq"]
 [ext_resource type="Resource" uid="uid://n3e5olfbdm41" path="res://Resources/Pieces/Tori Shogi/tori_crane.tres" id="3_fn4bb"]
 [ext_resource type="Resource" uid="uid://c3nxhsbx1v0h5" path="res://Resources/Pieces/Tori Shogi/tori_eagle.tres" id="4_ak55r"]
 [ext_resource type="Resource" uid="uid://bsixsq8k3cy73" path="res://Resources/Pieces/Tori Shogi/tori_falcon.tres" id="5_7m3d8"]

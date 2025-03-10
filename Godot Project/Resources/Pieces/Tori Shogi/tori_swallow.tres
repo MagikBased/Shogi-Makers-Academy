@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="PieceBase" load_steps=52 format=3 uid="uid://ckjlxdovcmugj"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_fvgb1"]
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_fvgb1"]
 [ext_resource type="Texture2D" uid="uid://xtlr8vj56br6" path="res://Images/Piecesets/Tori_Shogi_International/0Swallow.svg" id="2_lcqcs"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_ww7w6"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_4txb7"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_ww7w6"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_4txb7"]
 [ext_resource type="Resource" uid="uid://bjhhkogpsi5tk" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_swallow_stamps.tres" id="4_mudk0"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="5_5n7lp"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="5_5n7lp"]
 [ext_resource type="Resource" uid="uid://cokw1yjwkbsln" path="res://Resources/Pieces/Tori Shogi/tori_goose.tres" id="6_wcwwq"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="7_1m3lf"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="7_1m3lf"]
 
 [sub_resource type="Resource" id="Resource_def33"]
 script = ExtResource("1_fvgb1")

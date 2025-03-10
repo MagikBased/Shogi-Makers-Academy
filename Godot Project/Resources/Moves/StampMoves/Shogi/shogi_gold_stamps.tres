@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StampMove" load_steps=2 format=3 uid="uid://d1vue8laskmwm"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/stamp_move.gd" id="1_f88q1"]
+[ext_resource type="Script" uid="uid://kfxjcnxvrtmb" path="res://Scripts/ResourceScripts/MovementResourceScripts/stamp_move.gd" id="1_f88q1"]
 
 [resource]
 script = ExtResource("1_f88q1")

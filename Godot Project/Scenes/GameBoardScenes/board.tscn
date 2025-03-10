@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d4hj0t2vvq6lk"]
 
 [ext_resource type="Texture2D" uid="uid://d3hv35p6goai4" path="res://Images/BoardTextures/wood texture.png" id="1_4ikgi"]
-[ext_resource type="Script" path="res://Scripts/Board/board.gd" id="2_cwqxg"]
+[ext_resource type="Script" uid="uid://xw2tvhg2rr14" path="res://Scripts/Board/board.gd" id="2_cwqxg"]
 
 [node name="Board" type="Sprite2D"]
 z_index = -1

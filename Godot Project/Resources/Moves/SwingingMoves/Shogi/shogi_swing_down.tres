@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SwingMove" load_steps=2 format=3 uid="uid://bkni1o1unl14a"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/swing_move.gd" id="1_mimrb"]
+[ext_resource type="Script" uid="uid://bwh2g0jtjkjxn" path="res://Scripts/ResourceScripts/MovementResourceScripts/swing_move.gd" id="1_mimrb"]
 
 [resource]
 script = ExtResource("1_mimrb")

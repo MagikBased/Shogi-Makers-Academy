@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="PieceBase" load_steps=37 format=3 uid="uid://bsixsq8k3cy73"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1l60a"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_3e6od"]
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1l60a"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_3e6od"]
 [ext_resource type="Texture2D" uid="uid://b4r57t2l0gybt" path="res://Images/Piecesets/Tori_Shogi_International/0Falcon.svg" id="2_3oi8b"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_gyiel"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_gyiel"]
 [ext_resource type="Resource" uid="uid://ca4af0p1tric" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_falcon_stamps.tres" id="4_2godf"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_e2gaq"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_3cwgr"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_e2gaq"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_3cwgr"]
 [ext_resource type="Resource" uid="uid://c3nxhsbx1v0h5" path="res://Resources/Pieces/Tori Shogi/tori_eagle.tres" id="6_x6kuu"]
 
 [sub_resource type="Resource" id="Resource_4f54j"]

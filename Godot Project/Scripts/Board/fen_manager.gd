@@ -86,7 +86,6 @@ func create_board_from_fen(fen: String) -> void:
 	var is_valid: bool = true
 	for amatch in matches:
 		var match_string: String = amatch.get_string()
-		#print(match_string)
 		if match_string.is_valid_int():
 			row_length += int(match_string)
 		else:

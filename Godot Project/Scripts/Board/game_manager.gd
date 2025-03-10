@@ -39,6 +39,7 @@ func _ready() -> void:
 	else:
 		fen_manager.create_board_from_fen(game_variant.starting_fen)
 	initialize_attack_cache()
+	#print(attack_cache)
 	start_phase()
 
 func initialize_values() -> void:
@@ -230,8 +231,8 @@ func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Arra
 			var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
 			if piece_instance:
 				var legal_constrained_moves: Array[Vector2i] = []
-				var piece_moves = piece_instance.valid_moves
-				#print(piece_moves)
+				var _piece_moves = piece_instance.valid_moves
+				
 				for move in piece_instance.valid_moves:
 					if piece_info.piece_base.is_royal:
 						var safe_move = true
@@ -247,13 +248,16 @@ func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Arra
 								legal_constrained_moves.append(move)
 							elif is_blocking_move_valid(king_position, move, checking_piece):
 								legal_constrained_moves.append(move)
+				
+				# Update the piece's constrained moves based on legal moves that respond to checks
+				#piece_instance.constrained_moves.clear()  # Start fresh
 				for move in legal_constrained_moves:
 					if not piece_instance.constrained_moves.has(move):
 						piece_instance.constrained_moves.append(move)
 
+
 func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
 	var blocking_positions = []
-	# Get the attack vectors for swinging moves
 	var opponent_str = ""
 	if attacking_piece_info.owner == Player.Sente:
 		opponent_str = "Sente"
@@ -264,7 +268,6 @@ func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_p
 		var target_position = attacking_piece_info.position + direction
 		while is_inside_board(target_position):
 			if target_position == king_position:
-				# If this swing move threatens the king, generate the blocking positions
 				target_position = attacking_piece_info.position + direction
 				while target_position != king_position:
 					blocking_positions.append(target_position)
@@ -273,9 +276,7 @@ func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_p
 			elif is_space_taken(target_position):
 				break
 			target_position += direction
-	# Check if the move is in the list of blocking positions
 	return move in blocking_positions
-
 
 func find_attacking_piece(king_position: Vector2i, player: Player) -> PieceInfo:
 	var opponent = Player.Gote if player == Player.Sente else Player.Sente

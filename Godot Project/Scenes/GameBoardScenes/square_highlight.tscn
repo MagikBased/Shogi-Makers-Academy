@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://8tj85eloca5c"]
 
 [ext_resource type="Texture2D" uid="uid://7pex5ta5gcch" path="res://Images/UI/BoardUI/square_highlight.png" id="1_g6r7w"]
-[ext_resource type="Script" path="res://Scripts/Board/square_highlight.gd" id="2_5cot0"]
+[ext_resource type="Script" uid="uid://c5dytapjt6cf0" path="res://Scripts/Board/square_highlight.gd" id="2_5cot0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yh4iy"]
 size = Vector2(100, 100)

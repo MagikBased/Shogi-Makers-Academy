@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c481blf8u4cyw"]
 
-[ext_resource type="Script" path="res://Scripts/Board/game_room.gd" id="1_jdr0h"]
+[ext_resource type="Script" uid="uid://cswho5cxq5k5h" path="res://Scripts/Board/game_room.gd" id="1_jdr0h"]
 [ext_resource type="Resource" uid="uid://nxgouio0mngd" path="res://Resources/Game Variants/shogi.tres" id="2_lgt1f"]
 
 [node name="GameRoom" type="Node2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddq04tw58h6j2"]
 
-[ext_resource type="Script" path="res://Scripts/Board/fen_manager.gd" id="1_f8hbn"]
+[ext_resource type="Script" uid="uid://br106rvlkewx1" path="res://Scripts/Board/fen_manager.gd" id="1_f8hbn"]
 
 [node name="FenManager" type="Node2D"]
 script = ExtResource("1_f8hbn")

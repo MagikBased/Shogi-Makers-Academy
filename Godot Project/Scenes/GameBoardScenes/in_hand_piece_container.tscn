@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0lv5nrd12h47"]
 
-[ext_resource type="Script" path="res://Scripts/Board/in_hand_piece_container.gd" id="1_5o4ae"]
+[ext_resource type="Script" uid="uid://fkom826ibwmr" path="res://Scripts/Board/in_hand_piece_container.gd" id="1_5o4ae"]
 
 [node name="InHandPieceContainer" type="Node2D"]
 script = ExtResource("1_5o4ae")

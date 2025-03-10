@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://5bvjrpwblyxy"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://5bvjrpwblyxy"]
 
 [ext_resource type="Texture2D" uid="uid://b48tms53mmmq5" path="res://Images/Piecesets/Shogi-kanji/Gold General.png" id="1_5fkv8"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_vhgp7"]
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_ivaux"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_vhgp7"]
 [ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_6m603"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_i56w6"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_j5nwm"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="7_obxx6"]
 
 [resource]
 script = ExtResource("1_vhgp7")
@@ -10,13 +14,13 @@ piece_name = "Gold General"
 fen_char = "G"
 icon = Array[Texture]([ExtResource("1_5fkv8")])
 is_royal = false
-moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_6m603")])
+moves = Array[ExtResource("4_j5nwm")]([ExtResource("2_6m603")])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("1_vhgp7")]([])
-promotion_squares = Array[Resource("res://Scripts/ResourceScripts/promotion_square.gd")]([])
+promotion_squares = Array[ExtResource("7_obxx6")]([])
 add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "G"
 can_deliver_checkmate = true
-illegal_drop_squares = Array[Resource("res://Scripts/ResourceScripts/illegal_drop_square.gd")]([])
-drop_restrictions = Array[Resource("res://Scripts/ResourceScripts/drop_restriction.gd")]([])
+illegal_drop_squares = Array[ExtResource("3_i56w6")]([])
+drop_restrictions = Array[ExtResource("1_ivaux")]([])

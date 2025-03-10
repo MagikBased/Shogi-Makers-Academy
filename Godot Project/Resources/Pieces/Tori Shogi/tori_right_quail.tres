@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="PieceBase" load_steps=10 format=3 uid="uid://bvueyipsodsqn"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_sodey"]
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_sodey"]
 [ext_resource type="Texture2D" uid="uid://bcx0ab4e5l2l3" path="res://Images/Piecesets/Tori_Shogi_International/0RightQuail.svg" id="2_2cwtm"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_yg2ax"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_n1ry5"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_yg2ax"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_n1ry5"]
 [ext_resource type="Resource" uid="uid://c72ekfnsltlxm" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_right_quail_stamps.tres" id="4_ifbde"]
 [ext_resource type="Resource" uid="uid://cml6o5ronu8b7" path="res://Resources/Moves/SwingingMoves/Tori Shogi/tori_quail_swinging_up.tres" id="5_h2peh"]
 [ext_resource type="Resource" uid="uid://ed2wojtq763s" path="res://Resources/Moves/SwingingMoves/Tori Shogi/tori_right_quail_swinging_down_left.tres" id="6_d8fd7"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="7_8cj4e"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="8_1au0t"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="7_8cj4e"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="8_1au0t"]
 
 [resource]
 script = ExtResource("7_8cj4e")

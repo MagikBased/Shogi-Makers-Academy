@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5tmn6wh3d6u1"]
+
+[ext_resource type="PackedScene" uid="uid://k3vvjxpdnhw0" path="res://Models/ShogiPiece.fbx" id="1_eqolw"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ShogiPiece" parent="." instance=ExtResource("1_eqolw")]

@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=60 format=3 uid="uid://db3d6eh8sy2tu"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=63 format=3 uid="uid://db3d6eh8sy2tu"]
 
 [ext_resource type="Texture2D" uid="uid://c4cubmp2fbcg3" path="res://Images/Piecesets/Shogi-kanji/Silver General.png" id="1_5eg45"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_8ycu5"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_8ycu5"]
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_bqf6y"]
 [ext_resource type="Resource" uid="uid://c4rw2utrvcaar" path="res://Resources/Moves/StampMoves/Shogi/shogi_silver_stamps.tres" id="2_xyyom"]
 [ext_resource type="Resource" uid="uid://bsrxvsa6y8tsp" path="res://Resources/Pieces/Shogi/shogi_promoted_silver.tres" id="3_dmdj2"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_347k6"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_dqm3w"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_347k6"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_sodjy"]
 
 [sub_resource type="Resource" id="Resource_v7id4"]
 script = ExtResource("4_347k6")
@@ -390,7 +393,7 @@ piece_name = "Silver General"
 fen_char = "S"
 icon = Array[Texture]([ExtResource("1_5eg45")])
 is_royal = false
-moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_xyyom")])
+moves = Array[ExtResource("4_sodjy")]([ExtResource("2_xyyom")])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_8ycu5")]([ExtResource("3_dmdj2")])
@@ -398,5 +401,5 @@ promotion_squares = Array[ExtResource("4_347k6")]([SubResource("Resource_v7id4")
 add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "S"
 can_deliver_checkmate = true
-illegal_drop_squares = Array[Resource("res://Scripts/ResourceScripts/illegal_drop_square.gd")]([])
-drop_restrictions = Array[Resource("res://Scripts/ResourceScripts/drop_restriction.gd")]([])
+illegal_drop_squares = Array[ExtResource("3_dqm3w")]([])
+drop_restrictions = Array[ExtResource("1_bqf6y")]([])

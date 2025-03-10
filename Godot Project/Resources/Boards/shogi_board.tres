@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BoardResource" load_steps=2 format=3 uid="uid://dpw10gbbf6mv7"]
 
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/board_resource.gd" id="1_pkw4a"]
+[ext_resource type="Script" uid="uid://cchmki0dnj3ev" path="res://Scripts/ResourceScripts/board_resource.gd" id="1_pkw4a"]
 
 [resource]
 script = ExtResource("1_pkw4a")
-board_size = Vector2(9, 9)
+board_size = Vector2i(9, 9)
 draw_hoshis = true

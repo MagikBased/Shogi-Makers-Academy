@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=4 format=3 uid="uid://dmhhgl4e1sr8w"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://dmhhgl4e1sr8w"]
 
 [ext_resource type="Texture2D" uid="uid://d2c6vn2es1efc" path="res://Images/Piecesets/Shogi-kanji/Promoted Pawn.png" id="1_h4qep"]
-[ext_resource type="Script" path="res://Scripts/ResourceScripts/piece_base.gd" id="2_ew8o5"]
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_ox76d"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="2_ew8o5"]
 [ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_i6k1v"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_xf6y1"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_jj3ad"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="7_j6b1h"]
 
 [resource]
 script = ExtResource("2_ew8o5")
@@ -10,11 +14,13 @@ piece_name = "Token"
 fen_char = "+P"
 icon = Array[Texture]([ExtResource("1_h4qep")])
 is_royal = false
-moves = Array[Resource("res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd")]([ExtResource("2_i6k1v")])
+moves = Array[ExtResource("4_jj3ad")]([ExtResource("2_i6k1v")])
 can_promote = false
 is_promoted = true
 promotes_to = Array[ExtResource("2_ew8o5")]([])
-promotion_squares = Array[Resource("res://Scripts/ResourceScripts/promotion_square.gd")]([])
+promotion_squares = Array[ExtResource("7_j6b1h")]([])
 add_to_hand_on_capture = true
 fen_char_piece_to_add_on_capture = "P"
 can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("3_xf6y1")]([])
+drop_restrictions = Array[ExtResource("1_ox76d")]([])
