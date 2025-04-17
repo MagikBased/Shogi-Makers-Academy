@@ -19,6 +19,8 @@ func _ready() -> void:
 	game_manager.set_variant(game_variant)
 	board.set_variant(game_variant)
 	game_manager.board = board
+	resize_board(board)
+	game_manager.square_size = board.get_rect().size.x / float(game_variant.board_data.board_size.x)
 
 	fen_manager.game_variant = game_variant
 	fen_manager.game_manager = game_manager
@@ -39,12 +41,9 @@ func _ready() -> void:
 	add_child(game_manager)
 	add_child(debug)
 
-	resize_board(board)
-
-	game_manager.square_size = (board.texture.get_width() * board.scale.x) / float(game_variant.board_data.board_size.x)
-
 	if game_manager.in_hand_manager:
-		game_manager.in_hand_manager.update_piece_scales(game_manager.square_size)
+		game_manager.in_hand_manager.update_piece_scales(game_manager.square_size * board.scale.x)
+
 
 func resize_board(board) -> void:
 	var rect = get_viewport_rect().size

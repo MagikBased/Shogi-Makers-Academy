@@ -45,7 +45,6 @@ func _ready() -> void:
 	#debug_manager.add_highlights([Vector2i(5, 5), Vector2i(3, 3)], Color.YELLOW)
 	#debug_manager.add_highlights([Vector2i(5, 5)], Color.RED)
 
-
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / float(board.board_size.x)
 	current_phase = game_variant.turn_phases[0]
@@ -293,6 +292,17 @@ func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Arra
 			else:
 				piece_instance.is_fully_constrained = true
 				#print("  ✗ No legal responses to ALL threats.")
+
+func filter_illegal_royal_moves(piece: BaseGamePiece) -> void:
+	if not piece.piece_resource.is_royal:
+		return
+	var opponent = Player.Gote if piece.piece_owner == Player.Sente else Player.Sente
+	var danger_squares = get_squares_attacked_by_player(opponent, piece.get_instance_id())
+	var filtered: Array[Vector2i] = []
+	for move in piece.valid_moves:
+		if move not in danger_squares:
+			filtered.append(move)
+	piece.valid_moves = filtered
 
 func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
 	var blocking_positions = []
