@@ -17,6 +17,7 @@ var current_phase: TurnPhase = null
 var current_action_count: int = 0
 var in_hand_manager: InHandManager
 var fen_manager: FenManager
+var debug_manager: DebugManager
 
 var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
@@ -41,6 +42,9 @@ func _ready() -> void:
 	initialize_attack_cache()
 	#print(attack_cache)
 	start_phase()
+	#debug_manager.add_highlights([Vector2i(5, 5), Vector2i(3, 3)], Color.YELLOW)
+	#debug_manager.add_highlights([Vector2i(5, 5)], Color.RED)
+
 
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / float(board.board_size.x)
@@ -210,6 +214,7 @@ func determine_checks(king_position: Vector2i, player: Player) -> Array[PieceInf
 		if piece_info.owner == opponent:
 			if piece_threatens_king(piece_info, king_position):
 				checking_pieces.append(piece_info)
+	#print("Checking Pieces: ", checking_pieces)
 	return checking_pieces
 
 func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) -> void:
@@ -226,35 +231,68 @@ func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) 
 		#piece_instance.valid_moves = legal_constrained_moves.duplicate()
 
 func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Array[PieceInfo]) -> void:
-	for piece_info in pieces_on_board:
-		if piece_info.owner == player_turn:
-			var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
-			if piece_instance:
-				var legal_constrained_moves: Array[Vector2i] = []
-				var _piece_moves = piece_instance.valid_moves
-				
-				for move in piece_instance.valid_moves:
-					if piece_info.piece_base.is_royal:
-						var safe_move = true
-						for checking_piece in checking_pieces:
-							if piece_threatens_king(checking_piece, move):
-								safe_move = false
-								break
-						if safe_move:
-							legal_constrained_moves.append(move)
-					else:
-						for checking_piece in checking_pieces:
-							if move == checking_piece.position:
-								legal_constrained_moves.append(move)
-							elif is_blocking_move_valid(king_position, move, checking_piece):
-								legal_constrained_moves.append(move)
-				
-				# Update the piece's constrained moves based on legal moves that respond to checks
-				#piece_instance.constrained_moves.clear()  # Start fresh
-				for move in legal_constrained_moves:
-					if not piece_instance.constrained_moves.has(move):
-						piece_instance.constrained_moves.append(move)
+	#print(">>> Constraining moves due to check")
+	#print("King position: ", king_position)
+	#print("Number of checking pieces: ", checking_pieces.size())
 
+	for piece_info in pieces_on_board:
+		if piece_info.owner != player_turn:
+			continue
+
+		var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
+		if not piece_instance:
+			continue
+
+		piece_instance.constrained_moves.clear()
+		#print("\nEvaluating piece: ", piece_info.piece_type, " at ", piece_info.position)
+
+		if piece_info.piece_base.is_royal:
+			#print("- This is the king. Checking for safe escape squares.")
+			var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
+			var danger_squares = get_squares_attacked_by_player(opponent, piece_info.instance_id)
+			for move in piece_instance.valid_moves:
+				if move in danger_squares:
+					pass
+					#print("  ! Move ", move, " is attacked by opponent — not safe for king")
+				else:
+					piece_instance.constrained_moves.append(move)
+					#print("  ✓ Safe move for king: ", move)
+
+		else:
+			#print("- This is not the king. Checking for blocking/capturing moves.")
+			var move_sets_per_check: Array = []
+
+			for checking_piece in checking_pieces:
+				var valid_responses: Array[Vector2i] = []
+				#print("  Checking against threat from ", checking_piece.piece_type, " at ", checking_piece.position)
+
+				for move in piece_instance.valid_moves:
+					if move == checking_piece.position:
+						valid_responses.append(move)
+						#print("    ✓ Move captures attacker at ", move)
+					elif is_blocking_move_valid(king_position, move, checking_piece):
+						valid_responses.append(move)
+						#print("    ✓ Move blocks check at ", move)
+
+				move_sets_per_check.append(valid_responses)
+
+			# Intersect all move sets — piece must respond to ALL checks
+			var intersection: Array[Vector2i] = []
+			if move_sets_per_check.size() > 0:
+				intersection = move_sets_per_check[0].duplicate()
+				for i in range(1, move_sets_per_check.size()):
+					intersection = intersection.filter(
+						func(m): return m in move_sets_per_check[i]
+					)
+
+			if intersection.size() > 0:
+				for move in intersection:
+					piece_instance.constrained_moves.append(move)
+					piece_instance.is_fully_constrained = false
+				#print("  ✓ Final legal constrained moves: ", intersection)
+			else:
+				piece_instance.is_fully_constrained = true
+				#print("  ✗ No legal responses to ALL threats.")
 
 func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
 	var blocking_positions = []
@@ -278,6 +316,32 @@ func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_p
 			target_position += direction
 	return move in blocking_positions
 
+func get_squares_attacked_by_player(player: Player, exclude_instance_id := -1) -> Array[Vector2i]:
+	var attacked_squares: Array[Vector2i] = []
+	var player_str = "Sente" if player == Player.Sente else "Gote"
+	for piece_info in pieces_on_board:
+		if piece_info.owner != player:
+			continue
+		if piece_info.instance_id == exclude_instance_id:
+			continue
+		var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
+		if not piece_instance:
+			continue
+		var swing_vectors = attack_cache[player_str]["swinging"].get(piece_info.piece_base.fen_char, [])
+		var stamp_vectors = attack_cache[player_str]["stamp"].get(piece_info.piece_base.fen_char, [])
+		for direction in swing_vectors:
+			var pos = piece_info.position + direction
+			while is_inside_board(pos):
+				attacked_squares.append(pos)
+				if is_space_taken(pos, exclude_instance_id):
+					break
+				pos += direction
+		for direction in stamp_vectors:
+			var pos = piece_info.position + direction
+			if is_inside_board(pos):
+				attacked_squares.append(pos)
+	return attacked_squares
+
 func find_attacking_piece(king_position: Vector2i, player: Player) -> PieceInfo:
 	var opponent = Player.Gote if player == Player.Sente else Player.Sente
 	for piece_info in pieces_on_board:
@@ -291,6 +355,7 @@ func clear_constrained_moves() -> void:
 	for piece_info in pieces_on_board:
 		var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
 		if piece_instance:
+			piece_instance.is_fully_constrained = false
 			piece_instance.constrained_moves.clear()
 
 func get_piece_info_at_position(board_position: Vector2i) -> PieceInfo:
@@ -382,8 +447,10 @@ func _input(event):
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= board.board_size.x and move.y > 0 and move.y <= board.board_size.y)
 
-func is_space_taken(move: Vector2i) -> bool:
+func is_space_taken(move: Vector2i, exclude_instance_id := -1) -> bool:
 	for piece_info in pieces_on_board:
+		if piece_info.instance_id == exclude_instance_id:
+			continue
 		if piece_info.position == move:
 			return true
 	return false

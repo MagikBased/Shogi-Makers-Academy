@@ -56,7 +56,7 @@ func populate_hand_containers() -> void:
 		in_hand_piece.player = Player.Sente
 		in_hand_piece.piece_owner = Player.Sente
 		in_hand_piece.square_size = game_manager.square_size
-		in_hand_piece.scale *= game_manager.board.scale
+		#in_hand_piece.scale *= game_manager.board.scale
 		in_hand_piece.game_manager = game_manager
 		sente_container.add_child(in_hand_piece)
 	for fen_char in gote_in_hand.keys():
@@ -66,7 +66,7 @@ func populate_hand_containers() -> void:
 		in_hand_piece.player = Player.Gote
 		in_hand_piece.piece_owner = Player.Gote
 		in_hand_piece.square_size = game_manager.square_size
-		in_hand_piece.scale *= game_manager.board.scale
+		#in_hand_piece.scale *= game_manager.board.scale
 		in_hand_piece.game_manager = game_manager
 		gote_container.add_child(in_hand_piece)
 	sente_container.arrange_children()
@@ -115,3 +115,13 @@ func get_piece_count_in_hand(player: Player, piece_fen_char: String) -> int:
 		return sente_in_hand.get(piece_fen_char, 0)
 	else:
 		return gote_in_hand.get(piece_fen_char, 0)
+
+func update_piece_scales(new_square_size: float) -> void:
+	for container in [sente_container, gote_container]:
+		if container:
+			for child in container.get_children():
+				if child is InHandPiece:
+					var texture_width = child.texture.get_width()
+					if texture_width > 0:
+						var scale_factor = new_square_size / texture_width
+						child.scale = Vector2.ONE * scale_factor

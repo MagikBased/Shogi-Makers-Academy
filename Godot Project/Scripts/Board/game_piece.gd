@@ -20,6 +20,7 @@ var dragging: bool = false
 var piece_scale: float = 1
 var valid_moves: Array[Vector2i]
 var constrained_moves: Array[Vector2i] = []
+var is_fully_constrained: bool = false
 
 var square_highlight = load("res://Scenes/GameBoardScenes/square_highlight.tscn")
 
@@ -78,6 +79,10 @@ func destroy_all_highlights() -> void:
 
 func generate_moves() -> Array[Vector2i]:
 	valid_moves.clear()
+	
+	if is_fully_constrained:
+		return valid_moves
+	
 	if constrained_moves.size() > 0:
 		for move in constrained_moves:
 			if is_inside_board(move) and not is_space_an_ally(move):
