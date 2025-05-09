@@ -20,6 +20,7 @@ var dragging: bool = false
 var piece_scale: float = 1
 var valid_moves: Array[Vector2i]
 var constrained_moves: Array[Vector2i] = []
+var pending_handle_action := false
 var is_fully_constrained: bool = false
 
 var square_highlight = load("res://Scenes/GameBoardScenes/square_highlight.tscn")
@@ -149,23 +150,25 @@ func can_capture(move: Vector2i) -> bool:
 	return false
 
 func can_promote_check(start_position: Vector2i, move_position: Vector2i) -> bool:
-	if !can_promote:
+	if not can_promote:
 		return false
 	for promotion_square in piece_resource.promotion_squares:
-		if promotion_square.player == PromotionSquare.Player.Both or promotion_square.player == piece_owner:
-			if promotion_square.position == move_position:
-				if promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.Both:
+		if promotion_square.player != PromotionSquare.Player.Both and promotion_square.player != piece_owner:
+			continue
+		var in_start = promotion_square.position == start_position
+		var in_end = promotion_square.position == move_position
+		match promotion_square.promotion_move_rule:
+			PromotionSquare.PromotionMove.Both:
+				if in_start or in_end:
 					return true
-				elif promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.MovesInto:
-					if start_position != move_position:
-						return true
-			elif promotion_square.position == start_position:
-				if promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.Both:
+			PromotionSquare.PromotionMove.MovesInto:
+				if not in_start and in_end:
 					return true
-				elif promotion_square.promotion_move_rule == PromotionSquare.PromotionMove.MovesOutOf:
-					if start_position != move_position:
-						return true
+			PromotionSquare.PromotionMove.MovesOutOf:
+				if in_start and not in_end:
+					return true
 	return false
+
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y)
@@ -195,6 +198,11 @@ func apply_promotion() -> void:
 		if piece_resource.icon.size() > 0:
 			texture = piece_resource.icon[0]
 		#texture = piece_resource.icon[0]
+		for piece_info in game_manager.pieces_on_board:
+			if piece_info.instance_id == get_instance_id():
+				piece_info.piece_base = piece_resource
+				piece_info.piece_type = piece_resource.fen_char
+				break
 
 func show_promotion_choice() -> void:
 	game_manager.is_promoting = true
@@ -233,6 +241,7 @@ func _draw() -> void:
 
 func _on_move_piece(move_position: Vector2i) -> void:
 	var piece_info: PieceInfo = null
+	var coming_from_square:= current_position
 	for piece in game_manager.pieces_on_board:
 		if piece.instance_id == game_manager.selected_piece.get_instance_id():
 			piece_info = piece
@@ -241,35 +250,35 @@ func _on_move_piece(move_position: Vector2i) -> void:
 		return
 	if can_capture(move_position):
 		capture_piece(move_position)
-	if can_promote_check(current_position, move_position):
+	piece_info.position = move_position
+	current_position = move_position
+	destroy_all_highlights()
+	snap_to_grid()
+	if can_promote_check(coming_from_square, move_position):
 		var promotion_square: PromotionSquare = get_promotion_square(move_position)
 		if promotion_square and promotion_square.forced_promotion:
 			apply_promotion()
 		else:
+			pending_handle_action = true
 			show_promotion_choice()
-		#return
-	#print("can promote: ", can_promote_check(current_position,move_position))
-	if constrained_moves.size() > 0 and not constrained_moves.has(move_position):
-		return
-	piece_info.position = move_position
-	current_position = move_position
-	snap_to_grid()
+			return
+	finalize_action()
+
+func finalize_action() -> void:
 	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.MovePiece):
 		game_manager.selected_piece = null
 		selected = false
-		destroy_all_highlights()
 		queue_redraw()
-	#game_manager.is_king_in_check(GameManager.Player.Gote)
 
 func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
-	if selected_piece_base == null:
-		return
-	piece_resource = selected_piece_base
-	is_promoted = true
-	if piece_resource.icon.size() > 0:
-		texture = piece_resource.icon[0]
-	scale = Vector2.ONE * (game_manager.square_size / texture.get_size().x)
-	snap_to_grid()
 	var options_parent = get_child(get_child_count() - 1)
 	options_parent.queue_free()
 	game_manager.is_promoting = false
+	if selected_piece_base != piece_resource and selected_piece_base != null:
+		apply_promotion()
+		piece_resource = selected_piece_base
+		scale = Vector2.ONE * (game_manager.square_size / texture.get_size().x)
+		snap_to_grid()
+	if pending_handle_action:
+		pending_handle_action = false
+		finalize_action()

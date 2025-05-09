@@ -4,9 +4,6 @@ class_name DebugManager
 var game_manager: GameManager
 var highlight_data: Dictionary = {}  # Vector2i -> Array[Color]
 
-func _ready() -> void:
-	pass
-
 func add_highlights(positions: Array[Vector2i], color: Color) -> void:
 	for pos in positions:
 		if highlight_data.has(pos):
@@ -19,7 +16,6 @@ func add_highlights(positions: Array[Vector2i], color: Color) -> void:
 func clear_highlights() -> void:
 	highlight_data.clear()
 	queue_redraw()
-
 
 func _draw() -> void:
 	if not game_manager:

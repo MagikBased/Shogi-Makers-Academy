@@ -51,18 +51,25 @@ func initialize_values() -> void:
 
 func start_phase() -> void:
 	#print("Starting phase: ", current_phase.phase_name)
+	debug_manager.clear_highlights()
 	current_action_count = 0
 	clear_constrained_moves()
 	for piece_info in pieces_on_board:
 		var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
 		if piece_instance:
 			piece_instance.valid_moves = piece_instance.generate_moves()
+			if piece_info.owner == player_turn:
+				filter_illegal_royal_moves(piece_instance)
 	if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
 		var king_position = find_kings(player_turn)[0]
 		determine_pins(king_position, player_turn)
+		
 		var checking_pieces = determine_checks(king_position, player_turn)
 		if checking_pieces.size() > 0:
 			constrain_moves_due_to_check(king_position, checking_pieces)
+	var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
+	var danger_squares = get_squares_attacked_by_player(opponent)
+	debug_manager.add_highlights(danger_squares, Color.RED)
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
 	if current_phase.player != player_turn:
@@ -132,6 +139,7 @@ func initialize_attack_cache() -> void:
 			attack_cache["Gote"]["swinging"][piece.fen_char] = swing_vectors_gote
 		if stamp_vectors_gote.size() > 0:
 			attack_cache["Gote"]["stamp"][piece.fen_char] = stamp_vectors_gote
+	#print(attack_cache)
 
 func get_piece_attack_vectors(piece_base: PieceBase, player: Player, move_type: String) -> Array:
 	var attack_vectors = []
@@ -302,7 +310,7 @@ func filter_illegal_royal_moves(piece: BaseGamePiece) -> void:
 	for move in piece.valid_moves:
 		if move not in danger_squares:
 			filtered.append(move)
-	piece.valid_moves = filtered
+	piece.constrained_moves = filtered
 
 func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
 	var blocking_positions = []
@@ -337,8 +345,11 @@ func get_squares_attacked_by_player(player: Player, exclude_instance_id := -1) -
 		var piece_instance = instance_from_id(piece_info.instance_id) as BaseGamePiece
 		if not piece_instance:
 			continue
-		var swing_vectors = attack_cache[player_str]["swinging"].get(piece_info.piece_base.fen_char, [])
-		var stamp_vectors = attack_cache[player_str]["stamp"].get(piece_info.piece_base.fen_char, [])
+		var key = piece_info.piece_base.fen_char
+		if piece_instance.is_promoted and not key.begins_with("+"):
+			key = "+" + key
+		var swing_vectors = attack_cache[player_str]["swinging"].get(key, [])
+		var stamp_vectors = attack_cache[player_str]["stamp"].get(key, [])
 		for direction in swing_vectors:
 			var pos = piece_info.position + direction
 			while is_inside_board(pos):
