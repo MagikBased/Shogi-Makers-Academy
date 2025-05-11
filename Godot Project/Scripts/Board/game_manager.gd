@@ -65,11 +65,13 @@ func start_phase() -> void:
 		determine_pins(king_position, player_turn)
 		
 		var checking_pieces = determine_checks(king_position, player_turn)
+		#print("Checking pieces: ", checking_pieces.size())
 		if checking_pieces.size() > 0:
 			constrain_moves_due_to_check(king_position, checking_pieces)
 	var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
 	var danger_squares = get_squares_attacked_by_player(opponent)
 	debug_manager.add_highlights(danger_squares, Color.RED)
+	#print("King is in check: ",is_king_in_check(Player.Sente))
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
 	if current_phase.player != player_turn:
@@ -179,6 +181,8 @@ func piece_threatens_king(piece_info: PieceInfo, king_position: Vector2i) -> boo
 		while is_inside_board(target_position):
 			if target_position == king_position:
 				return true
+			if is_space_taken(target_position):
+				break
 			target_position += direction
 	return false
 
@@ -209,9 +213,9 @@ func determine_pins(king_position: Vector2i, player: Player) -> Array:
 							break
 					target_position += direction
 				if piece_in_path != null and target_position == king_position:
+					path.append(piece_info.position)
 					constrain_moves(piece_in_path, path)
 					potential_pins.append(piece_in_path)
-	#print("potential pins: " + str(potential_pins))
 	return potential_pins
 
 func determine_checks(king_position: Vector2i, player: Player) -> Array[PieceInfo]:
@@ -220,8 +224,9 @@ func determine_checks(king_position: Vector2i, player: Player) -> Array[PieceInf
 	for piece_info in pieces_on_board:
 		if piece_info.owner == opponent:
 			if piece_threatens_king(piece_info, king_position):
+				#print("Checking piece: ", piece_info.piece_type, " at ", piece_info.position)
 				checking_pieces.append(piece_info)
-	#print("Checking Pieces: ", checking_pieces)
+
 	return checking_pieces
 
 func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) -> void:
@@ -283,7 +288,6 @@ func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Arra
 
 				move_sets_per_check.append(valid_responses)
 
-			# Intersect all move sets — piece must respond to ALL checks
 			var intersection: Array[Vector2i] = []
 			if move_sets_per_check.size() > 0:
 				intersection = move_sets_per_check[0].duplicate()
