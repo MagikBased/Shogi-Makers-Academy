@@ -79,6 +79,8 @@ func get_valid_moves() -> void:
 				continue
 			if is_illegal_drop_square(move_position) or violates_drop_restrictions(move_position):
 				continue
+			if not piece_resource.can_deliver_checkmate and would_cause_checkmate(move_position):
+				continue
 			if checking_pieces.size() == 1:
 				if move_position not in blocking_squares:
 					continue
@@ -139,10 +141,40 @@ func violates_drop_restrictions(move_position: Vector2i) -> bool:
 			return true
 	return false
 
+func would_cause_checkmate(drop_position: Vector2i) -> bool:
+	var king_position = game_manager.find_kings(GameManager.Player.Gote if player == GameManager.Player.Sente else GameManager.Player.Sente)[0]
+	var king_instance = game_manager.get_piece_instance_at(king_position)
+	if not king_instance:
+		return false
+	var king_moves: Array[Vector2i] = king_instance.generate_moves()
+	var danger_squares = game_manager.get_squares_attacked_by_player(game_manager.player_turn)
+	var safe_moves = []
+	for pos in king_moves:
+		if pos not in danger_squares and not is_space_taken(pos):
+			safe_moves.append(pos)
+	var relative_vector = king_position - drop_position
+	for move in piece_resource.moves:
+		if move is StampMove:
+			for dir in move.move_directions:
+				var adjusted = dir
+				if player == GameManager.Player.Gote:
+					adjusted = -dir
+				if adjusted == relative_vector:
+					return safe_moves.is_empty()
+		elif move is SwingMove:
+			var dir = move.move_direction
+			if player == GameManager.Player.Gote:
+				dir = -dir
+			if relative_vector.sign() == dir.sign():
+				var delta = king_position - drop_position
+				var dist = max(abs(delta.x), abs(delta.y))
+				if move.max_distance == -1 or dist <= move.max_distance:
+					return safe_moves.is_empty()
+	return false
+
 func update_alpha(count: int) -> void:
 	self.modulate.a = 1.0 if count > 0 else 0.3
 	count_label.text = str(count)
-	#var label_size = count_label.get_rect().size
 	count_label.position = Vector2(texture.get_width() / 4.0, texture.get_height() / 4.0)
 	count_label.z_index = self.z_index + 1
 

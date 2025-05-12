@@ -389,6 +389,13 @@ func get_piece_info_at_position(board_position: Vector2i) -> PieceInfo:
 			return piece_info
 	return null
 
+func get_piece_instance_at(pos: Vector2i) -> BaseGamePiece:
+	for info in pieces_on_board:
+		if info.position == pos:
+			return instance_from_id(info.instance_id)
+	return null
+
+
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")
 	var piece = piece_scene.instantiate() as BaseGamePiece
