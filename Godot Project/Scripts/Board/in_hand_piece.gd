@@ -63,13 +63,37 @@ func _input(event) -> void:
 
 func get_valid_moves() -> void:
 	valid_moves.clear()
+	var king_position = game_manager.find_kings(piece_owner)[0]
+	var checking_pieces = game_manager.determine_checks(king_position, piece_owner)
+	var blocking_squares := []
+	if checking_pieces.size() == 1:
+		var checking_piece = checking_pieces[0]
+		blocking_squares = get_blocking_squares(king_position, checking_piece)
 	var board_size = game_manager.board.board_size
-	for x in range(1, board_size.y + 1):
+	for x in range(1, board_size.x + 1):
 		for y in range(1, board_size.y + 1):
-			var move_position = Vector2i(x,y)
-			if is_inside_board(move_position) and not is_space_taken(move_position):
-				if not is_illegal_drop_square(move_position) and not violates_drop_restrictions(move_position):
-					valid_moves.append(move_position)
+			var move_position = Vector2i(x, y)
+			if not is_inside_board(move_position):
+				continue
+			if is_space_taken(move_position):
+				continue
+			if is_illegal_drop_square(move_position) or violates_drop_restrictions(move_position):
+				continue
+			if checking_pieces.size() == 1:
+				if move_position not in blocking_squares:
+					continue
+			elif checking_pieces.size() > 1:
+				continue
+			valid_moves.append(move_position)
+
+func get_blocking_squares(king_pos: Vector2i, attacker: PieceInfo) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	var direction = (king_pos - attacker.position).sign()
+	var pos = attacker.position + direction
+	while pos != king_pos:
+		result.append(pos)
+		pos += direction
+	return result
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y)
