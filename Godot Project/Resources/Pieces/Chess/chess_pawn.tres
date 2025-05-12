@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=7 format=3 uid="uid://cyvuufoute8p0"]
+
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_gocdb"]
+[ext_resource type="Texture2D" uid="uid://dfvjcr0yt7krf" path="res://Images/Piecesets/Chess-cburnett/WhitePawn.png" id="2_3tgel"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_vl3el"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_3tgel"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_3cfar"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_n61ec"]
+
+[resource]
+script = ExtResource("4_3cfar")
+piece_name = "Pawn"
+fen_char = "P"
+icon = Array[Texture]([ExtResource("2_3tgel")])
+is_royal = false
+moves = Array[ExtResource("3_3tgel")]([])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("4_3cfar")]([])
+promotion_squares = Array[ExtResource("5_n61ec")]([])
+add_to_hand_on_capture = false
+fen_char_piece_to_add_on_capture = ""
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_vl3el")]([])
+drop_restrictions = Array[ExtResource("1_gocdb")]([])
+metadata/_custom_type_script = "uid://g6lvx7h1627n"

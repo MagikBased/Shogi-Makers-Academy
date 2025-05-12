@@ -13,7 +13,7 @@ class_name PieceBase
 @export var promotes_to: Array[PieceBase]
 @export var promotion_squares: Array[PromotionSquare] = []
 @export_category("Capture")
-@export var add_to_hand_on_capture: bool
+@export var can_add_to_hand: bool
 @export var fen_char_piece_to_add_on_capture: String
 
 @export_category("Drop Rules")

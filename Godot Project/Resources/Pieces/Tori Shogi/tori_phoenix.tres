@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_bhd1y"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_ce47b"]
-[ext_resource type="Texture2D" uid="uid://c82t2avs8ft53" path="res://Images/Piecesets/Tori_Shogi_International/0PhoenixBlack.svg" id="2_myjb8"]
+[ext_resource type="Texture2D" uid="uid://dl7c81ksbpbia" path="res://Images/Piecesets/Tori_Shogi_International/PhoenixBlack.png" id="2_glhkj"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_e1h12"]
 [ext_resource type="Resource" uid="uid://dfeqg32chop6x" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_phoenix_stamps.tres" id="4_cd3ho"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="5_xw5ht"]
@@ -12,7 +12,7 @@
 script = ExtResource("5_xw5ht")
 piece_name = "Phoenix"
 fen_char = "K"
-icon = Array[Texture]([ExtResource("2_myjb8")])
+icon = Array[Texture]([ExtResource("2_glhkj")])
 is_royal = true
 moves = Array[ExtResource("3_e1h12")]([ExtResource("4_cd3ho")])
 can_promote = false

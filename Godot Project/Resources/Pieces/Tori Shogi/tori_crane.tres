@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_q5dly"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_e42ro"]
-[ext_resource type="Texture2D" uid="uid://dsu42ul6x2gna" path="res://Images/Piecesets/Tori_Shogi_International/0Crane.svg" id="2_n581n"]
+[ext_resource type="Texture2D" uid="uid://bg7kead4j1jfs" path="res://Images/Piecesets/Tori_Shogi_International/Crane.png" id="2_f63yf"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_bsfqp"]
 [ext_resource type="Resource" uid="uid://doetjhq5x2jxl" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_crane_stamps.tres" id="4_lxqux"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="5_lfb1c"]
@@ -12,14 +12,14 @@
 script = ExtResource("5_lfb1c")
 piece_name = "Swallow"
 fen_char = "C"
-icon = Array[Texture]([ExtResource("2_n581n")])
+icon = Array[Texture]([ExtResource("2_f63yf")])
 is_royal = false
 moves = Array[ExtResource("3_bsfqp")]([ExtResource("4_lxqux")])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("5_lfb1c")]([])
 promotion_squares = Array[ExtResource("6_m6a3r")]([])
-add_to_hand_on_capture = true
+can_add_to_hand = true
 fen_char_piece_to_add_on_capture = "C"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("2_e42ro")]([])

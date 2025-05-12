@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="PieceBase" load_steps=13 format=3 uid="uid://c3nxhsbx1v0h5"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_088kp"]
-[ext_resource type="Texture2D" uid="uid://bb2m1kitd8k7o" path="res://Images/Piecesets/Tori_Shogi_International/0Eagle.svg" id="2_by0p8"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_gmr57"]
+[ext_resource type="Texture2D" uid="uid://vhykv37r0ubb" path="res://Images/Piecesets/Tori_Shogi_International/Eagle.png" id="2_uai8l"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_j4qx5"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_k1th1"]
 [ext_resource type="Resource" uid="uid://bo2rgbyp5py7f" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_eagle_stamps.tres" id="4_o2aro"]
@@ -17,14 +17,14 @@
 script = ExtResource("4_k1th1")
 piece_name = "Eagle"
 fen_char = "+F"
-icon = Array[Texture]([ExtResource("2_by0p8")])
+icon = Array[Texture]([ExtResource("2_uai8l")])
 is_royal = false
 moves = Array[ExtResource("3_j4qx5")]([ExtResource("4_o2aro"), ExtResource("5_dr5om"), ExtResource("6_nixx0"), ExtResource("7_k0emd"), ExtResource("8_j7txl"), ExtResource("9_mqxaj")])
 can_promote = false
 is_promoted = true
 promotes_to = Array[ExtResource("4_k1th1")]([])
 promotion_squares = Array[ExtResource("5_kakej")]([])
-add_to_hand_on_capture = true
+add_to_hand_on_capture = false
 fen_char_piece_to_add_on_capture = "F"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("2_gmr57")]([])

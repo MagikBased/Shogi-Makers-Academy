@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="GameVariant" load_steps=5 format=3 uid="uid://dt4bkjqebypdm"]
+
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_3eyq0"]
+[ext_resource type="Resource" uid="uid://dvqdmrw806wbh" path="res://Resources/Boards/chess_board.tres" id="1_eijo8"]
+[ext_resource type="Script" uid="uid://b6puk4du7bdg8" path="res://Scripts/ResourceScripts/game_variant.gd" id="2_eijo8"]
+[ext_resource type="Script" uid="uid://crfchrb021i2d" path="res://Scripts/ResourceScripts/turn_phase.gd" id="3_hm7aq"]
+
+[resource]
+script = ExtResource("2_eijo8")
+game_name = ""
+board_data = ExtResource("1_eijo8")
+turn_phases = Array[ExtResource("3_hm7aq")]([])
+pieces = Array[ExtResource("1_3eyq0")]([])
+win_conditions = Array[int]([0])
+starting_fen = ""
+debug_fen = ""
+in_hand_pieces = false
+metadata/_custom_type_script = "uid://b6puk4du7bdg8"

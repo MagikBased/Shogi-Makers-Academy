@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1e53351ybhxr"
-path="res://.godot/imported/0Pheasant.svg-02978d76866a7b7df8ac06e44151aac4.ctex"
+uid="uid://bg7kead4j1jfs"
+path="res://.godot/imported/Crane.png-9e14755d74a5658d78b9a70f611e645b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Piecesets/Tori_Shogi_International/0Pheasant.svg"
-dest_files=["res://.godot/imported/0Pheasant.svg-02978d76866a7b7df8ac06e44151aac4.ctex"]
+source_file="res://Images/Piecesets/Tori_Shogi_International/Crane.png"
+dest_files=["res://.godot/imported/Crane.png-9e14755d74a5658d78b9a70f611e645b.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

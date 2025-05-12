@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_jg8cj"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_iesrx"]
-[ext_resource type="Texture2D" uid="uid://b1e53351ybhxr" path="res://Images/Piecesets/Tori_Shogi_International/0Pheasant.svg" id="2_tdxpl"]
+[ext_resource type="Texture2D" uid="uid://cymvecr2am45v" path="res://Images/Piecesets/Tori_Shogi_International/Pheasant.png" id="2_tdxpl"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_ixpa0"]
 [ext_resource type="Resource" uid="uid://diysvar1nd8tw" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_pheasant_stamps.tres" id="4_rl6pd"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_t7ves"]
@@ -19,7 +19,7 @@ can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("4_t7ves")]([])
 promotion_squares = Array[ExtResource("5_gf4yv")]([])
-add_to_hand_on_capture = true
+can_add_to_hand = true
 fen_char_piece_to_add_on_capture = "P"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("2_iesrx")]([])

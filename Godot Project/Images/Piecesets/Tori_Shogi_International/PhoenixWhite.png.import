@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcx0ab4e5l2l3"
-path="res://.godot/imported/0RightQuail.svg-797f4c59ef7dfb8181f5dc32f0ea87f4.ctex"
+uid="uid://b423vjfseh0x5"
+path="res://.godot/imported/PhoenixWhite.png-ec24332aeb8f0d278e4f787426a2ae8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Piecesets/Tori_Shogi_International/0RightQuail.svg"
-dest_files=["res://.godot/imported/0RightQuail.svg-797f4c59ef7dfb8181f5dc32f0ea87f4.ctex"]
+source_file="res://Images/Piecesets/Tori_Shogi_International/PhoenixWhite.png"
+dest_files=["res://.godot/imported/PhoenixWhite.png-ec24332aeb8f0d278e4f787426a2ae8d.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

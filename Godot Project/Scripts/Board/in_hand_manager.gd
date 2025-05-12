@@ -16,7 +16,7 @@ var gote_container: InHandContainer
 
 func _ready() -> void:
 	for piece in game_variant.pieces:
-		if piece.fen_char_piece_to_add_on_capture and not sente_in_hand.has(piece.fen_char_piece_to_add_on_capture):
+		if piece.fen_char_piece_to_add_on_capture and not sente_in_hand.has(piece.fen_char_piece_to_add_on_capture) and piece.can_add_to_hand:
 			sente_in_hand[piece.fen_char] = 0
 			gote_in_hand[piece.fen_char.to_lower()] = 0
 	if game_variant.in_hand_pieces:

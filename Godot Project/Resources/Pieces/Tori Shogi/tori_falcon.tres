@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1l60a"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_3e6od"]
-[ext_resource type="Texture2D" uid="uid://b4r57t2l0gybt" path="res://Images/Piecesets/Tori_Shogi_International/0Falcon.svg" id="2_3oi8b"]
+[ext_resource type="Texture2D" uid="uid://bjuobcklsupht" path="res://Images/Piecesets/Tori_Shogi_International/Falcon.png" id="2_4hlls"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_gyiel"]
 [ext_resource type="Resource" uid="uid://ca4af0p1tric" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_falcon_stamps.tres" id="4_2godf"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_e2gaq"]
@@ -209,14 +209,14 @@ promotion_move_rule = 2
 script = ExtResource("4_e2gaq")
 piece_name = "Falcon"
 fen_char = "F"
-icon = Array[Texture]([ExtResource("2_3oi8b")])
+icon = Array[Texture]([ExtResource("2_4hlls")])
 is_royal = false
 moves = Array[ExtResource("3_gyiel")]([ExtResource("4_2godf")])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("4_e2gaq")]([ExtResource("6_x6kuu")])
 promotion_squares = Array[ExtResource("5_3cwgr")]([SubResource("Resource_4f54j"), SubResource("Resource_uwq2g"), SubResource("Resource_w6t0b"), SubResource("Resource_adsvl"), SubResource("Resource_yts8c"), SubResource("Resource_vfv7s"), SubResource("Resource_ntlpj"), SubResource("Resource_cb5fu"), SubResource("Resource_nrnk4"), SubResource("Resource_ujum1"), SubResource("Resource_ybxa2"), SubResource("Resource_tdsxi"), SubResource("Resource_8qb30"), SubResource("Resource_qu7dw"), SubResource("Resource_08pdd"), SubResource("Resource_e7cjy"), SubResource("Resource_oigd6"), SubResource("Resource_e1px0"), SubResource("Resource_1mnxc"), SubResource("Resource_20d6b"), SubResource("Resource_atdx4"), SubResource("Resource_ywxw3"), SubResource("Resource_fg8nn"), SubResource("Resource_12jj3"), SubResource("Resource_eq4cc"), SubResource("Resource_3nwno"), SubResource("Resource_wtio1"), SubResource("Resource_pfskt")])
-add_to_hand_on_capture = true
+can_add_to_hand = true
 fen_char_piece_to_add_on_capture = "F"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("2_3e6od")]([])

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xtlr8vj56br6"
-path="res://.godot/imported/0Swallow.svg-b8f701bd4bc58380b496f888138ba30e.ctex"
+uid="uid://cymvecr2am45v"
+path="res://.godot/imported/Pheasant.png-3fc53700caf8c7282882c4a7abbb2e6a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Piecesets/Tori_Shogi_International/0Swallow.svg"
-dest_files=["res://.godot/imported/0Swallow.svg-b8f701bd4bc58380b496f888138ba30e.ctex"]
+source_file="res://Images/Piecesets/Tori_Shogi_International/Pheasant.png"
+dest_files=["res://.godot/imported/Pheasant.png-3fc53700caf8c7282882c4a7abbb2e6a.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PieceBase" load_steps=52 format=3 uid="uid://ckjlxdovcmugj"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_fvgb1"]
-[ext_resource type="Texture2D" uid="uid://xtlr8vj56br6" path="res://Images/Piecesets/Tori_Shogi_International/0Swallow.svg" id="2_lcqcs"]
+[ext_resource type="Texture2D" uid="uid://wj58571d1ayx" path="res://Images/Piecesets/Tori_Shogi_International/Swallow.png" id="2_qhqgi"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_ww7w6"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_4txb7"]
 [ext_resource type="Resource" uid="uid://bjhhkogpsi5tk" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_swallow_stamps.tres" id="4_mudk0"]
@@ -287,14 +287,14 @@ promotion_move_rule = 2
 script = ExtResource("5_5n7lp")
 piece_name = "Swallow"
 fen_char = "S"
-icon = Array[Texture]([ExtResource("2_lcqcs")])
+icon = Array[Texture]([ExtResource("2_qhqgi")])
 is_royal = false
 moves = Array[ExtResource("3_4txb7")]([ExtResource("4_mudk0")])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("5_5n7lp")]([ExtResource("6_wcwwq")])
 promotion_squares = Array[ExtResource("7_1m3lf")]([SubResource("Resource_70vfv"), SubResource("Resource_gvqov"), SubResource("Resource_oro2s"), SubResource("Resource_c1byi"), SubResource("Resource_va6nr"), SubResource("Resource_m26pp"), SubResource("Resource_yyxk7"), SubResource("Resource_6jqqn"), SubResource("Resource_frlod"), SubResource("Resource_es34o"), SubResource("Resource_vw1pf"), SubResource("Resource_8sswk"), SubResource("Resource_863rp"), SubResource("Resource_4hiq6"), SubResource("Resource_7r7pe"), SubResource("Resource_fob27"), SubResource("Resource_7buov"), SubResource("Resource_444hp"), SubResource("Resource_7brbq"), SubResource("Resource_jdqe7"), SubResource("Resource_nt1jy"), SubResource("Resource_spv3y"), SubResource("Resource_huq48"), SubResource("Resource_0j3qy"), SubResource("Resource_nf8s6"), SubResource("Resource_txenl"), SubResource("Resource_7nv84"), SubResource("Resource_hwbie")])
-add_to_hand_on_capture = true
+can_add_to_hand = true
 fen_char_piece_to_add_on_capture = "S"
 can_deliver_checkmate = false
 illegal_drop_squares = Array[ExtResource("2_ww7w6")]([SubResource("Resource_uncfe"), SubResource("Resource_0qn82"), SubResource("Resource_23jtm"), SubResource("Resource_f2j3n"), SubResource("Resource_6464e"), SubResource("Resource_jn1h7"), SubResource("Resource_ps2f2"), SubResource("Resource_0n8a4"), SubResource("Resource_s6u4o"), SubResource("Resource_dfx57"), SubResource("Resource_ry34n"), SubResource("Resource_5bpa2"), SubResource("Resource_mm1c4"), SubResource("Resource_23gqk")])

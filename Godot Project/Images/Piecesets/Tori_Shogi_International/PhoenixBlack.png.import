@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctyh48kp2dkvf"
-path="res://.godot/imported/0PhoenixWhite.svg-3a143b2f2775bc2ad30c089f47c93eee.ctex"
+uid="uid://dl7c81ksbpbia"
+path="res://.godot/imported/PhoenixBlack.png-4339b6896eed262e9227acefead61a22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Piecesets/Tori_Shogi_International/0PhoenixWhite.svg"
-dest_files=["res://.godot/imported/0PhoenixWhite.svg-3a143b2f2775bc2ad30c089f47c93eee.ctex"]
+source_file="res://Images/Piecesets/Tori_Shogi_International/PhoenixBlack.png"
+dest_files=["res://.godot/imported/PhoenixBlack.png-4339b6896eed262e9227acefead61a22.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
