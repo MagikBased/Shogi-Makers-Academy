@@ -68,9 +68,9 @@ func start_phase() -> void:
 		#print("Checking pieces: ", checking_pieces.size())
 		if checking_pieces.size() > 0:
 			constrain_moves_due_to_check(king_position, checking_pieces)
-	var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
-	var danger_squares = get_squares_attacked_by_player(opponent)
-	debug_manager.add_highlights(danger_squares, Color.RED)
+	#var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
+	#var danger_squares = get_squares_attacked_by_player(opponent)
+	#debug_manager.add_highlights(danger_squares, Color.RED)
 	#print("King is in check: ",is_king_in_check(Player.Sente))
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
@@ -395,7 +395,6 @@ func get_piece_instance_at(pos: Vector2i) -> BaseGamePiece:
 			return instance_from_id(info.instance_id)
 	return null
 
-
 func create_piece(piece_base: PieceBase, starting_position: Vector2, piece_owner: Player) -> void:
 	var piece_scene = load("res://Scenes/GameBoardScenes/game_piece.tscn")
 	var piece = piece_scene.instantiate() as BaseGamePiece
@@ -468,13 +467,6 @@ func find_square_center(file: int,rank: int) -> Vector2:
 	var center_x = (game_variant.board_data.board_size.x + 1 - file) * square_size - square_size / 2
 	var center_y = rank * square_size - square_size / 2
 	return Vector2(center_x, center_y)
-
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		#print(determine_pins(find_kings(Player.Sente)[0], Player.Sente))
-		#print(determine_pins(find_kings(Player.Gote)[0], Player.Gote))
-		#print(find_kings(Player.Sente)[0])
-		pass
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= board.board_size.x and move.y > 0 and move.y <= board.board_size.y)

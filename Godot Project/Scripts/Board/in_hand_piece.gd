@@ -161,7 +161,7 @@ func would_cause_checkmate(drop_position: Vector2i) -> bool:
 					adjusted = -dir
 				if adjusted == relative_vector:
 					return safe_moves.is_empty()
-		elif move is SwingMove:
+		elif move is SwingMove: #Might need to check if also blockable by a piece drop.
 			var dir = move.move_direction
 			if player == GameManager.Player.Gote:
 				dir = -dir
