@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvngoiwegxsjc"
-path="res://.godot/imported/King.png-62688cf228105b67921a841fd6f814c9.ctex"
+uid="uid://bi7qewkbyxxdk"
+path="res://.godot/imported/Sente King.png-43625521c298796dff06776118b64cba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Piecesets/Shogi-kanji/King.png"
-dest_files=["res://.godot/imported/King.png-62688cf228105b67921a841fd6f814c9.ctex"]
+source_file="res://Images/Piecesets/Shogi-kanji/Sente King.png"
+dest_files=["res://.godot/imported/Sente King.png-43625521c298796dff06776118b64cba.ctex"]
 
 [params]
 

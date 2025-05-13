@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://dwmx075pe1fye"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_gmo5b"]
+[ext_resource type="Resource" uid="uid://cvdwqqi4howei" path="res://Resources/Pieces/Tori Shogi/tori_phoenix.tres" id="1_ofdce"]
+[ext_resource type="Texture2D" uid="uid://b423vjfseh0x5" path="res://Images/Piecesets/Tori_Shogi_International/PhoenixWhite.png" id="2_ofdce"]
+
+[resource]
+script = ExtResource("1_gmo5b")
+set_id = "tori_shogi_international"
+owner = 0
+texture = ExtResource("2_ofdce")
+piece_type = ExtResource("1_ofdce")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

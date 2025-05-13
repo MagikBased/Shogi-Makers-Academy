@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://3ouksadeedxw"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_thlbr"]
-[ext_resource type="Texture2D" uid="uid://cvngoiwegxsjc" path="res://Images/Piecesets/Shogi-kanji/King.png" id="1_uh6tm"]
+[ext_resource type="Texture2D" uid="uid://cvngoiwegxsjc" path="res://Images/Piecesets/Shogi-kanji/Gote King.png" id="1_uh6tm"]
 [ext_resource type="Resource" uid="uid://ctkqcnuwnibu" path="res://Resources/Moves/StampMoves/Shogi/shogi_king_stamps.tres" id="2_3f1ej"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_2alm1"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_tuljx"]

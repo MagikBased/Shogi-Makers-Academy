@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PieceSet" load_steps=13 format=3 uid="uid://d4dyb1kfp2s2j"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_1fkeg"]
+[ext_resource type="Script" uid="uid://tandyfp3ljv6" path="res://Scripts/ResourceScripts/piece_set.gd" id="2_8tfwy"]
+[ext_resource type="Resource" uid="uid://bdxe4al1a0nfl" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_crane.tres" id="2_vebcr"]
+[ext_resource type="Resource" uid="uid://b77kiaqvl1apg" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_eagle.tres" id="3_6jo0e"]
+[ext_resource type="Resource" uid="uid://5e8fi5tjl2xp" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_falcon.tres" id="4_662td"]
+[ext_resource type="Resource" uid="uid://dnb21s7q2xpv0" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_goose.tres" id="5_c5g0g"]
+[ext_resource type="Resource" uid="uid://b8mut3osr3cyb" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_gote_phoenix.tres" id="6_hu6le"]
+[ext_resource type="Resource" uid="uid://bb4gyhcvcfalk" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_left_quail.tres" id="7_us6ev"]
+[ext_resource type="Resource" uid="uid://dabsxjwdreljf" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_pheasent.tres" id="8_llhcn"]
+[ext_resource type="Resource" uid="uid://5qs73xy4prsb" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_right_quail.tres" id="9_77e0l"]
+[ext_resource type="Resource" uid="uid://dwmx075pe1fye" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_sente_phoenix.tres" id="10_6wt4p"]
+[ext_resource type="Resource" uid="uid://c1ww5hp7wnowr" path="res://Resources/PieceTextures/Tori Shogi/Tori Shogi International/PieceTextures/tori_shogi_international_swallow.tres" id="11_gvtsd"]
+
+[resource]
+script = ExtResource("2_8tfwy")
+piece_set_name = "Tori Shogi International"
+piece_set = Array[ExtResource("1_1fkeg")]([ExtResource("2_vebcr"), ExtResource("3_6jo0e"), ExtResource("4_662td"), ExtResource("5_c5g0g"), ExtResource("6_hu6le"), ExtResource("7_us6ev"), ExtResource("8_llhcn"), ExtResource("9_77e0l"), ExtResource("10_6wt4p"), ExtResource("11_gvtsd")])
+metadata/_custom_type_script = "uid://tandyfp3ljv6"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=3 format=3 uid="uid://wssgk7ioe54c"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_dlu6v"]
+[ext_resource type="Texture2D" uid="uid://o5g2djajdhji" path="res://Images/Piecesets/Chess-cburnett/WhiteRook.png" id="2_cmk0y"]
+
+[resource]
+script = ExtResource("1_dlu6v")
+set_id = "cburnett"
+owner = 0
+texture = ExtResource("2_cmk0y")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="PieceSet" load_steps=15 format=3 uid="uid://0ftnu1u656t0"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_2k8a7"]
+[ext_resource type="Script" uid="uid://tandyfp3ljv6" path="res://Scripts/ResourceScripts/piece_set.gd" id="2_pojky"]
+[ext_resource type="Resource" uid="uid://dsb7hr317ctes" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_black_bishop.tres" id="2_t0qm6"]
+[ext_resource type="Resource" uid="uid://6n7183obm0qu" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_black_king.tres" id="3_br5um"]
+[ext_resource type="Resource" uid="uid://bh0s7itjp8kwt" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_black_knight.tres" id="4_ic431"]
+[ext_resource type="Resource" uid="uid://dtd8sv283syag" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_black_pawn.tres" id="5_y3hg8"]
+[ext_resource type="Resource" uid="uid://c53kylb3teum" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_black_queen.tres" id="6_kq0l4"]
+[ext_resource type="Resource" uid="uid://dyfyqt7e1mri2" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_black_rook.tres" id="7_v5qk3"]
+[ext_resource type="Resource" uid="uid://u0sxwhyxumef" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_white_bishop.tres" id="8_cs0cb"]
+[ext_resource type="Resource" uid="uid://21b5b75s0fq6" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_white_king.tres" id="9_g2c8n"]
+[ext_resource type="Resource" uid="uid://c6ped420hhmnf" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_white_knight.tres" id="10_hpnbd"]
+[ext_resource type="Resource" uid="uid://k1leni5s82ev" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_white_pawn.tres" id="11_kqio5"]
+[ext_resource type="Resource" uid="uid://dshi61d1duur7" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_white_queen.tres" id="12_jj27m"]
+[ext_resource type="Resource" uid="uid://wssgk7ioe54c" path="res://Resources/PieceTextures/Chess/cburnett/PieceTextures/cburnett_chess_white_rook.tres" id="13_plkyh"]
+
+[resource]
+script = ExtResource("2_pojky")
+piece_set_name = "Cburnett"
+piece_set = Array[ExtResource("1_2k8a7")]([ExtResource("2_t0qm6"), ExtResource("3_br5um"), ExtResource("4_ic431"), ExtResource("5_y3hg8"), ExtResource("6_kq0l4"), ExtResource("7_v5qk3"), ExtResource("8_cs0cb"), ExtResource("9_g2c8n"), ExtResource("10_hpnbd"), ExtResource("11_kqio5"), ExtResource("12_jj27m"), ExtResource("13_plkyh")])
+metadata/_custom_type_script = "uid://tandyfp3ljv6"

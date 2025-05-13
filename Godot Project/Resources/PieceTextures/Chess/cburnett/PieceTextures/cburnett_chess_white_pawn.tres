@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://k1leni5s82ev"]
+
+[ext_resource type="Resource" uid="uid://cyvuufoute8p0" path="res://Resources/Pieces/Chess/chess_pawn.tres" id="1_0ja33"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="2_el6uu"]
+[ext_resource type="Texture2D" uid="uid://dfvjcr0yt7krf" path="res://Images/Piecesets/Chess-cburnett/WhitePawn.png" id="3_spsnt"]
+
+[resource]
+script = ExtResource("2_el6uu")
+set_id = "cburnett"
+owner = 0
+texture = ExtResource("3_spsnt")
+piece_type = ExtResource("1_0ja33")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

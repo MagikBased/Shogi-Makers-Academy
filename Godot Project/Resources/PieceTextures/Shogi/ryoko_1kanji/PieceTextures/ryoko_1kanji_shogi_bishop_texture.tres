@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://bnfg2ekkhjmt0"]
+
+[ext_resource type="Resource" uid="uid://woiu1qaw8nap" path="res://Resources/Pieces/Shogi/shogi_bishop.tres" id="1_oxuc8"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="2_vcg5n"]
+[ext_resource type="Texture2D" uid="uid://bcdu058lstnjq" path="res://Images/Piecesets/Shogi-kanji/Bishop.png" id="3_j6k1l"]
+
+[resource]
+script = ExtResource("2_vcg5n")
+set_id = "ryoko_1kanji"
+owner = 3
+texture = ExtResource("3_j6k1l")
+piece_type = ExtResource("1_oxuc8")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

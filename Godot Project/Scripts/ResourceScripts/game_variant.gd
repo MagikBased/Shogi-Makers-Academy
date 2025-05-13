@@ -17,3 +17,4 @@ enum WinConditions{
 @export var starting_fen: String
 @export var debug_fen: String
 @export var in_hand_pieces: bool
+@export var piece_sets: Array[PieceSet]

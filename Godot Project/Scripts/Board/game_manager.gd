@@ -4,7 +4,8 @@ class_name  GameManager
 enum Player{
 	Sente,
 	Gote,
-	Neutral
+	Neutral,
+	Both,
 }
 
 var game_variant: GameVariant
@@ -33,7 +34,10 @@ var attack_cache = {
 	}
 }
 
+var active_piece_set: PieceSet
+
 func _ready() -> void:
+	active_piece_set = game_variant.piece_sets[0]
 	initialize_values()
 	if game_variant.debug_fen.strip_edges() != "":
 		fen_manager.create_board_from_fen(game_variant.debug_fen)
@@ -478,3 +482,12 @@ func is_space_taken(move: Vector2i, exclude_instance_id := -1) -> bool:
 		if piece_info.position == move:
 			return true
 	return false
+
+func get_piece_texture(piece: PieceBase, piece_owner: Player) -> Texture:
+	for texture_set in game_variant.piece_sets:
+		if texture_set == active_piece_set:
+			for texture_info in texture_set.piece_set:
+				if texture_info.piece_type == piece:
+					if texture_info.owner == piece_owner or texture_info.owner == PieceTexture.Player.Both:
+						return texture_info.texture
+	return null

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="PieceSet" load_steps=18 format=3 uid="uid://c2mks5nqqb02u"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_qkl1f"]
+[ext_resource type="Resource" uid="uid://bnfg2ekkhjmt0" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_bishop_texture.tres" id="2_3qsui"]
+[ext_resource type="Script" uid="uid://tandyfp3ljv6" path="res://Scripts/ResourceScripts/piece_set.gd" id="2_liq71"]
+[ext_resource type="Resource" uid="uid://4eobhb3ufmig" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_gold_texture.tres" id="3_ka0ul"]
+[ext_resource type="Resource" uid="uid://fmv3lvmsi2yr" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_gote_king_texture.tres" id="4_7nd7h"]
+[ext_resource type="Resource" uid="uid://6rlt351knyiq" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_knight_texture.tres" id="5_0eckn"]
+[ext_resource type="Resource" uid="uid://2i8y5mmvdes6" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_lance_texture.tres" id="6_yf5qc"]
+[ext_resource type="Resource" uid="uid://b07ydrhu24shq" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_pawn_texture.tres" id="7_cri77"]
+[ext_resource type="Resource" uid="uid://cqjnp1udjm2th" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_promoted_bishop_texture.tres" id="8_qvbrj"]
+[ext_resource type="Resource" uid="uid://bjtxlnesp4ygd" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_promoted_knight_texture.tres" id="9_1blfr"]
+[ext_resource type="Resource" uid="uid://bqy5hss30ugu1" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_promoted_lance_texture.tres" id="10_5ip31"]
+[ext_resource type="Resource" uid="uid://cwb3c67idnyn6" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_promoted_pawn_texture.tres" id="11_74xse"]
+[ext_resource type="Resource" uid="uid://dp137m2e47lxy" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_promoted_rook_texture.tres" id="12_a8bh8"]
+[ext_resource type="Resource" uid="uid://cyxyaksyjoxf5" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_promoted_silver_texture.tres" id="13_kknfk"]
+[ext_resource type="Resource" uid="uid://of101offy4vi" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_rook_texture.tres" id="14_8o3nw"]
+[ext_resource type="Resource" uid="uid://dyy20065v5nie" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_sente_king_texture.tres" id="15_44w4q"]
+[ext_resource type="Resource" uid="uid://dwbj0ahvqqmy3" path="res://Resources/PieceTextures/Shogi/ryoko_1kanji/PieceTextures/ryoko_1kanji_shogi_silver_texture.tres" id="16_ubosb"]
+
+[resource]
+script = ExtResource("2_liq71")
+piece_set_name = "Ryoko 1Kanji"
+piece_set = Array[ExtResource("1_qkl1f")]([ExtResource("2_3qsui"), ExtResource("3_ka0ul"), ExtResource("4_7nd7h"), ExtResource("5_0eckn"), ExtResource("6_yf5qc"), ExtResource("7_cri77"), ExtResource("8_qvbrj"), ExtResource("9_1blfr"), ExtResource("10_5ip31"), ExtResource("11_74xse"), ExtResource("12_a8bh8"), ExtResource("13_kknfk"), ExtResource("14_8o3nw"), ExtResource("15_44w4q"), ExtResource("16_ubosb")])
+metadata/_custom_type_script = "uid://tandyfp3ljv6"

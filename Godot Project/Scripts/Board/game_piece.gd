@@ -3,7 +3,9 @@ class_name BaseGamePiece
 
 enum Player{
 	Sente,
-	Gote
+	Gote,
+	Nuetral,
+	Both
 }
 
 @export var piece_resource: PieceBase
@@ -61,7 +63,10 @@ func _input(event) -> void:
 
 func initialize_values() -> void:
 	if piece_resource:
-		if piece_resource.icon.size() > 0:
+		var assigned_texture = game_manager.get_piece_texture(piece_resource, piece_owner)
+		if assigned_texture:
+			texture = assigned_texture
+		elif piece_resource.icon.size() > 0:
 			texture = piece_resource.icon[0]
 		is_promoted = piece_resource.is_promoted
 		can_promote = piece_resource.can_promote
@@ -168,7 +173,6 @@ func can_promote_check(start_position: Vector2i, move_position: Vector2i) -> boo
 				if in_start and not in_end:
 					return true
 	return false
-
 
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y)

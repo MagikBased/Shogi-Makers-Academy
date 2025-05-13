@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://5qs73xy4prsb"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_3klwd"]
+[ext_resource type="Resource" uid="uid://bvueyipsodsqn" path="res://Resources/Pieces/Tori Shogi/tori_right_quail.tres" id="1_6xygy"]
+[ext_resource type="Texture2D" uid="uid://bhubisgmidr6p" path="res://Images/Piecesets/Tori_Shogi_International/RightQuail.png" id="2_6xygy"]
+
+[resource]
+script = ExtResource("1_3klwd")
+set_id = "tori_shogi_international"
+owner = 3
+texture = ExtResource("2_6xygy")
+piece_type = ExtResource("1_6xygy")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://5e8fi5tjl2xp"]
+
+[ext_resource type="Resource" uid="uid://bsixsq8k3cy73" path="res://Resources/Pieces/Tori Shogi/tori_falcon.tres" id="1_1pypv"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_qb34p"]
+[ext_resource type="Texture2D" uid="uid://bjuobcklsupht" path="res://Images/Piecesets/Tori_Shogi_International/Falcon.png" id="3_lcd80"]
+
+[resource]
+script = ExtResource("1_qb34p")
+set_id = "tori_shogi_international"
+owner = 3
+texture = ExtResource("3_lcd80")
+piece_type = ExtResource("1_1pypv")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

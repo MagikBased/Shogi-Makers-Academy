@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://bqy5hss30ugu1"]
+
+[ext_resource type="Resource" uid="uid://obhmscwncn03" path="res://Resources/Pieces/Shogi/shogi_promoted_lance.tres" id="1_ilaqg"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="2_oxpjh"]
+[ext_resource type="Texture2D" uid="uid://cxa60ffm3c4ti" path="res://Images/Piecesets/Shogi-kanji/Promoted Lance.png" id="3_axr4v"]
+
+[resource]
+script = ExtResource("2_oxpjh")
+set_id = "ryoko_1kanji"
+owner = 3
+texture = ExtResource("3_axr4v")
+piece_type = ExtResource("1_ilaqg")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

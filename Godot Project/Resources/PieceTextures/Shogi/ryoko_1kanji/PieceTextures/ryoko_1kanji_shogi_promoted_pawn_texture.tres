@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://cwb3c67idnyn6"]
+
+[ext_resource type="Resource" uid="uid://dmhhgl4e1sr8w" path="res://Resources/Pieces/Shogi/shogi_tokin.tres" id="1_f50p0"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="2_8yo7f"]
+[ext_resource type="Texture2D" uid="uid://d2c6vn2es1efc" path="res://Images/Piecesets/Shogi-kanji/Promoted Pawn.png" id="3_csqut"]
+
+[resource]
+script = ExtResource("2_8yo7f")
+set_id = "ryoko_1kanji"
+owner = 3
+texture = ExtResource("3_csqut")
+piece_type = ExtResource("1_f50p0")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://b77kiaqvl1apg"]
+
+[ext_resource type="Resource" uid="uid://c3nxhsbx1v0h5" path="res://Resources/Pieces/Tori Shogi/tori_eagle.tres" id="1_5fv13"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_ofksn"]
+[ext_resource type="Texture2D" uid="uid://vhykv37r0ubb" path="res://Images/Piecesets/Tori_Shogi_International/Eagle.png" id="3_mjr3j"]
+
+[resource]
+script = ExtResource("1_ofksn")
+set_id = "tori_shogi_international"
+owner = 3
+texture = ExtResource("3_mjr3j")
+piece_type = ExtResource("1_5fv13")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

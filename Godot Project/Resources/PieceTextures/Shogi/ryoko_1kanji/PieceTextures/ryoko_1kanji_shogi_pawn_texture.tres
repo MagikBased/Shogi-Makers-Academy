@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://b07ydrhu24shq"]
+
+[ext_resource type="Resource" uid="uid://5mnjemfahr0k" path="res://Resources/Pieces/Shogi/shogi_pawn.tres" id="1_sks63"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="2_bmyh3"]
+[ext_resource type="Texture2D" uid="uid://d0kcbw4xnc6bv" path="res://Images/Piecesets/Shogi-kanji/Pawn.png" id="3_hef88"]
+
+[resource]
+script = ExtResource("2_bmyh3")
+set_id = "ryoko_1kanji"
+owner = 3
+texture = ExtResource("3_hef88")
+piece_type = ExtResource("1_sks63")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

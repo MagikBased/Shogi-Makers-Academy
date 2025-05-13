@@ -23,18 +23,6 @@ func _ready() -> void:
 		initalize_hand_containers()
 		populate_hand_containers()
 		update_hand()
-		#for fen_char in sente_in_hand.keys():
-			#var piece_base = get_piece_base_from_fen_char(fen_char)
-			#var in_hand_piece = in_hand_piece_scene.instantiate() as InHandPiece
-			#in_hand_piece.piece_resource = piece_base
-			#in_hand_piece.player = Player.Sente
-			#sente_container.add_child(in_hand_piece)
-		#for fen_char in gote_in_hand.keys():
-			#var piece_base = get_piece_base_from_fen_char(fen_char)
-			#var in_hand_piece = in_hand_piece_scene.instantiate() as InHandPiece
-			#in_hand_piece.piece_resource = piece_base
-			#in_hand_piece.player = Player.Gote
-			#gote_container.add_child(in_hand_piece)
 
 func initalize_hand_containers() -> void:
 	sente_container = in_hand_container_scene.instantiate() as InHandContainer

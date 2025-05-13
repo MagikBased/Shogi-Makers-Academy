@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=3 format=3 uid="uid://bh0s7itjp8kwt"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_aat4i"]
+[ext_resource type="Texture2D" uid="uid://cgnbx8fwrdwmt" path="res://Images/Piecesets/Chess-cburnett/BlackKnight.png" id="2_hdgwr"]
+
+[resource]
+script = ExtResource("1_aat4i")
+set_id = "cburnett"
+owner = 1
+texture = ExtResource("2_hdgwr")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

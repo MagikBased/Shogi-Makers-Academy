@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://c1ww5hp7wnowr"]
+
+[ext_resource type="Resource" uid="uid://ckjlxdovcmugj" path="res://Resources/Pieces/Tori Shogi/tori_swallow.tres" id="1_itbsi"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_rpwc1"]
+[ext_resource type="Texture2D" uid="uid://wj58571d1ayx" path="res://Images/Piecesets/Tori_Shogi_International/Swallow.png" id="2_itbsi"]
+
+[resource]
+script = ExtResource("1_rpwc1")
+set_id = "tori_shogi_international"
+owner = 3
+texture = ExtResource("2_itbsi")
+piece_type = ExtResource("1_itbsi")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

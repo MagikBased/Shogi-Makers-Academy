@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://6rlt351knyiq"]
+
+[ext_resource type="Resource" uid="uid://baw4c8m8roq83" path="res://Resources/Pieces/Shogi/shogi_knight.tres" id="1_yyory"]
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="2_72kvy"]
+[ext_resource type="Texture2D" uid="uid://83d1adlsgpcp" path="res://Images/Piecesets/Shogi-kanji/Knight.png" id="3_fax53"]
+
+[resource]
+script = ExtResource("2_72kvy")
+set_id = "Shogi-Kanji"
+owner = 3
+texture = ExtResource("3_fax53")
+piece_type = ExtResource("1_yyory")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"

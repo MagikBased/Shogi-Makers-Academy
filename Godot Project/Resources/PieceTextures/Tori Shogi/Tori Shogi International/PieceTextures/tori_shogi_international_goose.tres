@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://dnb21s7q2xpv0"]
+
+[ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_2a4u8"]
+[ext_resource type="Resource" uid="uid://cokw1yjwkbsln" path="res://Resources/Pieces/Tori Shogi/tori_goose.tres" id="1_ilhix"]
+[ext_resource type="Texture2D" uid="uid://c0y5aa1b7m668" path="res://Images/Piecesets/Tori_Shogi_International/Goose.png" id="2_ilhix"]
+
+[resource]
+script = ExtResource("1_2a4u8")
+set_id = "tori_shogi_international"
+owner = 3
+texture = ExtResource("2_ilhix")
+piece_type = ExtResource("1_ilhix")
+metadata/_custom_type_script = "uid://j4105hfcu2l4"
