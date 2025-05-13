@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_y7bdd")
-move_directions = Array[Vector2i]([Vector2i(-1, -2), Vector2i(1, -2), Vector2i(-2, -1), Vector2i(2, -1), Vector2i(-1, 2), Vector2i(1, 2), Vector2i(-2, 1), Vector2i(2, -1)])
+move_directions = Array[Vector2i]([Vector2i(-1, -2), Vector2i(1, -2), Vector2i(-2, -1), Vector2i(2, -1), Vector2i(-1, 2), Vector2i(1, 2), Vector2i(-2, 1), Vector2i(2, 1)])
 restriction = 0
 metadata/_custom_type_script = "uid://kfxjcnxvrtmb"
