@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameVariant" load_steps=24 format=3 uid="uid://nlpwcbfyij0e"]
+[gd_resource type="Resource" script_class="GameVariant" load_steps=22 format=3 uid="uid://nlpwcbfyij0e"]
 
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_h3f75"]
 [ext_resource type="Script" uid="uid://cchmki0dnj3ev" path="res://Scripts/ResourceScripts/board_resource.gd" id="1_j86xq"]
@@ -29,18 +29,11 @@ max_actions = 1
 pieces_for_action = 0
 pieces_for_action_override = Array[String]([])
 
-[sub_resource type="Resource" id="Resource_eijoo"]
-script = ExtResource("13_6seh6")
-action_type = 1
-max_actions = 1
-pieces_for_action = 0
-pieces_for_action_override = Array[String]([])
-
 [sub_resource type="Resource" id="Resource_jn31d"]
 script = ExtResource("3_eq0qq")
 phase_name = "Sente Turn"
 player = 0
-actions = Array[ExtResource("13_6seh6")]([SubResource("Resource_p03xh"), SubResource("Resource_eijoo")])
+actions = Array[ExtResource("13_6seh6")]([SubResource("Resource_p03xh")])
 max_actions_per_turn = 1
 
 [sub_resource type="Resource" id="Resource_jcx1i"]
@@ -50,18 +43,11 @@ max_actions = 1
 pieces_for_action = 0
 pieces_for_action_override = Array[String]([])
 
-[sub_resource type="Resource" id="Resource_j0bhv"]
-script = ExtResource("13_6seh6")
-action_type = 1
-max_actions = 1
-pieces_for_action = 0
-pieces_for_action_override = Array[String]([])
-
 [sub_resource type="Resource" id="Resource_oqkgv"]
 script = ExtResource("3_eq0qq")
 phase_name = "Gote Turn"
 player = 1
-actions = Array[ExtResource("13_6seh6")]([SubResource("Resource_jcx1i"), SubResource("Resource_j0bhv")])
+actions = Array[ExtResource("13_6seh6")]([SubResource("Resource_jcx1i")])
 max_actions_per_turn = 1
 
 [resource]

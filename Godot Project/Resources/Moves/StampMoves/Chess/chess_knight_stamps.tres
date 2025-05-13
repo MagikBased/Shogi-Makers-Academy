@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StampMove" load_steps=2 format=3 uid="uid://cs1y6ykn73nr7"]
+
+[ext_resource type="Script" uid="uid://kfxjcnxvrtmb" path="res://Scripts/ResourceScripts/MovementResourceScripts/stamp_move.gd" id="1_y7bdd"]
+
+[resource]
+script = ExtResource("1_y7bdd")
+move_directions = Array[Vector2i]([Vector2i(-1, -2), Vector2i(1, -2), Vector2i(-2, -1), Vector2i(2, -1), Vector2i(-1, 2), Vector2i(1, 2), Vector2i(-2, 1), Vector2i(2, -1)])
+restriction = 0
+metadata/_custom_type_script = "uid://kfxjcnxvrtmb"

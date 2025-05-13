@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StampMove" load_steps=2 format=3 uid="uid://bfdicirpfn5iy"]
+
+[ext_resource type="Script" uid="uid://kfxjcnxvrtmb" path="res://Scripts/ResourceScripts/MovementResourceScripts/stamp_move.gd" id="1_12mi7"]
+
+[resource]
+script = ExtResource("1_12mi7")
+move_directions = Array[Vector2i]([])
+restriction = 0
+metadata/_custom_type_script = "uid://kfxjcnxvrtmb"

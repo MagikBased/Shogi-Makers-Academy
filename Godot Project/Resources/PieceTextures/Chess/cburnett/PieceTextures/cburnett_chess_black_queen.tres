@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="PieceTexture" load_steps=3 format=3 uid="uid://c53kylb3teum"]
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://c53kylb3teum"]
 
 [ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_i2nvo"]
+[ext_resource type="Resource" uid="uid://lx52y5ibixki" path="res://Resources/Pieces/Chess/chess_queen.tres" id="1_wlqi5"]
 [ext_resource type="Texture2D" uid="uid://cdwi8x6tb2w7h" path="res://Images/Piecesets/Chess-cburnett/BlackQueen.png" id="2_wlqi5"]
 
 [resource]
@@ -8,4 +9,5 @@ script = ExtResource("1_i2nvo")
 set_id = "cburnett"
 owner = 1
 texture = ExtResource("2_wlqi5")
+piece_type = ExtResource("1_wlqi5")
 metadata/_custom_type_script = "uid://j4105hfcu2l4"

@@ -72,7 +72,9 @@ func create_board_from_fen(fen: String) -> void:
 	var board_state: String = parts[0]
 	var filtered_board_state: String = ""
 	var player_turn: String = parts[1] if parts.size() > 1 else ("b" if game_manager.player_turn == game_manager.Player.Sente else "w")
-	var in_hand_pieces: String = parts[2] if parts.size() > 2 else "-"
+	var in_hand_pieces: String 
+	if game_variant.in_hand_pieces:
+		in_hand_pieces = parts[2] if parts.size() > 2 else "-"
 	var turn_count: String = parts[3] if parts.size() > 3 else "1"
 	
 	var regex = RegEx.new()
@@ -131,30 +133,31 @@ func create_board_from_fen(fen: String) -> void:
 			x = 0
 			y += 1
 			row_length = 0
-	regex.compile("(\\d*[A-Za-z])")
-	var in_hand_matches: Array[RegExMatch] = regex.search_all(in_hand_pieces)
-	
-	for amatch in in_hand_matches:
-		var piece_string: String = amatch.get_string()
-		var count: int = 1
-		var piece_char: String
+	if game_variant.in_hand_pieces:
+		regex.compile("(\\d*[A-Za-z])")
+		var in_hand_matches: Array[RegExMatch] = regex.search_all(in_hand_pieces)
 		
-		if piece_string.length() > 1:
-			count = int(piece_string.substr(0, piece_string.length() - 1))
-			piece_char = piece_string[-1]
-		else:
-			piece_char = piece_string
-
-		var piece_type_index: int = get_piece_type_from_symbol(piece_char.to_upper())
-		if piece_type_index == -1:
-			continue
-		
-		var piece_base: PieceBase = game_variant.pieces[piece_type_index]
-		for i in range(count):
-			if piece_char == piece_char.to_upper():
-				game_manager.in_hand_manager.add_piece_to_hand(game_manager.in_hand_manager.Player.Sente, piece_base)
+		for amatch in in_hand_matches:
+			var piece_string: String = amatch.get_string()
+			var count: int = 1
+			var piece_char: String
+			
+			if piece_string.length() > 1:
+				count = int(piece_string.substr(0, piece_string.length() - 1))
+				piece_char = piece_string[-1]
 			else:
-				game_manager.in_hand_manager.add_piece_to_hand(game_manager.in_hand_manager.Player.Gote, piece_base)
+				piece_char = piece_string
+
+			var piece_type_index: int = get_piece_type_from_symbol(piece_char.to_upper())
+			if piece_type_index == -1:
+				continue
+			
+			var piece_base: PieceBase = game_variant.pieces[piece_type_index]
+			for i in range(count):
+				if piece_char == piece_char.to_upper():
+					game_manager.in_hand_manager.add_piece_to_hand(game_manager.in_hand_manager.Player.Sente, piece_base)
+				else:
+					game_manager.in_hand_manager.add_piece_to_hand(game_manager.in_hand_manager.Player.Gote, piece_base)
 	
 	if player_turn == "b":
 		game_manager.player_turn = game_manager.Player.Sente

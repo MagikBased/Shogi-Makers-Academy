@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SwingMove" load_steps=2 format=3 uid="uid://c7khqy2kyqqdk"]
+
+[ext_resource type="Script" uid="uid://bwh2g0jtjkjxn" path="res://Scripts/ResourceScripts/MovementResourceScripts/swing_move.gd" id="1_4sq4w"]
+
+[resource]
+script = ExtResource("1_4sq4w")
+move_direction = Vector2i(1, 0)
+max_distance = -1
+restriction = 0
+metadata/_custom_type_script = "uid://bwh2g0jtjkjxn"

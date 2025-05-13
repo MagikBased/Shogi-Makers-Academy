@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=11 format=3 uid="uid://dowd4tssos0g4"]
+
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_u88o8"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_7pan0"]
+[ext_resource type="Texture2D" uid="uid://o5g2djajdhji" path="res://Images/Piecesets/Chess-cburnett/WhiteRook.png" id="2_usqlp"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_wtgvs"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_2ri48"]
+[ext_resource type="Resource" uid="uid://bqt0sgsiiyu16" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_down.tres" id="5_kawgf"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_lm0e2"]
+[ext_resource type="Resource" uid="uid://cnernmw4mwu7m" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_left.tres" id="6_peymt"]
+[ext_resource type="Resource" uid="uid://cgctrkjlfi8lj" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_right.tres" id="7_13fpe"]
+[ext_resource type="Resource" uid="uid://c7khqy2kyqqdk" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_up.tres" id="8_s7y1f"]
+
+[resource]
+script = ExtResource("4_2ri48")
+piece_name = "Rook"
+fen_char = "R"
+icon = Array[Texture]([ExtResource("2_usqlp")])
+is_royal = false
+moves = Array[ExtResource("3_wtgvs")]([ExtResource("8_s7y1f"), ExtResource("5_kawgf"), ExtResource("6_peymt"), ExtResource("7_13fpe")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("4_2ri48")]([])
+promotion_squares = Array[ExtResource("5_lm0e2")]([])
+can_add_to_hand = false
+fen_char_piece_to_add_on_capture = ""
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_7pan0")]([])
+drop_restrictions = Array[ExtResource("1_u88o8")]([])
+metadata/_custom_type_script = "uid://g6lvx7h1627n"

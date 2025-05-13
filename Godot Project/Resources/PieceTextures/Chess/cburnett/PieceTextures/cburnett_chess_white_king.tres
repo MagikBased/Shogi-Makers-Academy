@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="PieceTexture" load_steps=3 format=3 uid="uid://21b5b75s0fq6"]
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://21b5b75s0fq6"]
 
+[ext_resource type="Resource" uid="uid://duuwomvbu83ru" path="res://Resources/Pieces/Chess/chess_king.tres" id="1_fipc1"]
 [ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_woo6g"]
 [ext_resource type="Texture2D" uid="uid://b1b2xdp5pbo8g" path="res://Images/Piecesets/Chess-cburnett/WhiteKing.png" id="2_fipc1"]
 
@@ -8,4 +9,5 @@ script = ExtResource("1_woo6g")
 set_id = "cburnett"
 owner = 0
 texture = ExtResource("2_fipc1")
+piece_type = ExtResource("1_fipc1")
 metadata/_custom_type_script = "uid://j4105hfcu2l4"

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="PieceTexture" load_steps=3 format=3 uid="uid://u0sxwhyxumef"]
+[gd_resource type="Resource" script_class="PieceTexture" load_steps=4 format=3 uid="uid://u0sxwhyxumef"]
 
+[ext_resource type="Resource" uid="uid://duhfu7qpyx1iw" path="res://Resources/Pieces/Chess/chess_bishop.tres" id="1_0w3w5"]
 [ext_resource type="Script" uid="uid://j4105hfcu2l4" path="res://Scripts/ResourceScripts/piece_texture.gd" id="1_30fta"]
 [ext_resource type="Texture2D" uid="uid://cwnfsi7oilgph" path="res://Images/Piecesets/Chess-cburnett/WhiteBishop.png" id="2_0w3w5"]
 
@@ -8,4 +9,5 @@ script = ExtResource("1_30fta")
 set_id = "cburnett"
 owner = 0
 texture = ExtResource("2_0w3w5")
+piece_type = ExtResource("1_0w3w5")
 metadata/_custom_type_script = "uid://j4105hfcu2l4"

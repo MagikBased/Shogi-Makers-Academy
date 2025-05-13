@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://duuwomvbu83ru"]
+
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_h7o6l"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_i8baa"]
+[ext_resource type="Texture2D" uid="uid://b1b2xdp5pbo8g" path="res://Images/Piecesets/Chess-cburnett/WhiteKing.png" id="2_v5x3a"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_v5x3a"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_w0lud"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_f4i6o"]
+[ext_resource type="Resource" uid="uid://6oa8mnd7usdt" path="res://Resources/Moves/StampMoves/Chess/chess_king_stamps.tres" id="5_w0lud"]
+
+[resource]
+script = ExtResource("4_w0lud")
+piece_name = "King"
+fen_char = "K"
+icon = Array[Texture]([ExtResource("2_v5x3a")])
+is_royal = true
+moves = Array[ExtResource("3_v5x3a")]([ExtResource("5_w0lud")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("4_w0lud")]([])
+promotion_squares = Array[ExtResource("5_f4i6o")]([])
+can_add_to_hand = false
+fen_char_piece_to_add_on_capture = ""
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_i8baa")]([])
+drop_restrictions = Array[ExtResource("1_h7o6l")]([])
+metadata/_custom_type_script = "uid://g6lvx7h1627n"

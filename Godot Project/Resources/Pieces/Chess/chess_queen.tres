@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=15 format=3 uid="uid://lx52y5ibixki"]
+
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_xhagh"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_a7ged"]
+[ext_resource type="Texture2D" uid="uid://dtp0rit8rf7bt" path="res://Images/Piecesets/Chess-cburnett/WhiteQueen.png" id="2_l81ey"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_mo3x0"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_qioub"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_6a7uj"]
+[ext_resource type="Resource" uid="uid://by7n6jl5sin00" path="res://Resources/Moves/SwingingMoves/Chess/bishop_swing_diagonal_bottom_left.tres" id="5_pptok"]
+[ext_resource type="Resource" uid="uid://m1vg3rhjb2jx" path="res://Resources/Moves/SwingingMoves/Chess/bishop_swing_diagonal_bottom_right.tres" id="6_y5ebg"]
+[ext_resource type="Resource" uid="uid://ry2gdv4mebk5" path="res://Resources/Moves/SwingingMoves/Chess/bishop_swing_diagonal_top_left.tres" id="7_hjajj"]
+[ext_resource type="Resource" uid="uid://cojbfctge1i4s" path="res://Resources/Moves/SwingingMoves/Chess/bishop_swing_diagonal_top_right.tres" id="8_erapx"]
+[ext_resource type="Resource" uid="uid://bqt0sgsiiyu16" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_down.tres" id="9_8ej6v"]
+[ext_resource type="Resource" uid="uid://cnernmw4mwu7m" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_left.tres" id="10_j87xg"]
+[ext_resource type="Resource" uid="uid://cgctrkjlfi8lj" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_right.tres" id="11_1vi7u"]
+[ext_resource type="Resource" uid="uid://c7khqy2kyqqdk" path="res://Resources/Moves/SwingingMoves/Chess/rook_swing_up.tres" id="12_ciswa"]
+
+[resource]
+script = ExtResource("4_qioub")
+piece_name = "Queen"
+fen_char = "Q"
+icon = Array[Texture]([ExtResource("2_l81ey")])
+is_royal = false
+moves = Array[ExtResource("3_mo3x0")]([ExtResource("5_pptok"), ExtResource("6_y5ebg"), ExtResource("7_hjajj"), ExtResource("8_erapx"), ExtResource("9_8ej6v"), ExtResource("10_j87xg"), ExtResource("11_1vi7u"), ExtResource("12_ciswa")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("4_qioub")]([])
+promotion_squares = Array[ExtResource("5_6a7uj")]([])
+can_add_to_hand = false
+fen_char_piece_to_add_on_capture = ""
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_a7ged")]([])
+drop_restrictions = Array[ExtResource("1_xhagh")]([])
+metadata/_custom_type_script = "uid://g6lvx7h1627n"

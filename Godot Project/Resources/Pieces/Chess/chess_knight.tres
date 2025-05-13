@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://8tii2k0h48v2"]
+
+[ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_v0yle"]
+[ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_a7tv0"]
+[ext_resource type="Texture2D" uid="uid://bt4rog0b3i5dk" path="res://Images/Piecesets/Chess-cburnett/WhiteKnight.png" id="2_ld3rw"]
+[ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_ld3rw"]
+[ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_6fd2t"]
+[ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_amoxs"]
+[ext_resource type="Resource" uid="uid://cs1y6ykn73nr7" path="res://Resources/Moves/StampMoves/Chess/chess_knight_stamps.tres" id="5_ld3rw"]
+
+[resource]
+script = ExtResource("4_6fd2t")
+piece_name = "Knight"
+fen_char = "N"
+icon = Array[Texture]([ExtResource("2_ld3rw")])
+is_royal = false
+moves = Array[ExtResource("3_ld3rw")]([ExtResource("5_ld3rw")])
+can_promote = false
+is_promoted = false
+promotes_to = Array[ExtResource("4_6fd2t")]([])
+promotion_squares = Array[ExtResource("5_amoxs")]([])
+can_add_to_hand = false
+fen_char_piece_to_add_on_capture = ""
+can_deliver_checkmate = true
+illegal_drop_squares = Array[ExtResource("2_a7tv0")]([])
+drop_restrictions = Array[ExtResource("1_v0yle")]([])
+metadata/_custom_type_script = "uid://g6lvx7h1627n"

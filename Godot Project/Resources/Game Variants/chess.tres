@@ -1,18 +1,56 @@
-[gd_resource type="Resource" script_class="GameVariant" load_steps=5 format=3 uid="uid://dt4bkjqebypdm"]
+[gd_resource type="Resource" script_class="GameVariant" load_steps=18 format=3 uid="uid://dt4bkjqebypdm"]
 
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_3eyq0"]
 [ext_resource type="Resource" uid="uid://dvqdmrw806wbh" path="res://Resources/Boards/chess_board.tres" id="1_eijo8"]
+[ext_resource type="Script" uid="uid://tandyfp3ljv6" path="res://Scripts/ResourceScripts/piece_set.gd" id="2_3v0mw"]
 [ext_resource type="Script" uid="uid://b6puk4du7bdg8" path="res://Scripts/ResourceScripts/game_variant.gd" id="2_eijo8"]
+[ext_resource type="Resource" uid="uid://0ftnu1u656t0" path="res://Resources/PieceTextures/Chess/cburnett/cburnett.tres" id="3_5l27l"]
 [ext_resource type="Script" uid="uid://crfchrb021i2d" path="res://Scripts/ResourceScripts/turn_phase.gd" id="3_hm7aq"]
+[ext_resource type="Resource" uid="uid://duhfu7qpyx1iw" path="res://Resources/Pieces/Chess/chess_bishop.tres" id="5_qdrh1"]
+[ext_resource type="Resource" uid="uid://duuwomvbu83ru" path="res://Resources/Pieces/Chess/chess_king.tres" id="6_psa8i"]
+[ext_resource type="Resource" uid="uid://8tii2k0h48v2" path="res://Resources/Pieces/Chess/chess_knight.tres" id="7_4nba0"]
+[ext_resource type="Script" uid="uid://x2s6nb06hwvg" path="res://Scripts/ResourceScripts/turn_action.gd" id="7_npqev"]
+[ext_resource type="Resource" uid="uid://cyvuufoute8p0" path="res://Resources/Pieces/Chess/chess_pawn.tres" id="8_75fvy"]
+[ext_resource type="Resource" uid="uid://lx52y5ibixki" path="res://Resources/Pieces/Chess/chess_queen.tres" id="9_31qpn"]
+[ext_resource type="Resource" uid="uid://dowd4tssos0g4" path="res://Resources/Pieces/Chess/chess_rook.tres" id="10_h2m1c"]
+
+[sub_resource type="Resource" id="Resource_p03xh"]
+script = ExtResource("7_npqev")
+action_type = 0
+max_actions = 1
+pieces_for_action = 0
+pieces_for_action_override = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_jn31d"]
+script = ExtResource("3_hm7aq")
+phase_name = "Sente Turn"
+player = 0
+actions = Array[ExtResource("7_npqev")]([SubResource("Resource_p03xh")])
+max_actions_per_turn = 1
+
+[sub_resource type="Resource" id="Resource_jcx1i"]
+script = ExtResource("7_npqev")
+action_type = 0
+max_actions = 1
+pieces_for_action = 0
+pieces_for_action_override = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_oqkgv"]
+script = ExtResource("3_hm7aq")
+phase_name = "Gote Turn"
+player = 1
+actions = Array[ExtResource("7_npqev")]([SubResource("Resource_jcx1i")])
+max_actions_per_turn = 1
 
 [resource]
 script = ExtResource("2_eijo8")
-game_name = ""
+game_name = "Chess"
 board_data = ExtResource("1_eijo8")
-turn_phases = Array[ExtResource("3_hm7aq")]([])
-pieces = Array[ExtResource("1_3eyq0")]([])
+turn_phases = Array[ExtResource("3_hm7aq")]([SubResource("Resource_jn31d"), SubResource("Resource_oqkgv")])
+pieces = Array[ExtResource("1_3eyq0")]([ExtResource("5_qdrh1"), ExtResource("6_psa8i"), ExtResource("7_4nba0"), ExtResource("8_75fvy"), ExtResource("9_31qpn"), ExtResource("10_h2m1c")])
 win_conditions = Array[int]([0])
-starting_fen = ""
+starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 1"
 debug_fen = ""
 in_hand_pieces = false
+piece_sets = Array[ExtResource("2_3v0mw")]([ExtResource("3_5l27l")])
 metadata/_custom_type_script = "uid://b6puk4du7bdg8"
