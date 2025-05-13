@@ -101,12 +101,12 @@ func generate_moves() -> Array[Vector2i]:
 				handle_stamp_moves(move)
 	return valid_moves
 
-func handle_stamp_moves(move:StampMove) -> void:
+func handle_stamp_moves(move: StampMove) -> void:
 	for direction in move.move_directions:
 		if piece_owner == Player.Gote:
-			direction = Vector2i(-direction.x, -direction.y)
+			direction = -direction
 		var target_position = current_position + direction
-		if check_move_legality(target_position) and not is_space_an_ally(target_position):
+		if check_move_legality(target_position, move.restriction):
 			if target_position not in valid_moves:
 				valid_moves.append(target_position)
 
@@ -141,12 +141,22 @@ func capture_piece(capture_position: Vector2i) -> void:
 				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
 			break
 
-func check_move_legality(move: Vector2i) -> bool:
-	if !is_inside_board(move):
+func check_move_legality(move: Vector2i, restriction := MovementBase.MoveRestriction.NONE) -> bool:
+	if not is_inside_board(move):
 		return false
-	if can_capture(move):
-		return true
-	return true
+	return check_move_restriction(move, restriction)
+
+func check_move_restriction(move: Vector2i, restriction: MovementBase.MoveRestriction) -> bool:
+	var is_taken = is_space_taken(move)
+	var is_ally = is_space_an_ally(move)
+	match restriction:
+		MovementBase.MoveRestriction.CAPTURE_ONLY:
+			return is_taken and not is_ally
+		MovementBase.MoveRestriction.MOVE_ONLY:
+			return not is_taken
+		MovementBase.MoveRestriction.NONE:
+			return not is_ally
+	return false
 
 func can_capture(move: Vector2i) -> bool:
 	for piece_info in game_manager.pieces_on_board:
