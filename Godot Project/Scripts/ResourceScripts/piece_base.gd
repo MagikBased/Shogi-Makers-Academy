@@ -6,6 +6,7 @@ class_name PieceBase
 @export var icon: Array[Texture]
 @export var is_royal: bool
 @export var moves: Array[MovementBase]
+@export var logic_blocks: Array[LogicBlock]
 
 @export_category("Promotion")
 @export var can_promote: bool

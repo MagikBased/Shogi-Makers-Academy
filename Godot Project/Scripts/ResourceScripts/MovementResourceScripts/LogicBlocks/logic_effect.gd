@@ -1,5 +1,5 @@
 class_name LogicEffect
 extends Resource
 
-func apply(context: LogicContext) -> void:
+func apply(_context: LogicContext) -> void:
 	pass

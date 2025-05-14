@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LogicBlock" load_steps=6 format=3 uid="uid://cibh74pdra0x4"]
+
+[ext_resource type="Script" uid="uid://bbfy63d54jfiq" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_condition.gd" id="1_wsmfm"]
+[ext_resource type="Script" uid="uid://uiy6wp2pfyh4" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_effect.gd" id="2_kv4dg"]
+[ext_resource type="Resource" uid="uid://bybcrk0vxbrw8" path="res://Resources/Moves/SpecialMoves/LogicConditions/has_not_moved.tres" id="2_mwvvd"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="3_mwvvd"]
+[ext_resource type="Resource" uid="uid://nbnlp18p4fbo" path="res://Resources/Moves/SpecialMoves/LogicEffects/add_pawn_double_move.tres" id="4_tdpah"]
+
+[resource]
+script = ExtResource("3_mwvvd")
+name = ""
+conditions = Array[ExtResource("1_wsmfm")]([ExtResource("2_mwvvd")])
+effects = Array[ExtResource("2_kv4dg")]([ExtResource("4_tdpah")])
+metadata/_custom_type_script = "uid://du1q4fv2i4ty5"

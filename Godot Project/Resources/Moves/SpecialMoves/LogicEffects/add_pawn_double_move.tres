@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AddMovementEffect" load_steps=3 format=3 uid="uid://nbnlp18p4fbo"]
+
+[ext_resource type="Resource" uid="uid://b6naclpl1fmc2" path="res://Resources/Moves/SwingingMoves/Chess/pawn_double_step.tres" id="1_awrgc"]
+[ext_resource type="Script" uid="uid://bp7vgu73h0275" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/LogicResourceScripts/LogicEffects/add_movement_effect.gd" id="1_cfotn"]
+
+[resource]
+script = ExtResource("1_cfotn")
+movement = ExtResource("1_awrgc")
+metadata/_custom_type_script = "uid://bp7vgu73h0275"

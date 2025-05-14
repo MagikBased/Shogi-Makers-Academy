@@ -27,6 +27,10 @@ var is_fully_constrained: bool = false
 
 var square_highlight = load("res://Scenes/GameBoardScenes/square_highlight.tscn")
 
+var special_logic_blocks: Array[LogicBlock]
+var extra_generated_moves: Array[MovementBase] = []
+var move_count: int = 0
+
 func _ready() -> void:
 	initialize_values()
 	var scale_factor = game_manager.square_size / texture.get_size().x
@@ -70,6 +74,7 @@ func initialize_values() -> void:
 			texture = piece_resource.icon[0]
 		is_promoted = piece_resource.is_promoted
 		can_promote = piece_resource.can_promote
+		special_logic_blocks = piece_resource.logic_blocks
 	rect_size = Vector2(texture.get_width(),texture.get_height())
 
 func snap_to_grid() -> void:
@@ -85,10 +90,9 @@ func destroy_all_highlights() -> void:
 
 func generate_moves() -> Array[Vector2i]:
 	valid_moves.clear()
-	
 	if is_fully_constrained:
 		return valid_moves
-	
+	evaluate_special_logic_blocks()
 	if constrained_moves.size() > 0:
 		for move in constrained_moves:
 			if is_inside_board(move) and not is_space_an_ally(move):
@@ -99,7 +103,22 @@ func generate_moves() -> Array[Vector2i]:
 				handle_swinging_moves(move)
 			elif move is StampMove:
 				handle_stamp_moves(move)
+		for move in extra_generated_moves:
+			if move is SwingMove:
+				handle_swinging_moves(move)
+			elif move is StampMove:
+				handle_stamp_moves(move)
 	return valid_moves
+
+func evaluate_special_logic_blocks() -> void:
+	extra_generated_moves.clear()
+	for block in special_logic_blocks:
+		var context := LogicContext.new()
+		context.game_state = game_manager
+		context.piece_instance = self
+		context.additional_data = {}
+		if block.can_execute(context):
+			block.execute(context)
 
 func handle_stamp_moves(move: StampMove) -> void:
 	for direction in move.move_directions:
@@ -117,12 +136,14 @@ func handle_swinging_moves(move: SwingMove) -> void:
 	var max_distance = move.max_distance
 	var target_position = current_position + direction
 	var distance = 0
-	while check_move_legality(target_position) and (max_distance == -1 or distance < max_distance):
+	while is_inside_board(target_position) and (max_distance == -1 or distance < max_distance):
+		if not check_move_legality(target_position, move.restriction):
+			break
 		if is_space_an_ally(target_position):
 			break
 		if target_position not in valid_moves:
 			valid_moves.append(target_position)
-		if can_capture(target_position):
+		if can_capture(target_position) and move.restriction != MovementBase.MoveRestriction.MOVE_ONLY:
 			break
 		target_position += direction
 		distance += 1
@@ -254,6 +275,7 @@ func _draw() -> void:
 	draw_texture(texture,Vector2(float(-texture.get_width())/2,float(-texture.get_height())/2),modulate)
 
 func _on_move_piece(move_position: Vector2i) -> void:
+	move_count += 1
 	var piece_info: PieceInfo = null
 	var coming_from_square:= current_position
 	for piece in game_manager.pieces_on_board:

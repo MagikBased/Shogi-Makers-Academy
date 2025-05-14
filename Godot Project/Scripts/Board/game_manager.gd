@@ -69,9 +69,10 @@ func start_phase() -> void:
 		#print("Checking pieces: ", checking_pieces.size())
 		if checking_pieces.size() > 0:
 			constrain_moves_due_to_check(king_position, checking_pieces)
-	var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
-	var danger_squares = get_squares_attacked_by_player(opponent)
-	debug_manager.add_highlights(danger_squares, Color.RED)
+	
+	#var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
+	#var danger_squares = get_squares_attacked_by_player(opponent)
+	#debug_manager.add_highlights(danger_squares, Color.RED)
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
 	if current_phase.player != player_turn:

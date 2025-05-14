@@ -1,5 +1,5 @@
 class_name LogicCondition
 extends Resource
 
-func evaluate(context: LogicContext) -> bool:
+func evaluate(_context: LogicContext) -> bool:
 	return false
