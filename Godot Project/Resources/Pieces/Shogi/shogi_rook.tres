@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=66 format=3 uid="uid://bs3qulnrn0u1"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=67 format=3 uid="uid://bs3qulnrn0u1"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_8vdn3"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_als1n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://c2aj0rrjdxufn" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_left.tres" id="3_1b82l"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_g5eq3"]
 [ext_resource type="Resource" uid="uid://c6lxaj2bx7xqk" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_right.tres" id="4_57d3f"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_g5eq3"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_hq563"]
 [ext_resource type="Resource" uid="uid://2i7t6scd2g0d" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up.tres" id="5_50o7d"]
 [ext_resource type="Resource" uid="uid://c322d1a0swdo3" path="res://Resources/Pieces/Shogi/shogi_dragon.tres" id="6_081wa"]
@@ -397,6 +398,7 @@ fen_char = "R"
 icon = Array[Texture]([ExtResource("1_iyue3")])
 is_royal = false
 moves = Array[ExtResource("4_hq563")]([ExtResource("2_l0qwx"), ExtResource("3_1b82l"), ExtResource("4_57d3f"), ExtResource("5_50o7d")])
+logic_blocks = Array[ExtResource("4_g5eq3")]([])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_als1n")]([ExtResource("6_081wa")])

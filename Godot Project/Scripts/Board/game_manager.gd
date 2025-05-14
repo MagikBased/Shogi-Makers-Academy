@@ -236,13 +236,15 @@ func constrain_moves(piece_info: PieceInfo, constrained_moves: Array[Vector2i]) 
 	if piece_instance:
 		var legal_constrained_moves: Array[Vector2i] = []
 		for move in piece_instance.valid_moves:
-			#print(piece_instance.valid_moves)
 			if move in constrained_moves:
 				legal_constrained_moves.append(move)
+		if legal_constrained_moves.size() == 0:
+			piece_instance.is_fully_constrained = true
+		else:
+			piece_instance.is_fully_constrained = false
 		for move in legal_constrained_moves:
-					if not piece_instance.constrained_moves.has(move):
-						piece_instance.constrained_moves.append(move)
-		#piece_instance.valid_moves = legal_constrained_moves.duplicate()
+			if not piece_instance.constrained_moves.has(move):
+				piece_instance.constrained_moves.append(move)
 
 func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Array[PieceInfo]) -> void:
 	#print(">>> Constraining moves due to check")

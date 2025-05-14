@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=81 format=3 uid="uid://dxqb2nt82gp0l"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=82 format=3 uid="uid://dxqb2nt82gp0l"]
 
 [ext_resource type="Texture2D" uid="uid://bnm7ypcla2can" path="res://Images/Piecesets/Shogi-kanji/Lance.png" id="1_88i4y"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_w6snk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_76dmb"]
 [ext_resource type="Resource" uid="uid://2i7t6scd2g0d" path="res://Resources/Moves/SwingingMoves/Shogi/shogi_swing_up.tres" id="2_ax2qw"]
 [ext_resource type="Resource" uid="uid://obhmscwncn03" path="res://Resources/Pieces/Shogi/shogi_promoted_lance.tres" id="3_g0c7r"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_mf3sh"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_oyp4f"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_xlra0"]
 
@@ -484,6 +485,7 @@ fen_char = "L"
 icon = Array[Texture]([ExtResource("1_88i4y")])
 is_royal = false
 moves = Array[ExtResource("4_oyp4f")]([ExtResource("2_ax2qw")])
+logic_blocks = Array[ExtResource("4_mf3sh")]([])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_w6snk")]([ExtResource("3_g0c7r")])

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=82 format=3 uid="uid://5mnjemfahr0k"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=83 format=3 uid="uid://5mnjemfahr0k"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_1ms3i"]
 [ext_resource type="Texture2D" uid="uid://d0kcbw4xnc6bv" path="res://Images/Piecesets/Shogi-kanji/Pawn.png" id="1_iv06e"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="3_vsyv3"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_gy7t6"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_tbloa"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_vufc6"]
 
 [sub_resource type="Resource" id="Resource_l0lip"]
 script = ExtResource("1_1ms3i")
@@ -492,6 +493,7 @@ fen_char = "P"
 icon = Array[Texture]([ExtResource("1_iv06e")])
 is_royal = false
 moves = Array[ExtResource("4_tbloa")]([ExtResource("2_itv4h")])
+logic_blocks = Array[ExtResource("4_vufc6")]([])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("3_vsyv3")]([ExtResource("3_50qpf")])

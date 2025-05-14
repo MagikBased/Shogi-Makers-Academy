@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=63 format=3 uid="uid://db3d6eh8sy2tu"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=64 format=3 uid="uid://db3d6eh8sy2tu"]
 
 [ext_resource type="Texture2D" uid="uid://c4cubmp2fbcg3" path="res://Images/Piecesets/Shogi-kanji/Silver General.png" id="1_5eg45"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_8ycu5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bsrxvsa6y8tsp" path="res://Resources/Pieces/Shogi/shogi_promoted_silver.tres" id="3_dmdj2"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_dqm3w"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_347k6"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_dqm3w"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_sodjy"]
 
 [sub_resource type="Resource" id="Resource_v7id4"]
@@ -394,6 +395,7 @@ fen_char = "S"
 icon = Array[Texture]([ExtResource("1_5eg45")])
 is_royal = false
 moves = Array[ExtResource("4_sodjy")]([ExtResource("2_xyyom")])
+logic_blocks = Array[ExtResource("4_dqm3w")]([])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_8ycu5")]([ExtResource("3_dmdj2")])

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=99 format=3 uid="uid://baw4c8m8roq83"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=100 format=3 uid="uid://baw4c8m8roq83"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_6ll4o"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_finrx"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dq8g6jgo32pky" path="res://Resources/Pieces/Shogi/shogi_promoted_knight.tres" id="3_a388k"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="4_54al8"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_65eyd"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_nf627"]
 
 [sub_resource type="Resource" id="Resource_scsur"]
 script = ExtResource("2_n5u4g")
@@ -574,6 +575,7 @@ fen_char = "N"
 icon = Array[Texture]([ExtResource("1_ucnby")])
 is_royal = false
 moves = Array[ExtResource("4_65eyd")]([ExtResource("2_djyjk")])
+logic_blocks = Array[ExtResource("4_nf627")]([])
 can_promote = true
 is_promoted = false
 promotes_to = Array[ExtResource("1_finrx")]([ExtResource("3_a388k")])
