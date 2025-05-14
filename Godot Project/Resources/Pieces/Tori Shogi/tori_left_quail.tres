@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=10 format=3 uid="uid://bjb3nyi8u56pg"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=11 format=3 uid="uid://bjb3nyi8u56pg"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_jw1uq"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_1u51l"]
 [ext_resource type="Texture2D" uid="uid://be6w6r2ahw3oo" path="res://Images/Piecesets/Tori_Shogi_International/LeftQuail.png" id="2_c78ad"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_uti8m"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_2wgrx"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_dfwon"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_phl54"]
 [ext_resource type="Resource" uid="uid://hm7xnrlj8bmw" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_left_quail_stamps.tres" id="5_twy2p"]
 [ext_resource type="Resource" uid="uid://cml6o5ronu8b7" path="res://Resources/Moves/SwingingMoves/Tori Shogi/tori_quail_swinging_up.tres" id="6_xkngb"]
@@ -17,6 +18,7 @@ fen_char = "L"
 icon = Array[Texture]([ExtResource("2_c78ad")])
 is_royal = false
 moves = Array[ExtResource("3_uti8m")]([ExtResource("5_twy2p"), ExtResource("6_xkngb"), ExtResource("7_jyi4s")])
+logic_blocks = Array[ExtResource("4_dfwon")]([])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("4_2wgrx")]([])

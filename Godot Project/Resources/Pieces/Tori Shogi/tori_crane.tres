@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://n3e5olfbdm41"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=9 format=3 uid="uid://n3e5olfbdm41"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_q5dly"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_e42ro"]
 [ext_resource type="Texture2D" uid="uid://bg7kead4j1jfs" path="res://Images/Piecesets/Tori_Shogi_International/Crane.png" id="2_f63yf"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_bsfqp"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_8viqt"]
 [ext_resource type="Resource" uid="uid://doetjhq5x2jxl" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_crane_stamps.tres" id="4_lxqux"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="5_lfb1c"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="6_m6a3r"]
@@ -15,6 +16,7 @@ fen_char = "C"
 icon = Array[Texture]([ExtResource("2_f63yf")])
 is_royal = false
 moves = Array[ExtResource("3_bsfqp")]([ExtResource("4_lxqux")])
+logic_blocks = Array[ExtResource("4_8viqt")]([])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("5_lfb1c")]([])

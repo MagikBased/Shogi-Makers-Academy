@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://r6xuh6cguh7d"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=9 format=3 uid="uid://r6xuh6cguh7d"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_jg8cj"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_iesrx"]
 [ext_resource type="Texture2D" uid="uid://cymvecr2am45v" path="res://Images/Piecesets/Tori_Shogi_International/Pheasant.png" id="2_tdxpl"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_ixpa0"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_nv6vy"]
 [ext_resource type="Resource" uid="uid://diysvar1nd8tw" path="res://Resources/Moves/StampMoves/Tori Shogi/tori_pheasant_stamps.tres" id="4_rl6pd"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_t7ves"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_gf4yv"]
@@ -15,6 +16,7 @@ fen_char = "P"
 icon = Array[Texture]([ExtResource("2_tdxpl")])
 is_royal = false
 moves = Array[ExtResource("3_ixpa0")]([ExtResource("4_rl6pd")])
+logic_blocks = Array[ExtResource("4_nv6vy")]([])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("4_t7ves")]([])
