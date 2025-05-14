@@ -46,15 +46,12 @@ func _ready() -> void:
 	initialize_attack_cache()
 	#print(attack_cache)
 	start_phase()
-	#debug_manager.add_highlights([Vector2i(5, 5), Vector2i(3, 3)], Color.YELLOW)
-	#debug_manager.add_highlights([Vector2i(5, 5)], Color.RED)
 
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / float(board.board_size.x)
 	current_phase = game_variant.turn_phases[0]
 
 func start_phase() -> void:
-	#print("Starting phase: ", current_phase.phase_name)
 	debug_manager.clear_highlights()
 	current_action_count = 0
 	clear_constrained_moves()
@@ -72,10 +69,9 @@ func start_phase() -> void:
 		#print("Checking pieces: ", checking_pieces.size())
 		if checking_pieces.size() > 0:
 			constrain_moves_due_to_check(king_position, checking_pieces)
-	#var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
-	#var danger_squares = get_squares_attacked_by_player(opponent)
-	#debug_manager.add_highlights(danger_squares, Color.RED)
-	#print("King is in check: ",is_king_in_check(Player.Sente))
+	var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
+	var danger_squares = get_squares_attacked_by_player(opponent)
+	debug_manager.add_highlights(danger_squares, Color.RED)
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
 	if current_phase.player != player_turn:
@@ -125,7 +121,6 @@ func switch_turn() -> void:
 	player_turn = Player.Sente if player_turn == Player.Gote else Player.Gote
 	var phase_index = (turn_count - 1) % game_variant.turn_phases.size()
 	current_phase = game_variant.turn_phases[phase_index]
-	#print("Player Turn: ", player_turn)
 	start_phase()
 	if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
 		var king_position = find_kings(player_turn)[0]
@@ -150,6 +145,8 @@ func initialize_attack_cache() -> void:
 func get_piece_attack_vectors(piece_base: PieceBase, player: Player, move_type: String) -> Array:
 	var attack_vectors = []
 	for move in piece_base.moves:
+		if move.restriction == MovementBase.MoveRestriction.MOVE_ONLY:
+			continue
 		match move_type:
 			"swinging":
 				if move is SwingMove:

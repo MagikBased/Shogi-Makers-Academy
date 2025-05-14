@@ -14,43 +14,47 @@
 [ext_resource type="Resource" uid="uid://lx52y5ibixki" path="res://Resources/Pieces/Chess/chess_queen.tres" id="9_31qpn"]
 [ext_resource type="Resource" uid="uid://dowd4tssos0g4" path="res://Resources/Pieces/Chess/chess_rook.tres" id="10_h2m1c"]
 
-[sub_resource type="Resource" id="Resource_p03xh"]
+[sub_resource type="Resource" id="Resource_qdrh1"]
 script = ExtResource("7_npqev")
 action_type = 0
 max_actions = 1
 pieces_for_action = 0
 pieces_for_action_override = Array[String]([])
+metadata/_custom_type_script = "uid://x2s6nb06hwvg"
 
-[sub_resource type="Resource" id="Resource_jn31d"]
+[sub_resource type="Resource" id="Resource_psa8i"]
 script = ExtResource("3_hm7aq")
 phase_name = "Sente Turn"
 player = 0
-actions = Array[ExtResource("7_npqev")]([SubResource("Resource_p03xh")])
+actions = Array[ExtResource("7_npqev")]([SubResource("Resource_qdrh1")])
 max_actions_per_turn = 1
+metadata/_custom_type_script = "uid://crfchrb021i2d"
 
-[sub_resource type="Resource" id="Resource_jcx1i"]
+[sub_resource type="Resource" id="Resource_4nba0"]
 script = ExtResource("7_npqev")
 action_type = 0
 max_actions = 1
 pieces_for_action = 0
 pieces_for_action_override = Array[String]([])
+metadata/_custom_type_script = "uid://x2s6nb06hwvg"
 
-[sub_resource type="Resource" id="Resource_oqkgv"]
+[sub_resource type="Resource" id="Resource_75fvy"]
 script = ExtResource("3_hm7aq")
 phase_name = "Gote Turn"
 player = 1
-actions = Array[ExtResource("7_npqev")]([SubResource("Resource_jcx1i")])
+actions = Array[ExtResource("7_npqev")]([SubResource("Resource_4nba0")])
 max_actions_per_turn = 1
+metadata/_custom_type_script = "uid://crfchrb021i2d"
 
 [resource]
 script = ExtResource("2_eijo8")
 game_name = "Chess"
 board_data = ExtResource("1_eijo8")
-turn_phases = Array[ExtResource("3_hm7aq")]([SubResource("Resource_jn31d"), SubResource("Resource_oqkgv")])
+turn_phases = Array[ExtResource("3_hm7aq")]([SubResource("Resource_psa8i"), SubResource("Resource_75fvy")])
 pieces = Array[ExtResource("1_3eyq0")]([ExtResource("5_qdrh1"), ExtResource("6_psa8i"), ExtResource("7_4nba0"), ExtResource("8_75fvy"), ExtResource("9_31qpn"), ExtResource("10_h2m1c")])
 win_conditions = Array[int]([0])
-starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 1"
-debug_fen = ""
+starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b - 1"
+debug_fen = "3k4/8/5p2/8/3Kq3/8/8/8 b - 1"
 in_hand_pieces = false
 piece_sets = Array[ExtResource("2_3v0mw")]([ExtResource("3_5l27l")])
 metadata/_custom_type_script = "uid://b6puk4du7bdg8"

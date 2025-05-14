@@ -25,12 +25,10 @@ func get_fen_notation() -> String:
 					if empty_count > 0:
 						sfen += str(empty_count)
 						empty_count = 0
-
 					var piece_owner = piece_info.owner
 					var piece_type_index = get_piece_type_from_symbol(piece_info.piece_type)
 					if piece_type_index == -1:
 						continue
-
 					var piece_base = game_variant.pieces[piece_type_index]
 					var piece_char = piece_base.fen_char
 					if piece_owner == game_manager.Player.Gote:
@@ -76,11 +74,9 @@ func create_board_from_fen(fen: String) -> void:
 	if game_variant.in_hand_pieces:
 		in_hand_pieces = parts[2] if parts.size() > 2 else "-"
 	var turn_count: String = parts[3] if parts.size() > 3 else "1"
-	
 	var regex = RegEx.new()
 	regex.compile("([1-9]|\\+?[A-Za-z]|[A-Za-z])")
 	var matches = regex.search_all(board_state)
-	
 	var x: int = 0
 	var y: int = 0
 	var row_length:int = 0
@@ -136,29 +132,24 @@ func create_board_from_fen(fen: String) -> void:
 	if game_variant.in_hand_pieces:
 		regex.compile("(\\d*[A-Za-z])")
 		var in_hand_matches: Array[RegExMatch] = regex.search_all(in_hand_pieces)
-		
 		for amatch in in_hand_matches:
 			var piece_string: String = amatch.get_string()
 			var count: int = 1
 			var piece_char: String
-			
 			if piece_string.length() > 1:
 				count = int(piece_string.substr(0, piece_string.length() - 1))
 				piece_char = piece_string[-1]
 			else:
 				piece_char = piece_string
-
 			var piece_type_index: int = get_piece_type_from_symbol(piece_char.to_upper())
 			if piece_type_index == -1:
 				continue
-			
 			var piece_base: PieceBase = game_variant.pieces[piece_type_index]
 			for i in range(count):
 				if piece_char == piece_char.to_upper():
 					game_manager.in_hand_manager.add_piece_to_hand(game_manager.in_hand_manager.Player.Sente, piece_base)
 				else:
 					game_manager.in_hand_manager.add_piece_to_hand(game_manager.in_hand_manager.Player.Gote, piece_base)
-	
 	if player_turn == "b":
 		game_manager.player_turn = game_manager.Player.Sente
 	elif player_turn == "w":
