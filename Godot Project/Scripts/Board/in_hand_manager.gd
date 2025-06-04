@@ -20,11 +20,11 @@ func _ready() -> void:
 			sente_in_hand[piece.fen_char] = 0
 			gote_in_hand[piece.fen_char.to_lower()] = 0
 	if game_variant.in_hand_pieces:
-		initalize_hand_containers()
+               initialize_hand_containers()
 		populate_hand_containers()
 		update_hand()
 
-func initalize_hand_containers() -> void:
+func initialize_hand_containers() -> void:
 	sente_container = in_hand_container_scene.instantiate() as InHandContainer
 	gote_container = in_hand_container_scene.instantiate() as InHandContainer
 	sente_container.player = Player.Sente
