@@ -5,7 +5,7 @@ enum Player
 {
 	Sente,
 	Gote,
-	Nuetral,
+        Neutral,
 	Both,
 }
 
