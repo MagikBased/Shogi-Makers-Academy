@@ -461,8 +461,8 @@ func clear_board() -> void:
 	if game_variant.in_hand_pieces:
 		in_hand_manager.reset_in_hand_pieces()
 
-func set_variant(game_varient: GameVariant) -> void:
-	game_variant = game_varient
+func set_variant(variant: GameVariant) -> void:
+        game_variant = variant
 
 #func get_current_phase(turn_count: int) -> TurnPhase:
 	#return turn_phases[(turn_count - 1) % turn_phases.size()]

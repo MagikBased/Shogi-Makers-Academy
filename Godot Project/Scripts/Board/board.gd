@@ -21,8 +21,8 @@ var font: Font
 func _ready() -> void:
 	initialize_values()
 
-func set_variant(game_varient: GameVariant) -> void:
-	board_data = game_varient.board_data
+func set_variant(variant: GameVariant) -> void:
+        board_data = variant.board_data
 
 func initialize_values() -> void:
 	if board_data:
