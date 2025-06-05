@@ -484,10 +484,81 @@ func is_space_taken(move: Vector2i, exclude_instance_id := -1) -> bool:
 	return false
 
 func get_piece_texture(piece: PieceBase, piece_owner: Player) -> Texture:
-	for texture_set in game_variant.piece_sets:
-		if texture_set == active_piece_set:
-			for texture_info in texture_set.piece_set:
-				if texture_info.piece_type == piece:
-					if texture_info.owner == piece_owner or texture_info.owner == PieceTexture.Player.Both:
-						return texture_info.texture
-	return null
+        for texture_set in game_variant.piece_sets:
+                if texture_set == active_piece_set:
+                        for texture_info in texture_set.piece_set:
+                                if texture_info.piece_type == piece:
+                                        if texture_info.owner == piece_owner or texture_info.owner == PieceTexture.Player.Both:
+                                                return texture_info.texture
+        return null
+
+# --- Helper methods for future legality checks ---
+
+func _is_space_taken_in_state(position: Vector2i, state: Array[PieceInfo]) -> bool:
+        for info in state:
+                if info.position == position:
+                        return true
+        return false
+
+func _piece_threatens_king_in_state(piece_info: PieceInfo, king_pos: Vector2i, state: Array[PieceInfo]) -> bool:
+        var piece_base = piece_info.piece_base
+        var swing_attack_vectors = []
+        var stamp_attack_vectors = []
+        if piece_info.owner == Player.Sente:
+                swing_attack_vectors = attack_cache["Sente"]["swinging"].get(piece_base.fen_char, [])
+                stamp_attack_vectors = attack_cache["Sente"]["stamp"].get(piece_base.fen_char, [])
+        else:
+                swing_attack_vectors = attack_cache["Gote"]["swinging"].get(piece_base.fen_char, [])
+                stamp_attack_vectors = attack_cache["Gote"]["stamp"].get(piece_base.fen_char, [])
+
+        for direction in stamp_attack_vectors:
+                var attack_position = piece_info.position + direction
+                if attack_position == king_pos:
+                        return true
+
+        for direction in swing_attack_vectors:
+                var target_position = piece_info.position + direction
+                while is_inside_board(target_position):
+                        if target_position == king_pos:
+                                return true
+                        if _is_space_taken_in_state(target_position, state):
+                                break
+                        target_position += direction
+        return false
+
+func _is_king_in_check_from_state(board_state: Array[PieceInfo], player: Player) -> bool:
+        var king_positions: Array[Vector2i] = []
+        for info in board_state:
+                if info.owner == player and info.piece_base.is_royal:
+                        king_positions.append(info.position)
+        var opponent = Player.Gote if player == Player.Sente else Player.Sente
+        for king_pos in king_positions:
+                for info in board_state:
+                        if info.owner == opponent:
+                                if _piece_threatens_king_in_state(info, king_pos, board_state):
+                                        return true
+        return false
+
+func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> bool:
+        var temp_state: Array[PieceInfo] = []
+        for info in pieces_on_board:
+                var copy := PieceInfo.new()
+                copy.position = info.position
+                copy.owner = info.owner
+                copy.piece_type = info.piece_type
+                copy.piece_base = info.piece_base
+                copy.instance_id = info.instance_id
+                temp_state.append(copy)
+
+        var moving_id = piece.get_instance_id()
+        var captured_index := -1
+        for i in range(temp_state.size()):
+                var info = temp_state[i]
+                if info.instance_id == moving_id:
+                        info.position = move
+                elif info.position == move:
+                        captured_index = i
+        if captured_index != -1:
+                temp_state.remove_at(captured_index)
+
+        return _is_king_in_check_from_state(temp_state, piece.piece_owner)
