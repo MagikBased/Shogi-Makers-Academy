@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=15 format=3 uid="uid://lx52y5ibixki"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=16 format=3 uid="uid://lx52y5ibixki"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_xhagh"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_a7ged"]
 [ext_resource type="Texture2D" uid="uid://dtp0rit8rf7bt" path="res://Images/Piecesets/Chess-cburnett/WhiteQueen.png" id="2_l81ey"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_mo3x0"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_pptok"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_qioub"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_6a7uj"]
 [ext_resource type="Resource" uid="uid://by7n6jl5sin00" path="res://Resources/Moves/SwingingMoves/Chess/bishop_swing_diagonal_bottom_left.tres" id="5_pptok"]
@@ -22,6 +23,7 @@ fen_char = "Q"
 icon = Array[Texture]([ExtResource("2_l81ey")])
 is_royal = false
 moves = Array[ExtResource("3_mo3x0")]([ExtResource("5_pptok"), ExtResource("6_y5ebg"), ExtResource("7_hjajj"), ExtResource("8_erapx"), ExtResource("9_8ej6v"), ExtResource("10_j87xg"), ExtResource("11_1vi7u"), ExtResource("12_ciswa")])
+logic_blocks = Array[ExtResource("4_pptok")]([])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("4_qioub")]([])

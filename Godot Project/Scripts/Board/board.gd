@@ -22,7 +22,7 @@ func _ready() -> void:
 	initialize_values()
 
 func set_variant(variant: GameVariant) -> void:
-        board_data = variant.board_data
+	board_data = variant.board_data
 
 func initialize_values() -> void:
 	if board_data:

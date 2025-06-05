@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=11 format=3 uid="uid://duhfu7qpyx1iw"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=12 format=3 uid="uid://duhfu7qpyx1iw"]
 
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_ihg2p"]
 [ext_resource type="Texture2D" uid="uid://cwnfsi7oilgph" path="res://Images/Piecesets/Chess-cburnett/WhiteBishop.png" id="2_tjw7w"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="2_x82dh"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="3_s2p3g"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_1j6wy"]
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="4_ppu3g"]
 [ext_resource type="Resource" uid="uid://by7n6jl5sin00" path="res://Resources/Moves/SwingingMoves/Chess/bishop_swing_diagonal_bottom_left.tres" id="5_1j6wy"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="5_jqpo0"]
@@ -18,6 +19,7 @@ fen_char = "B"
 icon = Array[Texture]([ExtResource("2_tjw7w")])
 is_royal = false
 moves = Array[ExtResource("3_s2p3g")]([ExtResource("5_1j6wy"), ExtResource("6_xgbij"), ExtResource("7_ughdj"), ExtResource("8_ha1ae")])
+logic_blocks = Array[ExtResource("4_1j6wy")]([])
 can_promote = false
 is_promoted = false
 promotes_to = Array[ExtResource("4_ppu3g")]([])

@@ -4,7 +4,7 @@ class_name BaseGamePiece
 enum Player{
 	Sente,
 	Gote,
-        Neutral,
+	Neutral,
 	Both
 }
 
