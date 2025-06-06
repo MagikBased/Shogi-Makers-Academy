@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AddCommandHighlightEffect" load_steps=4 format=3 uid="uid://3b9f4715"]
+
+[ext_resource type="Script" uid="uid://3b9f4715" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/LogicResourceScripts/LogicEffects/add_command_highlight_effect.gd" id="1_8w7u5"]
+[ext_resource type="Resource" uid="uid://7eee6ca2" path="res://Resources/Moves/SpecialMoves/Chess/Commands/pawn_double_step_command.tres" id="2_0hd3s"]
+
+[resource]
+script = ExtResource("1_8w7u5")
+command = ExtResource("2_0hd3s")
+move_direction = Vector2i(0, -1)
+distance = 2
+metadata/_custom_type_script = "uid://3b9f4715"

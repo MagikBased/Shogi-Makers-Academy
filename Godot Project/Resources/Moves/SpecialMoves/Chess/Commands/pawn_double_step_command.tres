@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DoubleStepCommand" load_steps=2 format=3 uid="uid://7eee6ca2"]
+
+[ext_resource type="Script" uid="uid://7eee6ca2" path="res://Scripts/Board/Commands/double_step_command.gd" id="1_qwv2f"]
+
+[resource]
+script = ExtResource("1_qwv2f")
+metadata/_custom_type_script = "uid://7eee6ca2"
