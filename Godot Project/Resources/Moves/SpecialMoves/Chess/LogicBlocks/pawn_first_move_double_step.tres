@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bbfy63d54jfiq" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_condition.gd" id="1_es8lc"]
 [ext_resource type="Resource" uid="uid://bybcrk0vxbrw8" path="res://Resources/Moves/SpecialMoves/LogicConditions/has_not_moved.tres" id="2_ke4or"]
 [ext_resource type="Script" uid="uid://uiy6wp2pfyh4" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_effect.gd" id="3_14cl4"]
-[ext_resource type="Resource" uid="uid://3b9f4715" path="res://Resources/Moves/SpecialMoves/Chess/LogicEffects/add_pawn_double_move_highlight.tres" id="4_88xdu"]
+[ext_resource type="Resource" uid="uid://nbnlp18p4fbo" path="res://Resources/Moves/SpecialMoves/Chess/LogicEffects/add_pawn_double_move.tres" id="4_88xdu"]
 [ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="5_lgal5"]
 
 [resource]
