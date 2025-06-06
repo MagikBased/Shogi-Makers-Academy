@@ -492,8 +492,6 @@ func get_piece_texture(piece: PieceBase, piece_owner: Player) -> Texture:
 												return texture_info.texture
 		return null
 
-# --- Helper methods for future legality checks ---
-
 func _is_space_taken_in_state(pos: Vector2i, state: Array[PieceInfo]) -> bool:
 		for info in state:
 				if info.position == pos:
@@ -549,7 +547,6 @@ func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> b
 				copy.piece_base = info.piece_base
 				copy.instance_id = info.instance_id
 				temp_state.append(copy)
-
 		var moving_id = piece.get_instance_id()
 		var captured_index := -1
 		for i in range(temp_state.size()):
@@ -560,5 +557,4 @@ func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> b
 						captured_index = i
 		if captured_index != -1:
 				temp_state.remove_at(captured_index)
-
 		return _is_king_in_check_from_state(temp_state, piece.piece_owner)
