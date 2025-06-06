@@ -1,4 +1,4 @@
-extends SpecialMoveCommand
+extends "res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/LogicResourceScripts/LogicEffects/special_move_command.gd"
 class_name DoubleStepCommand
 
 func execute(context: LogicContext) -> void:
