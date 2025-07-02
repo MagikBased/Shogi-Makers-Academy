@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 class_name BaseGamePiece
 
 enum Player{
@@ -11,6 +11,7 @@ enum Player{
 @export var piece_resource: PieceBase
 var game_manager: GameManager
 @onready var selection_highlight = $SelectionHighlight
+@onready var piece_sprite = $PieceSprite
 var selection_color: Color = Color(0,1,0,0.5)
 @onready var rect_size:Vector2
 @export var current_position: Vector2i
@@ -35,7 +36,7 @@ var move_count: int = 0
 
 func _ready() -> void:
 	initialize_values()
-	var scale_factor = game_manager.square_size / texture.get_size().x
+	var scale_factor = game_manager.square_size / piece_sprite.texture.get_size().x
 	scale *= scale_factor
 	snap_to_grid()
 	if piece_owner == Player.Gote:
@@ -43,12 +44,12 @@ func _ready() -> void:
 
 func _input(event) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and piece_owner == game_manager.player_turn and game_manager.is_promoting == false:
-			if event.is_pressed() and get_rect().has_point(to_local(event.position)):
+			if event.is_pressed() and piece_sprite.get_rect().has_point(to_local(event.position)):
 					if !selected:
 							if game_manager.selected_piece != null:
 									game_manager.selected_piece.destroy_all_highlights()
-									game_manager.selected_piece.selected = false
-							selected = true
+									game_manager.selected_piece.set_selected(false)
+							set_selected(true)
 							game_manager.selected_piece = self
 							valid_moves = generate_moves()
 							for move in valid_moves:
@@ -65,17 +66,17 @@ func _input(event) -> void:
 					dragging = true
 					drag_start_square = current_position
 					drag_sprite = Sprite2D.new()
-					drag_sprite.texture = texture
+					drag_sprite.texture = piece_sprite.texture
 					drag_sprite.scale = scale
 					drag_sprite.rotation = rotation
 					drag_sprite.z_index = z_index + 100
 					game_manager.board.add_child(drag_sprite)
 					drag_sprite.position = game_manager.board.to_local(event.position)
-					modulate.a = 0.5
+					piece_sprite.modulate.a = 0.5
 					queue_redraw()
 			elif !event.is_pressed() and dragging:
 					dragging = false
-					modulate.a = 1.0
+					piece_sprite.modulate.a = 1.0
 					if drag_sprite:
 							drag_sprite.queue_free()
 							drag_sprite = null
@@ -86,7 +87,7 @@ func _input(event) -> void:
 							_on_move_piece(drop_square)
 					else:
 							destroy_all_highlights()
-							selected = false
+							set_selected(false)
 							game_manager.selected_piece = null
 					queue_redraw()
 	elif event is InputEventMouseMotion and dragging:
@@ -96,13 +97,13 @@ func initialize_values() -> void:
 	if piece_resource:
 		var assigned_texture = game_manager.get_piece_texture(piece_resource, piece_owner)
 		if assigned_texture:
-			texture = assigned_texture
+			piece_sprite.texture = assigned_texture
 		elif piece_resource.icon.size() > 0:
-			texture = piece_resource.icon[0]
+			piece_sprite.texture = piece_resource.icon[0]
 		is_promoted = piece_resource.is_promoted
 		can_promote = piece_resource.can_promote
 		special_logic_blocks = piece_resource.logic_blocks
-	rect_size = Vector2(texture.get_width(),texture.get_height())
+	rect_size = Vector2(piece_sprite.texture.get_width(),piece_sprite.texture.get_height())
 
 func snap_to_grid() -> void:
 	var file: int = int(current_position.x)
@@ -258,7 +259,7 @@ func apply_promotion() -> void:
 		piece_resource = piece_resource.promotes_to[0] #needs to extend this to check what piece the forced promotion is.
 		is_promoted = true
 		if piece_resource.icon.size() > 0:
-			texture = piece_resource.icon[0]
+			piece_sprite.texture = piece_resource.icon[0]
 		#texture = piece_resource.icon[0]
 		for piece_info in game_manager.pieces_on_board:
 			if piece_info.instance_id == get_instance_id():
@@ -290,16 +291,13 @@ func show_promotion_choice() -> void:
 	no_promotion_option.piece_base = piece_resource
 	var no_promotion_position_offset = Vector2(0, game_manager.square_size / scale.y)
 	no_promotion_option.position = center_position + no_promotion_position_offset
-	no_promotion_option.get_child(0).texture = texture
+	no_promotion_option.get_child(0).texture = piece_sprite.texture
 	no_promotion_option.connect("promotion_selected", Callable(self, "_on_promotion_selected"))
 	options_parent.add_child(no_promotion_option)
 
-func _draw() -> void:
-	if selected:
-		$SelectionHighlight.visible = true
-	else:
-		$SelectionHighlight.visible = false
-	draw_texture(texture,Vector2(float(-texture.get_width())/2,float(-texture.get_height())/2),modulate)
+func set_selected(value: bool) -> void:
+	selected = value
+	selection_highlight.visible = selected
 
 func _on_move_piece(move_position: Vector2i) -> void:
 	move_count += 1
@@ -330,7 +328,7 @@ func _on_move_piece(move_position: Vector2i) -> void:
 func finalize_action() -> void:
 	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.MovePiece):
 		game_manager.selected_piece = null
-		selected = false
+		set_selected(false)
 		queue_redraw()
 
 func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
@@ -340,7 +338,7 @@ func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
 	if selected_piece_base != piece_resource and selected_piece_base != null:
 		apply_promotion()
 		piece_resource = selected_piece_base
-		scale = Vector2.ONE * (game_manager.square_size / texture.get_size().x)
+		scale = Vector2.ONE * (game_manager.square_size / piece_sprite.texture.get_size().x)
 		snap_to_grid()
 	if pending_handle_action:
 		pending_handle_action = false

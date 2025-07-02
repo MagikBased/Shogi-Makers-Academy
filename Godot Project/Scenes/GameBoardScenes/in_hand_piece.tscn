@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dokgvc17jfjdf" path="res://Scripts/Board/in_hand_piece.gd" id="1_k53g3"]
 [ext_resource type="Script" uid="uid://ceb2dyc1a6ehc" path="res://Scripts/Board/selection_highlight.gd" id="2_3b4af"]
 
-[node name="InHandPiece" type="Sprite2D"]
+[node name="InHandPiece" type="Node2D"]
 script = ExtResource("1_k53g3")
 
 [node name="SelectionHighlight" type="Node2D" parent="."]
