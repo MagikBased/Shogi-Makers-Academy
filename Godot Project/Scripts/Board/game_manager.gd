@@ -477,7 +477,7 @@ func get_board_square_at_position(global_pos: Vector2) -> Vector2i:
 	var file = board.board_size.x - int(floor(local.x / square_size))
 	var rank = int(floor(local.y / square_size)) + 1
 	if file < 1 or file > board.board_size.x or rank < 1 or rank > board.board_size.y:
-	        return Vector2i(-1, -1)
+		return Vector2i(-1, -1)
 	return Vector2i(file, rank)
 
 func is_inside_board(move: Vector2i) -> bool:
