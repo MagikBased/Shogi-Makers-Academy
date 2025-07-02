@@ -472,6 +472,14 @@ func find_square_center(file: int,rank: int) -> Vector2:
 	var center_y = rank * square_size - square_size / 2
 	return Vector2(center_x, center_y)
 
+func get_board_square_at_position(global_pos: Vector2) -> Vector2i:
+	var local = board.to_local(global_pos)
+	var file = board.board_size.x - int(floor(local.x / square_size))
+	var rank = int(floor(local.y / square_size)) + 1
+	if file < 1 or file > board.board_size.x or rank < 1 or rank > board.board_size.y:
+	        return Vector2i(-1, -1)
+	return Vector2i(file, rank)
+
 func is_inside_board(move: Vector2i) -> bool:
 	return(move.x > 0 and move.x <= board.board_size.x and move.y > 0 and move.y <= board.board_size.y)
 
