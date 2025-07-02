@@ -93,6 +93,7 @@ func _input(event) -> void:
 	elif event is InputEventMouseMotion and dragging:
 			drag_sprite.position = game_manager.board.to_local(event.position)
 
+
 func initialize_values() -> void:
 	if piece_resource:
 		var assigned_texture = game_manager.get_piece_texture(piece_resource, piece_owner)
