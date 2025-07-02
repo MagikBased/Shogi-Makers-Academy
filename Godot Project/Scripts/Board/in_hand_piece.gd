@@ -21,17 +21,17 @@ var square_size: float
 func _ready() -> void:
 	if piece_resource:
 		if piece_resource.icon.size() > 0:
-			texture = piece_resource.icon[0]
-	scale *= square_size / texture.get_size().x
-	rect_size = Vector2(texture.get_width(),texture.get_height())
+			piece_sprite.texture = piece_resource.icon[0]
+	scale *= square_size / piece_sprite.texture.get_size().x
+	rect_size = Vector2(piece_sprite.texture.get_width(),piece_sprite.texture.get_height())
 
 func _input(event) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		var local_mouse_position = to_local(event.position)
-		if get_rect().has_point(local_mouse_position):
+		if piece_sprite.get_rect().has_point(local_mouse_position):
 			var piece_count = game_manager.in_hand_manager.get_piece_count_in_hand(player, piece_resource.fen_char_piece_to_add_on_capture if player == Player.Sente else piece_resource.fen_char_piece_to_add_on_capture.to_lower())
 			if piece_owner == game_manager.player_turn and piece_count > 0 and not game_manager.is_promoting:
-				selected = !selected
+				set_selected(!selected)
 				if !selected:
 					valid_moves = []
 					destroy_all_highlights()
@@ -39,7 +39,7 @@ func _input(event) -> void:
 				else:
 					if game_manager.selected_piece != null:
 						game_manager.selected_piece.destroy_all_highlights()
-						game_manager.selected_piece.selected = false
+						game_manager.selected_piece.set_selected(false)
 						valid_moves = []
 					game_manager.selected_piece = self
 					get_valid_moves()
@@ -175,7 +175,7 @@ func would_cause_checkmate(drop_position: Vector2i) -> bool:
 func update_alpha(count: int) -> void:
 	self.modulate.a = 1.0 if count > 0 else 0.3
 	count_label.text = str(count)
-	count_label.position = Vector2(texture.get_width() / 4.0, texture.get_height() / 4.0)
+	count_label.position = Vector2(piece_sprite.texture.get_width() / 4.0, piece_sprite.texture.get_height() / 4.0)
 	count_label.z_index = self.z_index + 1
 
 func destroy_all_highlights() -> void:
@@ -200,4 +200,4 @@ func _draw() -> void:
 		$SelectionHighlight.visible = true
 	else:
 		$SelectionHighlight.visible = false
-	draw_texture(texture,Vector2(float(-texture.get_width())/2,float(-texture.get_height())/2),modulate)
+	draw_texture(piece_sprite.texture,Vector2(float(-piece_sprite.texture.get_width())/2,float(-piece_sprite.texture.get_height())/2),modulate)

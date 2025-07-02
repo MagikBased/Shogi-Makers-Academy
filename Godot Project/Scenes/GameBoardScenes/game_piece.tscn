@@ -3,10 +3,13 @@
 [ext_resource type="Script" uid="uid://2j5dr4koe2kf" path="res://Scripts/Board/game_piece.gd" id="1_sdr3s"]
 [ext_resource type="Script" uid="uid://ceb2dyc1a6ehc" path="res://Scripts/Board/selection_highlight.gd" id="2_mha5q"]
 
-[node name="BaseGamePiece" type="Sprite2D" groups=["game_piece"]]
+[node name="BaseGamePiece" type="Node2D" groups=["game_piece"]]
 z_index = 1
 script = ExtResource("1_sdr3s")
 
+[node name="PieceSprite" type="Sprite2D" parent="."]
+
 [node name="SelectionHighlight" type="Node2D" parent="."]
+visible = false
 z_index = -1
 script = ExtResource("2_mha5q")
