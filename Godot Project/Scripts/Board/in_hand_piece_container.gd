@@ -20,7 +20,7 @@ func arrange_children() -> void:
 	var current_column = 0
 	for i in range(num_children):
 		var child = get_child(i)
-		if child is Sprite2D:
+		if child is InHandPiece:
 			child.position = Vector2(x_offset, y_offset)
 			x_offset += column_width
 			current_column += 1

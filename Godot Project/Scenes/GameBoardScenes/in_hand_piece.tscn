@@ -6,7 +6,10 @@
 [node name="InHandPiece" type="Node2D"]
 script = ExtResource("1_k53g3")
 
+[node name="PieceSprite" type="Sprite2D" parent="."]
+
 [node name="SelectionHighlight" type="Node2D" parent="."]
+visible = false
 z_as_relative = false
 script = ExtResource("2_3b4af")
 

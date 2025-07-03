@@ -7,6 +7,11 @@ var parent_node: Node2D
 signal move_piece(position: Vector2i)
 signal drop_piece(position: Vector2i)
 
+@export var normal_color: Color = Color(1, 1, 1, 1)
+@export var hover_color: Color = Color(0, 0, 1, 1)
+
+var is_hovered := false
+
 @export var special_command: SpecialMoveCommand
 
 func _ready() -> void:
@@ -26,3 +31,6 @@ func _input(event) -> void:
 				emit_signal("drop_piece", current_position)
 			else:
 				emit_signal("move_piece", current_position)
+
+func set_hovered(is_hovering: bool) -> void:
+	modulate = hover_color if is_hovering else normal_color

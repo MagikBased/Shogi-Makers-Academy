@@ -29,6 +29,7 @@ var pending_handle_action := false
 var is_fully_constrained: bool = false
 
 var square_highlight = load("res://Scenes/GameBoardScenes/square_highlight.tscn")
+var last_hovered_highlight: SquareHighlight = null
 
 var special_logic_blocks: Array[LogicBlock]
 var extra_generated_moves: Array[MovementBase] = []
@@ -43,56 +44,107 @@ func _ready() -> void:
 		rotation_degrees += 180
 
 func _input(event) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and piece_owner == game_manager.player_turn and game_manager.is_promoting == false:
-			if event.is_pressed() and piece_sprite.get_rect().has_point(to_local(event.position)):
-					if !selected:
-							if game_manager.selected_piece != null:
-									game_manager.selected_piece.destroy_all_highlights()
-									game_manager.selected_piece.set_selected(false)
-							set_selected(true)
-							game_manager.selected_piece = self
-							valid_moves = generate_moves()
-							for move in valid_moves:
-									var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
-									highlight.current_position = move
-									var board_position: Vector2 = (current_position - highlight.current_position) * highlight.texture.get_width()
-									if piece_owner == Player.Sente:
-											board_position.y *= -1
-									if piece_owner == Player.Gote:
-											board_position.x *= -1
-									highlight.position = board_position
-									highlight.connect("move_piece", Callable(self, "_on_move_piece"))
-									add_child(highlight)
-					dragging = true
-					drag_start_square = current_position
-					drag_sprite = Sprite2D.new()
-					drag_sprite.texture = piece_sprite.texture
-					drag_sprite.scale = scale
-					drag_sprite.rotation = rotation
-					drag_sprite.z_index = z_index + 100
-					game_manager.board.add_child(drag_sprite)
-					drag_sprite.position = game_manager.board.to_local(event.position)
-					piece_sprite.modulate.a = 0.5
-					queue_redraw()
-			elif !event.is_pressed() and dragging:
-					dragging = false
-					piece_sprite.modulate.a = 1.0
-					if drag_sprite:
-							drag_sprite.queue_free()
-							drag_sprite = null
-					var drop_square = game_manager.get_board_square_at_position(event.position)
-					if drop_square == drag_start_square:
-							pass
-					elif drop_square in valid_moves:
-							_on_move_piece(drop_square)
-					else:
-							destroy_all_highlights()
-							set_selected(false)
-							game_manager.selected_piece = null
-					queue_redraw()
-	elif event is InputEventMouseMotion and dragging:
-			drag_sprite.position = game_manager.board.to_local(event.position)
+	if event is InputEventMouseButton \
+	and event.button_index == MOUSE_BUTTON_LEFT \
+	and piece_owner == game_manager.player_turn \
+	and not game_manager.is_promoting:
 
+		var local_mouse_pos = to_local(event.position)
+		var is_click_on_piece = piece_sprite.get_rect().has_point(local_mouse_pos)
+
+		if event.is_pressed() and is_click_on_piece:
+			if selected:
+				destroy_all_highlights()
+				set_selected(false)
+				game_manager.selected_piece = null
+			else:
+				if game_manager.selected_piece != null:
+					game_manager.selected_piece.destroy_all_highlights()
+					game_manager.selected_piece.set_selected(false)
+				set_selected(true)
+				game_manager.selected_piece = self
+				valid_moves = generate_moves()
+				for move in valid_moves:
+					var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
+					highlight.current_position = move
+					var board_position: Vector2 = (current_position - highlight.current_position) * highlight.texture.get_width()
+					if piece_owner == Player.Sente:
+						board_position.y *= -1
+					else:
+						board_position.x *= -1
+					highlight.position = board_position
+					highlight.connect("move_piece", Callable(self, "_on_move_piece"))
+					add_child(highlight)
+			drag_start_square = current_position
+			begin_drag(event)
+		elif not event.is_pressed():
+			if dragging:
+				end_drag()
+				var drop_square = game_manager.get_board_square_at_position(event.position)
+				if drop_square in valid_moves and drop_square != drag_start_square:
+					_on_move_piece(drop_square)
+				else:
+					set_selected(true)
+					game_manager.selected_piece = self
+			else:
+				if is_click_on_piece:
+					if not selected:
+						if game_manager.selected_piece != null:
+							game_manager.selected_piece.destroy_all_highlights()
+							game_manager.selected_piece.set_selected(false)
+						set_selected(true)
+						game_manager.selected_piece = self
+						valid_moves = generate_moves()
+						for move in valid_moves:
+							var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
+							highlight.current_position = move
+							var board_position: Vector2 = (current_position - highlight.current_position) * highlight.texture.get_width()
+							if piece_owner == Player.Sente:
+								board_position.y *= -1
+							else:
+								board_position.x *= -1
+							highlight.position = board_position
+							highlight.connect("move_piece", Callable(self, "_on_move_piece"))
+							add_child(highlight)
+
+	elif event is InputEventMouseMotion and dragging:
+		update_drag(event)
+
+func begin_drag(event: InputEventMouseButton) -> void:
+	dragging = true
+	drag_sprite = Sprite2D.new()
+	drag_sprite.texture = piece_sprite.texture
+	drag_sprite.scale = scale
+	drag_sprite.rotation = rotation
+	drag_sprite.z_index = z_index + 100
+	game_manager.board.add_child(drag_sprite)
+	drag_sprite.position = game_manager.board.to_local(event.position)
+	piece_sprite.modulate.a = 0.25
+	queue_redraw()
+
+func update_drag(event: InputEventMouseMotion) -> void:
+	if dragging and drag_sprite:
+		drag_sprite.position = game_manager.board.to_local(event.position)
+
+		if last_hovered_highlight:
+			last_hovered_highlight.set_hovered(false)
+			last_hovered_highlight = null
+
+		for child in get_children():
+			if child is SquareHighlight:
+				var local_mouse = child.to_local(event.position)
+				if child.get_rect().has_point(local_mouse):
+					child.set_hovered(true)
+					last_hovered_highlight = child
+					break
+
+func end_drag() -> void:
+	dragging = false
+	piece_sprite.modulate.a = 1.0
+	if drag_sprite:
+		drag_sprite.queue_free()
+		drag_sprite = null
+	queue_redraw()
 
 func initialize_values() -> void:
 	if piece_resource:

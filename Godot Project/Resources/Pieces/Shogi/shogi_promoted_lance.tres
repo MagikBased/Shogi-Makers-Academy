@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="PieceBase" load_steps=8 format=3 uid="uid://obhmscwncn03"]
+[gd_resource type="Resource" script_class="PieceBase" load_steps=9 format=3 uid="uid://obhmscwncn03"]
 
 [ext_resource type="Script" uid="uid://g6lvx7h1627n" path="res://Scripts/ResourceScripts/piece_base.gd" id="1_3hmos"]
 [ext_resource type="Texture2D" uid="uid://cxa60ffm3c4ti" path="res://Images/Piecesets/Shogi-kanji/Promoted Lance.png" id="1_7inj1"]
 [ext_resource type="Script" uid="uid://hhssrmjwctdd" path="res://Scripts/ResourceScripts/drop_restriction.gd" id="1_lkeex"]
 [ext_resource type="Resource" uid="uid://d1vue8laskmwm" path="res://Resources/Moves/StampMoves/Shogi/shogi_gold_stamps.tres" id="2_ohx06"]
 [ext_resource type="Script" uid="uid://cxu5pm4id8imf" path="res://Scripts/ResourceScripts/illegal_drop_square.gd" id="3_h4x70"]
+[ext_resource type="Script" uid="uid://du1q4fv2i4ty5" path="res://Scripts/ResourceScripts/MovementResourceScripts/LogicBlocks/logic_block.gd" id="4_h4x70"]
 [ext_resource type="Script" uid="uid://c0qaiy3nxo67m" path="res://Scripts/ResourceScripts/MovementResourceScripts/movement_base.gd" id="4_hmeqj"]
 [ext_resource type="Script" uid="uid://b7f7njs0lr8di" path="res://Scripts/ResourceScripts/promotion_square.gd" id="7_75vvh"]
 
@@ -15,11 +16,12 @@ fen_char = "+L"
 icon = Array[Texture]([ExtResource("1_7inj1")])
 is_royal = false
 moves = Array[ExtResource("4_hmeqj")]([ExtResource("2_ohx06")])
+logic_blocks = Array[ExtResource("4_h4x70")]([])
 can_promote = false
 is_promoted = true
 promotes_to = Array[ExtResource("1_3hmos")]([])
 promotion_squares = Array[ExtResource("7_75vvh")]([])
-add_to_hand_on_capture = false
+can_add_to_hand = false
 fen_char_piece_to_add_on_capture = "L"
 can_deliver_checkmate = true
 illegal_drop_squares = Array[ExtResource("3_h4x70")]([])

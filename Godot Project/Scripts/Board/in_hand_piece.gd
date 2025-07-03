@@ -1,65 +1,45 @@
 extends BaseGamePiece
 class_name InHandPiece
 
-#enum Player{
-	#Sente,
-	#Gote
-#}
-
-#@export var piece_resource: PieceBase
 @export var player: InHandManager.Player
-#var game_manager: GameManager
 @onready var count_label = $PieceCount
-#@onready var selection_highlight = $SelectionHighlight
-#var selection_color: Color = Color(0,1,0,0.5)
-#@onready var rect_size:Vector2
 var square_size: float
-#var piece_owner = Player.Sente
-#var selected: bool = false
-#var valid_moves: Array[Vector2i]
 
 func _ready() -> void:
-	if piece_resource:
-		if piece_resource.icon.size() > 0:
-			piece_sprite.texture = piece_resource.icon[0]
+	if piece_resource and piece_resource.icon.size() > 0:
+		piece_sprite.texture = piece_resource.icon[0]
 	scale *= square_size / piece_sprite.texture.get_size().x
-	rect_size = Vector2(piece_sprite.texture.get_width(),piece_sprite.texture.get_height())
+	rect_size = Vector2(piece_sprite.texture.get_width(), piece_sprite.texture.get_height())
 
-func _input(event) -> void:
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
 		var local_mouse_position = to_local(event.position)
-		if piece_sprite.get_rect().has_point(local_mouse_position):
-			var piece_count = game_manager.in_hand_manager.get_piece_count_in_hand(player, piece_resource.fen_char_piece_to_add_on_capture if player == Player.Sente else piece_resource.fen_char_piece_to_add_on_capture.to_lower())
+		var is_over_sprite = piece_sprite.get_rect().has_point(local_mouse_position)
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and is_over_sprite:
+			var piece_count = game_manager.in_hand_manager.get_piece_count_in_hand(
+				player,
+				piece_resource.fen_char_piece_to_add_on_capture if player == Player.Sente else piece_resource.fen_char_piece_to_add_on_capture.to_lower()
+			)
 			if piece_owner == game_manager.player_turn and piece_count > 0 and not game_manager.is_promoting:
-				set_selected(!selected)
-				if !selected:
-					valid_moves = []
-					destroy_all_highlights()
-					game_manager.selected_piece = null
-				else:
-					if game_manager.selected_piece != null:
-						game_manager.selected_piece.destroy_all_highlights()
-						game_manager.selected_piece.set_selected(false)
-						valid_moves = []
-					game_manager.selected_piece = self
-					get_valid_moves()
-					for moves in valid_moves:
-						var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
-						var highlight = square_highlight.instantiate()
-						highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
-						add_child(highlight)
-						highlight.current_position = moves
-						var board_position: Vector2 = game_manager.board.global_position
-						board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
-						board_position.y += (moves.y - 1) * global_square_size.y
-						#if piece_owner == Player.Sente:
-							#board_position.y += (moves.y - 1) * global_square_size.y
-						#elif piece_owner == Player.Gote:
-							#board_position.y += (moves.y - 1) * global_square_size.y
-						highlight.global_position = board_position
-						highlight.position.x += highlight.texture.get_width() / 2
-						highlight.position.y +=  highlight.texture.get_height() / 2
-						highlight.z_index = game_manager.board.z_index + 1
+				set_selected(true)
+				destroy_all_highlights()
+				game_manager.selected_piece = self
+				get_valid_moves()
+				show_valid_move_highlights()
+				begin_drag(event)
+
+		elif not event.is_pressed() and dragging:
+			end_drag()
+			var drop_square = game_manager.get_board_square_at_position(event.position)
+			if drop_square in valid_moves:
+				_on_drop_piece(drop_square)
+			else:
+				destroy_all_highlights()
+				set_selected(false)
+				game_manager.selected_piece = null
+
+	elif event is InputEventMouseMotion:
+		update_drag(event)
 
 func get_valid_moves() -> void:
 	valid_moves.clear()
@@ -81,12 +61,46 @@ func get_valid_moves() -> void:
 				continue
 			if not piece_resource.can_deliver_checkmate and would_cause_checkmate(move_position):
 				continue
-			if checking_pieces.size() == 1:
-				if move_position not in blocking_squares:
-					continue
+			if checking_pieces.size() == 1 and move_position not in blocking_squares:
+				continue
 			elif checking_pieces.size() > 1:
 				continue
 			valid_moves.append(move_position)
+
+func show_valid_move_highlights() -> void:
+	for moves in valid_moves:
+		var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
+		var highlight = square_highlight.instantiate()
+		highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
+		add_child(highlight)
+		highlight.current_position = moves
+		var board_position: Vector2 = game_manager.board.global_position
+		board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
+		board_position.y += (moves.y - 1) * global_square_size.y
+		highlight.global_position = board_position
+		highlight.position += highlight.texture.get_size() / 2
+		highlight.z_index = game_manager.board.z_index + 1
+
+func _on_drop_piece(move_position: Vector2i) -> void:
+	game_manager.in_hand_manager.remove_piece_from_hand(player, piece_resource)
+	var gm_player = GameManager.Player.Sente if player == InHandManager.Player.Sente else GameManager.Player.Gote
+	game_manager.create_piece(piece_resource, move_position, gm_player)
+	destroy_all_highlights()
+	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.DropPiece):
+		game_manager.selected_piece = null
+		selected = false
+		queue_redraw()
+
+func update_alpha(count: int) -> void:
+	self.modulate.a = 1.0 if count > 0 else 0.3
+	count_label.text = str(count)
+	count_label.position = piece_sprite.texture.get_size() / 4.0
+	count_label.z_index = self.z_index + 1
+
+func destroy_all_highlights() -> void:
+	for child in get_children():
+		if child.is_in_group("highlight"):
+			child.queue_free()
 
 func get_blocking_squares(king_pos: Vector2i, attacker: PieceInfo) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
@@ -96,15 +110,6 @@ func get_blocking_squares(king_pos: Vector2i, attacker: PieceInfo) -> Array[Vect
 		result.append(pos)
 		pos += direction
 	return result
-
-func is_inside_board(move: Vector2i) -> bool:
-	return(move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y)
-
-func is_space_taken(move: Vector2i) -> bool:
-	for piece_info in game_manager.pieces_on_board:
-		if piece_info.position == move:
-			return true
-	return false
 
 func is_illegal_drop_square(move_position: Vector2i) -> bool:
 	if piece_resource.illegal_drop_squares.size() == 0:
@@ -161,7 +166,7 @@ func would_cause_checkmate(drop_position: Vector2i) -> bool:
 					adjusted = -dir
 				if adjusted == relative_vector:
 					return safe_moves.is_empty()
-		elif move is SwingMove: #Might need to check if also blockable by a piece drop.
+		elif move is SwingMove:
 			var dir = move.move_direction
 			if player == GameManager.Player.Gote:
 				dir = -dir
@@ -172,32 +177,11 @@ func would_cause_checkmate(drop_position: Vector2i) -> bool:
 					return safe_moves.is_empty()
 	return false
 
-func update_alpha(count: int) -> void:
-	self.modulate.a = 1.0 if count > 0 else 0.3
-	count_label.text = str(count)
-	count_label.position = Vector2(piece_sprite.texture.get_width() / 4.0, piece_sprite.texture.get_height() / 4.0)
-	count_label.z_index = self.z_index + 1
+func is_inside_board(move: Vector2i) -> bool:
+	return move.x > 0 and move.x <= game_manager.board.board_size.x and move.y > 0 and move.y <= game_manager.board.board_size.y
 
-func destroy_all_highlights() -> void:
-	for child in get_children():
-		if child.is_in_group("highlight"):
-			child.queue_free()
-
-func _on_drop_piece(move_position: Vector2i) -> void:
-	game_manager.in_hand_manager.remove_piece_from_hand(player, piece_resource)
-	if player == InHandManager.Player.Sente:  #this needs a rework later to unify the Enums
-		game_manager.create_piece(piece_resource, move_position, GameManager.Player.Sente)
-	else:
-		game_manager.create_piece(piece_resource, move_position, GameManager.Player.Gote)
-	destroy_all_highlights()
-	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.DropPiece):
-		game_manager.selected_piece = null
-		selected = false
-		queue_redraw()
-
-func _draw() -> void:
-	if selected:
-		$SelectionHighlight.visible = true
-	else:
-		$SelectionHighlight.visible = false
-	draw_texture(piece_sprite.texture,Vector2(float(-piece_sprite.texture.get_width())/2,float(-piece_sprite.texture.get_height())/2),modulate)
+func is_space_taken(move: Vector2i) -> bool:
+	for piece_info in game_manager.pieces_on_board:
+		if piece_info.position == move:
+			return true
+	return false

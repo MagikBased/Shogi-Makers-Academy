@@ -110,7 +110,7 @@ func update_piece_scales(new_square_size: float) -> void:
 		if container:
 			for child in container.get_children():
 				if child is InHandPiece:
-					var texture_width = child.texture.get_width()
+					var texture_width = child.piece_sprite.texture.get_width()
 					if texture_width > 0:
 						var scale_factor = new_square_size / texture_width
 						child.scale = Vector2.ONE * scale_factor
