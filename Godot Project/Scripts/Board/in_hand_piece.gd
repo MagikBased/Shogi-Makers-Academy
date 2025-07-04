@@ -11,7 +11,7 @@ func _ready() -> void:
 	scale *= square_size / piece_sprite.texture.get_size().x
 	rect_size = Vector2(piece_sprite.texture.get_width(), piece_sprite.texture.get_height())
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var local_mouse_position = to_local(event.position)
 		var is_over_sprite = piece_sprite.get_rect().has_point(local_mouse_position)
