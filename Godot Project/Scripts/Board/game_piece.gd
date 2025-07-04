@@ -224,6 +224,9 @@ func capture_piece(capture_position: Vector2i) -> void:
 			#print(captured_piece_info.owner)
 			game_manager.pieces_on_board.remove_at(i)
 			if captured_piece_instance:
+				captured_piece_instance.set_process_input(false)
+				if captured_piece_instance.dragging:
+					captured_piece_instance.end_drag()
 				captured_piece_instance.queue_free()
 			if game_manager.game_variant.in_hand_pieces and game_manager.in_hand_manager != null and captured_piece_info.piece_base.fen_char_piece_to_add_on_capture:
 				game_manager.in_hand_manager.add_piece_to_hand(InHandManager.Player.Sente if captured_piece_info.owner == Player.Gote else InHandManager.Player.Gote, captured_piece_info.piece_base)
