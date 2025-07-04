@@ -30,7 +30,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		elif not event.is_pressed() and dragging:
 			end_drag()
-			var drop_square = game_manager.get_board_square_at_position(event.position)
+			var drop_square := Vector2i(-1, -1)
+			for child in get_children():
+				if child is SquareHighlight:
+					var local_mouse = child.to_local(event.position)
+					if child.get_rect().has_point(local_mouse):
+						drop_square = child.current_position
+						break
 			if drop_square in valid_moves:
 				_on_drop_piece(drop_square)
 			else:
