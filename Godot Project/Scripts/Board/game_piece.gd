@@ -20,6 +20,7 @@ var is_promoted: bool
 var can_promote: bool
 var selected: bool = false
 var dragging: bool = false
+var was_selected_on_press: bool = false
 var drag_sprite: Sprite2D
 var drag_start_square: Vector2i
 var piece_scale: float = 1
@@ -48,11 +49,11 @@ func _input(event) -> void:
 	and event.button_index == MOUSE_BUTTON_LEFT \
 	and piece_owner == game_manager.player_turn \
 	and not game_manager.is_promoting:
-
 		var local_mouse_pos = to_local(event.position)
 		var is_click_on_piece = piece_sprite.get_rect().has_point(local_mouse_pos)
 
 		if event.is_pressed() and is_click_on_piece:
+			was_selected_on_press = selected
 			if selected:
 				destroy_all_highlights()
 				set_selected(false)
@@ -75,8 +76,10 @@ func _input(event) -> void:
 					highlight.position = board_position
 					highlight.connect("move_piece", Callable(self, "_on_move_piece"))
 					add_child(highlight)
+
 			drag_start_square = current_position
 			begin_drag(event)
+
 		elif not event.is_pressed():
 			if dragging:
 				end_drag()
@@ -84,29 +87,12 @@ func _input(event) -> void:
 				if drop_square in valid_moves and drop_square != drag_start_square:
 					_on_move_piece(drop_square)
 				else:
-					set_selected(true)
-					game_manager.selected_piece = self
-			else:
-				if is_click_on_piece:
-					if not selected:
-						if game_manager.selected_piece != null:
-							game_manager.selected_piece.destroy_all_highlights()
-							game_manager.selected_piece.set_selected(false)
+					if was_selected_on_press:
+						set_selected(false)
+						game_manager.selected_piece = null
+					else:
 						set_selected(true)
 						game_manager.selected_piece = self
-						valid_moves = generate_moves()
-						for move in valid_moves:
-							var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
-							highlight.current_position = move
-							var board_position: Vector2 = (current_position - highlight.current_position) * highlight.texture.get_width()
-							if piece_owner == Player.Sente:
-								board_position.y *= -1
-							else:
-								board_position.x *= -1
-							highlight.position = board_position
-							highlight.connect("move_piece", Callable(self, "_on_move_piece"))
-							add_child(highlight)
-
 	elif event is InputEventMouseMotion and dragging:
 		update_drag(event)
 
