@@ -133,8 +133,8 @@ func _get_container_size(container: InHandContainer) -> Vector2:
 	var max_y := 0.0
 	for child in container.get_children():
 		if child is InHandPiece:
-			var sprite := child.piece_sprite
-			var size := sprite.texture.get_size() * child.scale
+			var sprite: Sprite2D = child.piece_sprite
+			var size: Vector2 = sprite.texture.get_size() * child.scale
 			max_x = max(max_x, child.position.x + size.x)
 			max_y = max(max_y, child.position.y + size.y)
 	return Vector2(max_x, max_y)
