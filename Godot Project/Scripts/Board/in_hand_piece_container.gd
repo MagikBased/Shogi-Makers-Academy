@@ -16,15 +16,24 @@ func arrange_children() -> void:
 	var y_offset = 0.0
 	var row_height = square_size + v_separation
 	var column_width = square_size + h_separation
-	var num_children = get_child_count()
 	var current_column = 0
-	for i in range(num_children):
-		var child = get_child(i)
+	var min_x = 0.0
+	var max_x = 0.0
+	var max_y = 0.0
+	var children := get_children()
+	children.reverse()
+	for child in children:
 		if child is InHandPiece:
 			child.position = Vector2(x_offset, y_offset)
+			min_x = min(min_x, child.position.x)
+			max_x = max(max_x, child.position.x + column_width - h_separation)
+			max_y = max(max_y, child.position.y)
 			x_offset += column_width
 			current_column += 1
-			if current_column >= columns or y_offset + row_height > max_height:
-				x_offset = 0
-				y_offset += row_height
+			if current_column >= columns or abs(y_offset) + row_height > max_height:
+				x_offset = 0.0
+				y_offset -= row_height
 				current_column = 0
+	for child in children:
+			if child is InHandPiece:
+				child.position -= Vector2((max_x + min_x) / 2.0, max_y)
