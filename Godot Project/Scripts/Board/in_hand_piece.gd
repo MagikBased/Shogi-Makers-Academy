@@ -57,6 +57,18 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		update_drag(event)
 
+func begin_drag(event: InputEventMouseButton) -> void:
+	dragging = true
+	drag_sprite = Sprite2D.new()
+	drag_sprite.texture = piece_sprite.texture
+	drag_sprite.scale = scale / game_manager.board.scale
+	drag_sprite.rotation = rotation
+	drag_sprite.z_index = z_index + 100
+	game_manager.board.add_child(drag_sprite)
+	drag_sprite.position = game_manager.board.to_local(event.position)
+	piece_sprite.modulate.a = 0.25
+	queue_redraw()
+
 func get_valid_moves() -> void:
 	valid_moves.clear()
 	var king_position = game_manager.find_kings(piece_owner)[0]
