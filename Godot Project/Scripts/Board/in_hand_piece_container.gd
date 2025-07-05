@@ -20,7 +20,8 @@ func arrange_children() -> void:
 	var min_x = 0.0
 	var max_x = 0.0
 	var max_y = 0.0
-	for child in get_children():
+	var children := get_children()
+	for child in children.reversed():
 		if child is InHandPiece:
 			child.position = Vector2(x_offset, y_offset)
 			min_x = min(min_x, child.position.x)
@@ -32,6 +33,6 @@ func arrange_children() -> void:
 				x_offset = 0.0
 				y_offset -= row_height
 				current_column = 0
-	for child in get_children():
-		if child is InHandPiece:
-			child.position -= Vector2((max_x + min_x) / 2.0, max_y)
+	for child in children:
+			if child is InHandPiece:
+				child.position -= Vector2((max_x + min_x) / 2.0, max_y)
