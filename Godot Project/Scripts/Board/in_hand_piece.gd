@@ -54,8 +54,8 @@ func _input(event: InputEvent) -> void:
 				else:
 					set_selected(true)
 					game_manager.selected_piece = self
-elif event is InputEventMouseMotion:
-update_drag(event)
+	elif event is InputEventMouseMotion:
+		update_drag(event)
 
 func begin_drag(event: InputEventMouseButton) -> void:
 	dragging = true
