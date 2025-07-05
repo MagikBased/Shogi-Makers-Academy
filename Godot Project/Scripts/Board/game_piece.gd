@@ -68,12 +68,11 @@ func _input(event) -> void:
 				for move in valid_moves:
 					var highlight: SquareHighlight = square_highlight.instantiate() as SquareHighlight
 					highlight.current_position = move
-					var square_size: float = game_manager.square_size
-					var board_position: Vector2 = (current_position - highlight.current_position) * square_size
+					var board_position: Vector2 = (current_position - highlight.current_position) * highlight.texture.get_width()
 					if piece_owner == Player.Sente:
-					board_position.y *= -1
+						board_position.y *= -1
 					else:
-					board_position.x *= -1
+						board_position.x *= -1
 					highlight.position = board_position
 					highlight.connect("move_piece", Callable(self, "_on_move_piece"))
 					add_child(highlight)
