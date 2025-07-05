@@ -21,7 +21,8 @@ func arrange_children() -> void:
 	var max_x = 0.0
 	var max_y = 0.0
 	var children := get_children()
-	for child in children.reversed():
+	children.reverse()
+	for child in children:
 		if child is InHandPiece:
 			child.position = Vector2(x_offset, y_offset)
 			min_x = min(min_x, child.position.x)
