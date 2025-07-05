@@ -4,6 +4,7 @@ class_name InHandPiece
 @export var player: InHandManager.Player
 @onready var count_label = $PieceCount
 var square_size: float
+var created_highlights: Array[SquareHighlight] = []
 
 func _ready() -> void:
 	if piece_resource and piece_resource.icon.size() > 0:
@@ -36,15 +37,15 @@ func _input(event: InputEvent) -> void:
 					show_valid_move_highlights()
 				begin_drag(event)
 
-		elif not event.is_pressed() and dragging:
-			end_drag()
-			var drop_square := Vector2i(-1, -1)
-			for child in get_children():
-				if child is SquareHighlight:
-					var local_mouse = child.to_local(event.position)
-					if child.get_rect().has_point(local_mouse):
-						drop_square = child.current_position
-						break
+	elif not event.is_pressed() and dragging:
+		end_drag()
+		var drop_square := Vector2i(-1, -1)
+		for child in created_highlights:
+			if child is SquareHighlight:
+				var local_mouse = child.to_local(event.position)
+				if child.get_rect().has_point(local_mouse):
+					drop_square = child.current_position
+					break
 			if drop_square in valid_moves:
 				_on_drop_piece(drop_square)
 			else:
@@ -54,7 +55,7 @@ func _input(event: InputEvent) -> void:
 				else:
 					set_selected(true)
 					game_manager.selected_piece = self
-	elif event is InputEventMouseMotion:
+		elif event is InputEventMouseMotion:
 		update_drag(event)
 
 func begin_drag(event: InputEventMouseButton) -> void:
@@ -101,7 +102,8 @@ func show_valid_move_highlights() -> void:
 		var highlight = square_highlight.instantiate()
 		highlight.is_dropping = true
 		highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
-		add_child(highlight)
+		game_manager.board.add_child(highlight)
+		created_highlights.append(highlight)
 		highlight.current_position = moves
 		var board_position: Vector2 = game_manager.board.global_position
 		board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
@@ -127,9 +129,10 @@ func update_alpha(count: int) -> void:
 	count_label.z_index = self.z_index + 1
 
 func destroy_all_highlights() -> void:
-	for child in get_children():
-		if child.is_in_group("highlight"):
+	for child in created_highlights:
+		if is_instance_valid(child):
 			child.queue_free()
+	created_highlights.clear()
 
 func get_blocking_squares(king_pos: Vector2i, attacker: PieceInfo) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
