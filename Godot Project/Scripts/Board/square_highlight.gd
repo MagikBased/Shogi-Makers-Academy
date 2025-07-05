@@ -34,3 +34,16 @@ func _input(event) -> void:
 
 func set_hovered(is_hovering: bool) -> void:
 	modulate = hover_color if is_hovering else normal_color
+
+func set_board_position(board_pos: Vector2i) -> void:
+	current_position = board_pos
+	if not parent_node:
+		parent_node = get_parent() as BaseGamePiece
+	var board := parent_node.game_manager.board
+	var square_size := Vector2(board.square_size, board.square_size) * board.global_scale
+	var pos := board.global_position
+	pos.x += (board.board_size.x - board_pos.x) * square_size.x
+	pos.y += (board_pos.y - 1) * square_size.y
+	global_position = pos
+	position += texture.get_size() / 2
+	z_index = board.z_index + 1
