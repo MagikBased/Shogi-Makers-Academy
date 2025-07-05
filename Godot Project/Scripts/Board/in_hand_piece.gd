@@ -46,16 +46,17 @@ func _input(event: InputEvent) -> void:
 				if child.get_rect().has_point(local_mouse):
 					drop_square = child.current_position
 					break
-			if drop_square in valid_moves:
-				_on_drop_piece(drop_square)
+		if drop_square in valid_moves:
+			_on_drop_piece(drop_square)
+		else:
+			if was_selected_on_press:
+				set_selected(false)
+				game_manager.selected_piece = null
 			else:
-				if was_selected_on_press:
-					set_selected(false)
-					game_manager.selected_piece = null
-				else:
-					set_selected(true)
-					game_manager.selected_piece = self
-		elif event is InputEventMouseMotion:
+				set_selected(true)
+				game_manager.selected_piece = self
+
+	elif event is InputEventMouseMotion:
 		update_drag(event)
 
 func begin_drag(event: InputEventMouseButton) -> void:
@@ -70,6 +71,19 @@ func begin_drag(event: InputEventMouseButton) -> void:
 	piece_sprite.modulate.a = 0.25
 	queue_redraw()
 
+func update_drag(event: InputEventMouseMotion) -> void:
+	if dragging and drag_sprite:
+		drag_sprite.position = game_manager.board.to_local(event.position)
+		if last_hovered_highlight:
+			last_hovered_highlight.set_hovered(false)
+			last_hovered_highlight = null
+		for child in created_highlights:
+			if child is SquareHighlight:
+				var local_mouse = child.to_local(event.position)
+				if child.get_rect().has_point(local_mouse):
+					child.set_hovered(true)
+					last_hovered_highlight = child
+					break
 func get_valid_moves() -> void:
 	valid_moves.clear()
 	var king_position = game_manager.find_kings(piece_owner)[0]
@@ -98,20 +112,20 @@ func get_valid_moves() -> void:
 
 func show_valid_move_highlights() -> void:
 	for moves in valid_moves:
-		var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
 		var highlight = square_highlight.instantiate()
 		highlight.is_dropping = true
 		highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
 		game_manager.board.add_child(highlight)
 		created_highlights.append(highlight)
 		highlight.current_position = moves
-		var board_position: Vector2 = game_manager.board.global_position
-		board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
-		board_position.y += (moves.y - 1) * global_square_size.y
-		highlight.global_position = board_position
+		highlight.scale = Vector2.ONE * (game_manager.board.square_size / highlight.texture.get_width())
+		var board_pos: Vector2 = game_manager.board.global_position
+		board_pos.x += (game_manager.board.board_size.x - moves.x) * game_manager.square_size
+		board_pos.y += (moves.y - 1) * game_manager.square_size
+		highlight.global_position = board_pos
 		highlight.position += highlight.texture.get_size() / 2
 		highlight.z_index = game_manager.board.z_index + 1
-
+		
 func _on_drop_piece(move_position: Vector2i) -> void:
 	game_manager.in_hand_manager.remove_piece_from_hand(player, piece_resource)
 	var gm_player = GameManager.Player.Sente if player == InHandManager.Player.Sente else GameManager.Player.Gote
