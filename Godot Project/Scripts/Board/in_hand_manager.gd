@@ -126,8 +126,8 @@ func position_hand_containers() -> void:
 	var sente_size := _get_container_size(sente_container)
 	var gote_size := _get_container_size(gote_container)
 	sente_container.position = Vector2(board_right + label_width + container_margin, board_bottom - sente_size.y)
-	gote_container.position = Vector2(board_left - label_width - container_margin, board_top + gote_size.y)
-
+	gote_container.position = Vector2(board_left - label_width - container_margin, board_top)
+	
 func _get_container_size(container: InHandContainer) -> Vector2:
 	var max_x := 0.0
 	var max_y := 0.0
