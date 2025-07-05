@@ -34,6 +34,7 @@ func arrange_children() -> void:
 				x_offset = 0.0
 				y_offset -= row_height
 				current_column = 0
+	var vertical_center_offset: float = max_y + (square_size / 2.0)
 	for child in children:
-			if child is InHandPiece:
-				child.position -= Vector2((max_x + min_x) / 2.0, max_y)
+		if child is InHandPiece:
+			child.position -= Vector2(0, vertical_center_offset)

@@ -11,7 +11,7 @@ var sente_in_hand: Dictionary = {}
 var gote_in_hand: Dictionary = {}
 var sente_container: InHandContainer
 var gote_container: InHandContainer
-@export var container_margin: float = 20.0
+@export var container_margin: float = 0.0
 @onready var in_hand_container_scene = preload("res://Scenes/GameBoardScenes/in_hand_piece_container.tscn")
 @onready var in_hand_piece_scene = preload("res://Scenes/GameBoardScenes/in_hand_piece.tscn")
 
@@ -31,7 +31,7 @@ func initialize_hand_containers() -> void:
 	gote_container = in_hand_container_scene.instantiate() as InHandContainer
 	sente_container.player = Player.Sente
 	gote_container.player = Player.Gote
-	gote_container.rotation_degrees = 180
+	#gote_container.rotation_degrees = 180
 	add_child(sente_container)
 	add_child(gote_container)
 	#sente_container.position = Vector2(game_manager.board.position.x + game_manager.board.texture.get_width(), game_manager.board.position.y)
@@ -115,6 +115,7 @@ func update_piece_scales(new_square_size: float) -> void:
 					if texture_width > 0:
 						var scale_factor = new_square_size / texture_width
 						child.scale = Vector2.ONE * scale_factor
+
 func position_hand_containers() -> void:
 	var board := game_manager.board
 	var font := ThemeDB.fallback_font
@@ -125,8 +126,12 @@ func position_hand_containers() -> void:
 	var board_right := board.position.x + board.texture.get_width() * board.scale.x
 	var sente_size := _get_container_size(sente_container)
 	var gote_size := _get_container_size(gote_container)
-	sente_container.position = Vector2(board_right + label_width + container_margin, board_bottom)
-	gote_container.position = Vector2(board_left - label_width - container_margin, board_top)
+	label_width = 0
+	print("board right: ", board_right, " label width: ", label_width, " container_margin: ", container_margin, " board_bottom: ", board_bottom, " sente size: ", sente_size, " gote size: ", gote_size)
+	#sente_container.position = Vector2(board_right + label_width + container_margin, board_bottom)
+	#gote_container.position = Vector2(board_left - label_width - container_margin, board_top)
+	sente_container.position = Vector2(board_right + label_width + container_margin + (sente_size.x / 4.0),board_bottom)
+	gote_container.position = Vector2(board_left - label_width - container_margin - (gote_size.x / 4.0),board_top)
 
 func _get_container_size(container: InHandContainer) -> Vector2:
 	var min_x := 0.0
