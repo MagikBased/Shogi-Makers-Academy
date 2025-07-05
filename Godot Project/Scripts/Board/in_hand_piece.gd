@@ -85,17 +85,18 @@ func get_valid_moves() -> void:
 
 func show_valid_move_highlights() -> void:
 	for moves in valid_moves:
-		var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
-		var highlight = square_highlight.instantiate()
-		highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
-		add_child(highlight)
-		highlight.current_position = moves
-		var board_position: Vector2 = game_manager.board.global_position
-		board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
-		board_position.y += (moves.y - 1) * global_square_size.y
-		highlight.global_position = board_position
-		highlight.position += highlight.texture.get_size() / 2
-		highlight.z_index = game_manager.board.z_index + 1
+	var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
+	var highlight = square_highlight.instantiate()
+	highlight.is_dropping = true
+	highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
+	add_child(highlight)
+	highlight.current_position = moves
+	var board_position: Vector2 = game_manager.board.global_position
+	board_position.x += (game_manager.board.board_size.x - moves.x) * global_square_size.x
+	board_position.y += (moves.y - 1) * global_square_size.y
+	highlight.global_position = board_position
+	highlight.position += highlight.texture.get_size() / 2
+	highlight.z_index = game_manager.board.z_index + 1
 
 func _on_drop_piece(move_position: Vector2i) -> void:
 	game_manager.in_hand_manager.remove_piece_from_hand(player, piece_resource)
