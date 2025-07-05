@@ -62,7 +62,7 @@ func begin_drag(event: InputEventMouseButton) -> void:
 	drag_sprite = Sprite2D.new()
 	drag_sprite.texture = piece_sprite.texture
 	drag_sprite.scale = scale / game_manager.board.scale
-	drag_sprite.rotation = rotation
+	drag_sprite.rotation = global_rotation
 	drag_sprite.z_index = z_index + 100
 	game_manager.board.add_child(drag_sprite)
 	drag_sprite.position = game_manager.board.to_local(event.position)
