@@ -21,11 +21,19 @@ func _input(event: InputEvent) -> void:
 				piece_resource.fen_char_piece_to_add_on_capture if player == Player.Sente else piece_resource.fen_char_piece_to_add_on_capture.to_lower()
 			)
 			if piece_owner == game_manager.player_turn and piece_count > 0 and not game_manager.is_promoting:
-				set_selected(true)
-				destroy_all_highlights()
-				game_manager.selected_piece = self
-				get_valid_moves()
-				show_valid_move_highlights()
+				was_selected_on_press = selected
+				if selected:
+					destroy_all_highlights()
+					set_selected(false)
+					game_manager.selected_piece = null
+				else:
+					if game_manager.selected_piece != null:
+						game_manager.selected_piece.destroy_all_highlights()
+						game_manager.selected_piece.set_selected(false)
+					set_selected(true)
+					game_manager.selected_piece = self
+					get_valid_moves()
+					show_valid_move_highlights()
 				begin_drag(event)
 
 		elif not event.is_pressed() and dragging:
@@ -40,10 +48,12 @@ func _input(event: InputEvent) -> void:
 			if drop_square in valid_moves:
 				_on_drop_piece(drop_square)
 			else:
-				destroy_all_highlights()
-				set_selected(false)
-				game_manager.selected_piece = null
-
+				if was_selected_on_press:
+					set_selected(false)
+					game_manager.selected_piece = null
+				else:
+					set_selected(true)
+					game_manager.selected_piece = self
 	elif event is InputEventMouseMotion:
 		update_drag(event)
 
@@ -77,6 +87,7 @@ func show_valid_move_highlights() -> void:
 	for moves in valid_moves:
 		var global_square_size: Vector2 = Vector2(game_manager.square_size, game_manager.square_size) * game_manager.board.global_scale
 		var highlight = square_highlight.instantiate()
+		highlight.is_dropping = true
 		highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
 		add_child(highlight)
 		highlight.current_position = moves
@@ -94,7 +105,7 @@ func _on_drop_piece(move_position: Vector2i) -> void:
 	destroy_all_highlights()
 	if game_manager.handle_action(piece_resource.fen_char, TurnAction.ActionType.DropPiece):
 		game_manager.selected_piece = null
-		selected = false
+		set_selected(false)
 		queue_redraw()
 
 func update_alpha(count: int) -> void:
