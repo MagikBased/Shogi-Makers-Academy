@@ -97,11 +97,11 @@ func get_valid_moves() -> void:
 
 func show_valid_move_highlights() -> void:
 	for moves in valid_moves:
-	var highlight = square_highlight.instantiate()
-	highlight.is_dropping = true
-	highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
-	add_child(highlight)
-	highlight.set_board_position(moves)
+		var highlight = square_highlight.instantiate() as SquareHighlight
+		highlight.is_dropping = true
+		highlight.connect("drop_piece", Callable(self, "_on_drop_piece"))
+		add_child(highlight)
+		highlight.set_board_position(moves)
 
 func _on_drop_piece(move_position: Vector2i) -> void:
 	game_manager.in_hand_manager.remove_piece_from_hand(player, piece_resource)

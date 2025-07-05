@@ -31,7 +31,7 @@ func initialize_hand_containers() -> void:
 	gote_container = in_hand_container_scene.instantiate() as InHandContainer
 	sente_container.player = Player.Sente
 	gote_container.player = Player.Gote
-	#gote_container.rotation_degrees = 180
+	gote_container.rotation_degrees = 180
 	add_child(sente_container)
 	add_child(gote_container)
 	#sente_container.position = Vector2(game_manager.board.position.x + game_manager.board.texture.get_width(), game_manager.board.position.y)
