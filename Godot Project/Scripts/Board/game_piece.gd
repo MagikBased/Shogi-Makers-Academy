@@ -348,6 +348,8 @@ func set_selected(value: bool) -> void:
 	selection_highlight.visible = selected
 
 func _on_move_piece(move_position: Vector2i) -> void:
+	if dragging:
+		end_drag()
 	move_count += 1
 	var piece_info: PieceInfo = null
 	var coming_from_square:= current_position
