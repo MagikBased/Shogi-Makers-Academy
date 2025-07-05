@@ -348,6 +348,8 @@ func set_selected(value: bool) -> void:
 	selection_highlight.visible = selected
 
 func _on_move_piece(move_position: Vector2i) -> void:
+	if dragging:
+		end_drag()
 	move_count += 1
 	var piece_info: PieceInfo = null
 	var coming_from_square:= current_position
@@ -391,3 +393,7 @@ func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
 	if pending_handle_action:
 		pending_handle_action = false
 		finalize_action()
+
+func _exit_tree() -> void:
+	if drag_sprite and is_instance_valid(drag_sprite):
+		drag_sprite.queue_free()
