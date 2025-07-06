@@ -19,6 +19,8 @@ var current_action_count: int = 0
 var in_hand_manager: InHandManager
 var fen_manager: FenManager
 var debug_manager: DebugManager
+var notation_manager: PostGameNotation
+var allow_input: bool = true
 
 var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
@@ -43,6 +45,7 @@ func _ready() -> void:
 		fen_manager.create_board_from_fen(game_variant.debug_fen)
 	else:
 		fen_manager.create_board_from_fen(game_variant.starting_fen)
+	record_move()
 	initialize_attack_cache()
 	#print(attack_cache)
 	start_phase()
@@ -460,10 +463,14 @@ func clear_board() -> void:
 			piece_instance.queue_free()
 	pieces_on_board.clear()
 	if game_variant.in_hand_pieces:
-		in_hand_manager.reset_in_hand_pieces()
+in_hand_manager.reset_in_hand_pieces()
+
+func record_move() -> void:
+	if notation_manager and fen_manager:
+	notation_manager.add_sfen(fen_manager.get_fen_notation())
 
 func set_variant(variant: GameVariant) -> void:
-		game_variant = variant
+	game_variant = variant
 
 #func get_current_phase(turn_count: int) -> TurnPhase:
 	#return turn_phases[(turn_count - 1) % turn_phases.size()]

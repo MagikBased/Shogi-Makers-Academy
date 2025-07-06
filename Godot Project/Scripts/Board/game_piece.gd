@@ -48,7 +48,8 @@ func _input(event) -> void:
 	if event is InputEventMouseButton \
 	and event.button_index == MOUSE_BUTTON_LEFT \
 	and piece_owner == game_manager.player_turn \
-	and not game_manager.is_promoting:
+	and not game_manager.is_promoting 
+	and game_manager.allow_input:
 		var local_mouse_pos = to_local(event.position)
 		var is_click_on_piece = piece_sprite.get_rect().has_point(local_mouse_pos)
 
@@ -114,7 +115,6 @@ func begin_drag(event: InputEventMouseButton) -> void:
 	piece_sprite.modulate.a = 0.25
 	queue_redraw()
 
-func update_drag(event: InputEventMouseMotion) -> void:
 	if dragging and drag_sprite:
 		drag_sprite.position = game_manager.board.to_local(event.position)
 
@@ -137,8 +137,6 @@ func end_drag() -> void:
 		drag_sprite.queue_free()
 		drag_sprite = null
 	queue_redraw()
-
-func initialize_values() -> void:
 	if piece_resource:
 		var assigned_texture = game_manager.get_piece_texture(piece_resource, piece_owner)
 		if assigned_texture:
@@ -381,6 +379,7 @@ func finalize_action() -> void:
 		set_selected(false)
 		queue_redraw()
 
+		game_manager.record_move()
 func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
 	var options_parent = get_child(get_child_count() - 1)
 	options_parent.queue_free()

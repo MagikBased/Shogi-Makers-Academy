@@ -20,7 +20,7 @@ func _input(event: InputEvent) -> void:
 				player,
 				piece_resource.fen_char_piece_to_add_on_capture if player == Player.Sente else piece_resource.fen_char_piece_to_add_on_capture.to_lower()
 			)
-			if piece_owner == game_manager.player_turn and piece_count > 0 and not game_manager.is_promoting:
+			if piece_owner == game_manager.player_turn and piece_count > 0 and not game_manager.is_promoting and game_manager.allow_input:
 				was_selected_on_press = selected
 				if selected:
 					destroy_all_highlights()
@@ -68,6 +68,7 @@ func begin_drag(event: InputEventMouseButton) -> void:
 	drag_sprite.position = game_manager.board.to_local(event.position)
 	piece_sprite.modulate.a = 0.25
 	queue_redraw()
+		game_manager.record_move()
 
 func get_valid_moves() -> void:
 	valid_moves.clear()
@@ -112,6 +113,7 @@ func _on_drop_piece(move_position: Vector2i) -> void:
 		game_manager.selected_piece = null
 		set_selected(false)
 		queue_redraw()
+		game_manager.record_move()
 
 func update_alpha(count: int) -> void:
 	self.modulate.a = 1.0 if count > 0 else 0.3
