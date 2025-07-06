@@ -273,7 +273,7 @@ func constrain_moves_due_to_check(king_position: Vector2i, checking_pieces: Arra
 				else:
 					piece_instance.constrained_moves.append(move)
 					#print("  ✓ Safe move for king: ", move)
-
+			piece_instance.is_fully_constrained = piece_instance.constrained_moves.size() == 0
 		else:
 			#print("- This is not the king. Checking for blocking/capturing moves.")
 			var move_sets_per_check: Array = []
@@ -319,6 +319,7 @@ func filter_illegal_royal_moves(piece: BaseGamePiece) -> void:
 		if move not in danger_squares:
 			filtered.append(move)
 	piece.constrained_moves = filtered
+	piece.is_fully_constrained = filtered.size() == 0
 
 func is_blocking_move_valid(king_position: Vector2i, move: Vector2i, attacking_piece_info: PieceInfo) -> bool:
 	var blocking_positions = []
