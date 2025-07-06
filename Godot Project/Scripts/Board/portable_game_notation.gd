@@ -1,5 +1,5 @@
 extends Node2D
-class_name PostGameNotation
+class_name PortableGameNotation
 
 @onready var move_slider = $MoveSlider
 @onready var move_label = $MoveLabel

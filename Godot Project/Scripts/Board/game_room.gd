@@ -8,15 +8,15 @@ var game_manager: GameManager
 @onready var in_hand_scene = preload("res://Scenes/GameBoardScenes/in_hand_manager.tscn")
 @onready var fen_manager_scene = preload("res://Scenes/GameBoardScenes/fen_manager.tscn")
 @onready var debug_manager_scene = preload("res://Scenes/GameBoardScenes/debug_manager.tscn")
-@onready var notation_scene = preload("res://Scenes/GameBoardScenes/post_game_notation.tscn")
+@onready var notation_scene = preload("res://Scenes/GameBoardScenes/portable_game_notation.tscn")
 var board_padding: int = 54
 
 func _ready() -> void:
 	game_manager = game_manager_scene.instantiate() as GameManager
-var board = board_scene.instantiate() as Board
-var fen_manager = fen_manager_scene.instantiate() as FenManager
-var debug = debug_manager_scene.instantiate() as DebugManager
-var notation = notation_scene.instantiate() as PostGameNotation
+	var board = board_scene.instantiate() as Board
+	var fen_manager = fen_manager_scene.instantiate() as FenManager
+	var debug = debug_manager_scene.instantiate() as DebugManager
+	var notation = notation_scene.instantiate() as PortableGameNotation
 
 	game_manager.set_variant(game_variant)
 	board.set_variant(game_variant)

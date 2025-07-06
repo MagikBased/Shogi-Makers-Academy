@@ -19,7 +19,7 @@ var current_action_count: int = 0
 var in_hand_manager: InHandManager
 var fen_manager: FenManager
 var debug_manager: DebugManager
-var notation_manager: PostGameNotation
+var notation_manager: PortableGameNotation
 var allow_input: bool = true
 
 var selected_piece: BaseGamePiece = null
@@ -463,11 +463,11 @@ func clear_board() -> void:
 			piece_instance.queue_free()
 	pieces_on_board.clear()
 	if game_variant.in_hand_pieces:
-in_hand_manager.reset_in_hand_pieces()
+		in_hand_manager.reset_in_hand_pieces()
 
 func record_move() -> void:
 	if notation_manager and fen_manager:
-	notation_manager.add_sfen(fen_manager.get_fen_notation())
+		notation_manager.add_sfen(fen_manager.get_fen_notation())
 
 func set_variant(variant: GameVariant) -> void:
 	game_variant = variant
