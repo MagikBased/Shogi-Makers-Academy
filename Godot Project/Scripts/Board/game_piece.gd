@@ -45,10 +45,7 @@ func _ready() -> void:
 		rotation_degrees += 180
 
 func _input(event) -> void:
-	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and piece_owner == game_manager.player_turn \
-	and not game_manager.is_promoting:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and piece_owner == game_manager.player_turn and not game_manager.is_promoting and game_manager.allow_input:
 		var local_mouse_pos = to_local(event.position)
 		var is_click_on_piece = piece_sprite.get_rect().has_point(local_mouse_pos)
 
@@ -380,6 +377,7 @@ func finalize_action() -> void:
 		game_manager.selected_piece = null
 		set_selected(false)
 		queue_redraw()
+		game_manager.record_move()
 
 func _on_promotion_selected(selected_piece_base: PieceBase) -> void:
 	var options_parent = get_child(get_child_count() - 1)
