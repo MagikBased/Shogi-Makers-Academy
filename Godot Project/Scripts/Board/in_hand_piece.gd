@@ -68,7 +68,7 @@ func begin_drag(event: InputEventMouseButton) -> void:
 	drag_sprite.position = game_manager.board.to_local(event.position)
 	piece_sprite.modulate.a = 0.25
 	queue_redraw()
-		game_manager.record_move()
+	game_manager.record_move()
 
 func get_valid_moves() -> void:
 	valid_moves.clear()

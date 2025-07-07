@@ -25,7 +25,7 @@ func _on_move_slider_value_changed(value: float) -> void:
 
 func _set_board_to_index(index: int) -> void:
 	if index < 0 or index >= history.size():
-	return
+		return
 	var sfen = history[index]
 	game_manager.fen_manager.create_board_from_fen(sfen)
 	game_manager.start_phase()
@@ -33,4 +33,4 @@ func _set_board_to_index(index: int) -> void:
 
 func _update_label(index: int) -> void:
 	if move_label:
-	move_label.text = "Move " + str(index + 1)
+		move_label.text = "Move " + str(index + 1)
