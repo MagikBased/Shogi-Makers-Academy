@@ -469,6 +469,16 @@ func record_move() -> void:
 	if notation_manager and fen_manager:
 		notation_manager.add_sfen(fen_manager.get_fen_notation())
 
+func cancel_promotion() -> void:
+	if not is_promoting:
+		return
+	is_promoting = false
+	if selected_piece:
+		if selected_piece.get_child_count() > 0:
+			selected_piece.get_child(selected_piece.get_child_count() - 1).queue_free()
+		selected_piece.pending_handle_action = false
+		selected_piece = null
+
 func set_variant(variant: GameVariant) -> void:
 	game_variant = variant
 
