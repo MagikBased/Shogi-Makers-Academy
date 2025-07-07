@@ -24,6 +24,7 @@ func _on_move_slider_value_changed(value: float) -> void:
 	_set_board_to_index(int(value))
 
 func _set_board_to_index(index: int) -> void:
+	game_manager.cancel_promotion()
 	if index < 0 or index >= history.size():
 		return
 	var sfen = history[index]
