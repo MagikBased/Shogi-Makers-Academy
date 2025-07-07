@@ -45,11 +45,7 @@ func _ready() -> void:
 		rotation_degrees += 180
 
 func _input(event) -> void:
-	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and piece_owner == game_manager.player_turn \
-	and not game_manager.is_promoting 
-	and game_manager.allow_input:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and piece_owner == game_manager.player_turn and not game_manager.is_promoting and game_manager.allow_input:
 		var local_mouse_pos = to_local(event.position)
 		var is_click_on_piece = piece_sprite.get_rect().has_point(local_mouse_pos)
 
@@ -115,37 +111,40 @@ func begin_drag(event: InputEventMouseButton) -> void:
 	piece_sprite.modulate.a = 0.25
 	queue_redraw()
 
+func update_drag(event: InputEventMouseMotion) -> void:
 	if dragging and drag_sprite:
-		drag_sprite.position = game_manager.board.to_local(event.position)
+	        drag_sprite.position = game_manager.board.to_local(event.position)
 
-		if last_hovered_highlight:
-			last_hovered_highlight.set_hovered(false)
-			last_hovered_highlight = null
+	        if last_hovered_highlight:
+	                last_hovered_highlight.set_hovered(false)
+	                last_hovered_highlight = null
 
-		for child in get_children():
-			if child is SquareHighlight:
-				var local_mouse = child.to_local(event.position)
-				if child.get_rect().has_point(local_mouse):
-					child.set_hovered(true)
-					last_hovered_highlight = child
-					break
+	        for child in get_children():
+	                if child is SquareHighlight:
+	                        var local_mouse = child.to_local(event.position)
+	                        if child.get_rect().has_point(local_mouse):
+	                                child.set_hovered(true)
+	                                last_hovered_highlight = child
+	                                break
 
 func end_drag() -> void:
 	dragging = false
 	piece_sprite.modulate.a = 1.0
 	if drag_sprite:
-		drag_sprite.queue_free()
-		drag_sprite = null
+	        drag_sprite.queue_free()
+	        drag_sprite = null
 	queue_redraw()
+
+func initialize_values() -> void:
 	if piece_resource:
-		var assigned_texture = game_manager.get_piece_texture(piece_resource, piece_owner)
-		if assigned_texture:
-			piece_sprite.texture = assigned_texture
-		elif piece_resource.icon.size() > 0:
-			piece_sprite.texture = piece_resource.icon[0]
-		is_promoted = piece_resource.is_promoted
-		can_promote = piece_resource.can_promote
-		special_logic_blocks = piece_resource.logic_blocks
+	        var assigned_texture = game_manager.get_piece_texture(piece_resource, piece_owner)
+	        if assigned_texture:
+	                piece_sprite.texture = assigned_texture
+	        elif piece_resource.icon.size() > 0:
+	                piece_sprite.texture = piece_resource.icon[0]
+	        is_promoted = piece_resource.is_promoted
+	        can_promote = piece_resource.can_promote
+	        special_logic_blocks = piece_resource.logic_blocks
 	rect_size = Vector2(piece_sprite.texture.get_width(),piece_sprite.texture.get_height())
 
 func snap_to_grid() -> void:
