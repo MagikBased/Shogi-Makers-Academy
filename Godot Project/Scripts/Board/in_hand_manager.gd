@@ -81,6 +81,7 @@ func reset_in_hand_pieces() -> void:
 		sente_in_hand[key] = 0
 	for key in gote_in_hand.keys():
 		gote_in_hand[key] = 0
+	update_hand()
 
 func update_hand() -> void:
 	for piece_node in sente_container.get_children():
