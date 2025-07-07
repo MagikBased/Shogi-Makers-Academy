@@ -67,9 +67,9 @@ func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 	var new_parts = new_sfen.split(" ")
 	var prev_board = _parse_board(prev_parts[0])
 	var new_board = _parse_board(new_parts[0])
-	var prev_hand = _parse_hand(prev_parts.size() > 2 ? prev_parts[2] : "-")
-	var new_hand = _parse_hand(new_parts.size() > 2 ? new_parts[2] : "-")
-	var player = prev_parts[1] == "b" ? GameManager.Player.Sente : GameManager.Player.Gote
+	var prev_hand = _parse_hand(prev_parts[2] if prev_parts.size() > 2 else "-")
+	var new_hand = _parse_hand(new_parts[2] if new_parts.size() > 2 else "-")
+	var player = GameManager.Player.Sente if prev_parts[1] == "b" else GameManager.Player.Gote
 	var drop_piece = ""
 	for piece in prev_hand.keys():
 		var prev_count = prev_hand[piece]
@@ -106,7 +106,7 @@ func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 		return ""
 	var capture = prev_board.has(to_square) and prev_board[to_square] != "" and not _is_player_piece(prev_board[to_square], player)
 	var piece_type = _strip_plus(from_char).to_upper()
-	var notation = piece_type + (capture ? "x" : "-") + _coord_to_string(to_square)
+	var notation = piece_type + ("x" if capture else "-") + _coord_to_string(to_square)
 	var could_promote = false
 	var idx = game_manager.fen_manager.get_piece_type_from_symbol(piece_type)
 	if idx != -1:
