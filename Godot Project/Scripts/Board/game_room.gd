@@ -3,12 +3,8 @@ class_name GameRoom
 
 var game_manager: GameManager
 @export var game_variant: GameVariant
-enum PlayerType {
-	Human,
-	AI,
-}
-@export var sente_player_type: PlayerType = PlayerType.Human
-@export var gote_player_type: PlayerType = PlayerType.Human
+@export var sente_player_type: GameManager.PlayerType = GameManager.PlayerType.Human
+@export var gote_player_type: GameManager.PlayerType = GameManager.PlayerType.Human
 @onready var board_scene = preload("res://Scenes/GameBoardScenes/board.tscn")
 @onready var game_manager_scene = preload("res://Scenes/GameBoardScenes/game_manager.tscn")
 @onready var in_hand_scene = preload("res://Scenes/GameBoardScenes/in_hand_manager.tscn")
