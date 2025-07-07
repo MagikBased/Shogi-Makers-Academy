@@ -6,5 +6,3 @@
 [node name="GameRoom" type="Node2D"]
 script = ExtResource("1_jdr0h")
 game_variant = ExtResource("2_05cf7")
-sente_player_type = 0
-gote_player_type = 0

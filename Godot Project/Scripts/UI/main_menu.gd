@@ -41,5 +41,5 @@ func _on_start_game_pressed() -> void:
 	game_room.gote_player_type = gote_option.get_selected_id()
 	get_tree().root.add_child(game_room)
 	if get_tree().current_scene:
-	get_tree().current_scene.queue_free()
-	get_tree().current_scene = game_room
+		get_tree().current_scene.queue_free()
+		get_tree().current_scene = game_room
