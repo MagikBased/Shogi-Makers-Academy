@@ -3,6 +3,12 @@ class_name GameRoom
 
 var game_manager: GameManager
 @export var game_variant: GameVariant
+enum PlayerType {
+	Human,
+	AI,
+}
+@export var sente_player_type: PlayerType = PlayerType.Human
+@export var gote_player_type: PlayerType = PlayerType.Human
 @onready var board_scene = preload("res://Scenes/GameBoardScenes/board.tscn")
 @onready var game_manager_scene = preload("res://Scenes/GameBoardScenes/game_manager.tscn")
 @onready var in_hand_scene = preload("res://Scenes/GameBoardScenes/in_hand_manager.tscn")
@@ -13,6 +19,8 @@ var board_padding: int = 54
 
 func _ready() -> void:
 	game_manager = game_manager_scene.instantiate() as GameManager
+	game_manager.sente_player_type = sente_player_type
+	game_manager.gote_player_type = gote_player_type
 	var board = board_scene.instantiate() as Board
 	var fen_manager = fen_manager_scene.instantiate() as FenManager
 	var debug = debug_manager_scene.instantiate() as DebugManager
