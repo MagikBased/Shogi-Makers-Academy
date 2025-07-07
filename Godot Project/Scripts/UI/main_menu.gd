@@ -37,8 +37,9 @@ func _ready() -> void:
 
 func _on_start_game_pressed() -> void:
 	var game_room := game_room_scene.instantiate() as GameRoom
-	game_room.sente_player_type = sente_option.get_selected_id()
-	game_room.gote_player_type = gote_option.get_selected_id()
+	game_room.sente_player_type = sente_option.get_selected_id() as GameManager.PlayerType
+	game_room.gote_player_type = gote_option.get_selected_id() as GameManager.PlayerType
+
 	get_tree().root.add_child(game_room)
 	if get_tree().current_scene:
 		get_tree().current_scene.queue_free()
