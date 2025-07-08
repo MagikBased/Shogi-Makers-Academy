@@ -45,6 +45,7 @@ var attack_cache = {
 }
 
 var active_piece_set: PieceSet
+var checkmate_highlight: BoardSquareMarker
 
 func _ready() -> void:
 	active_piece_set = game_variant.piece_sets[0]
@@ -60,7 +61,7 @@ func _ready() -> void:
 	initialize_attack_cache()
 	   #print(attack_cache)
 	start_phase()
-	if (player_turn == Player.Sente and sente_player_type == PlayerType.AI) or (player_turn == Player.Gote and gote_player_type == PlayerType.AI):
+	if allow_input and ((player_turn == Player.Sente and sente_player_type == PlayerType.AI) or (player_turn == Player.Gote and gote_player_type == PlayerType.AI)):
 		ai_player.play_turn(player_turn)
 
 func initialize_values() -> void:
@@ -87,8 +88,9 @@ func start_phase() -> void:
 			constrain_moves_due_to_check(king_position, checking_pieces)
 	
 	#var opponent = Player.Gote if player_turn == Player.Sente else Player.Sente
-	#var danger_squares = get_squares_attacked_by_player(opponent)
-	#debug_manager.add_highlights(danger_squares, Color.RED)
+#var danger_squares = get_squares_attacked_by_player(opponent)
+#debug_manager.add_highlights(danger_squares, Color.RED)
+	check_for_checkmate()
 
 func handle_action(piece_type: String, action_type: TurnAction.ActionType) -> bool:
 	if current_phase.player != player_turn:
@@ -530,8 +532,8 @@ func get_piece_texture(piece: PieceBase, piece_owner: Player) -> Texture:
 				if texture_set == active_piece_set:
 						for texture_info in texture_set.piece_set:
 								if texture_info.piece_type == piece:
-										if texture_info.owner == piece_owner or texture_info.owner == PieceTexture.Player.Both:
-												return texture_info.texture
+									if texture_info.owner == piece_owner or texture_info.owner == PieceTexture.Player.Both:
+											return texture_info.texture
 		return null
 
 func _is_space_taken_in_state(pos: Vector2i, state: Array[PieceInfo]) -> bool:
@@ -567,36 +569,69 @@ func _piece_threatens_king_in_state(piece_info: PieceInfo, king_pos: Vector2i, s
 		return false
 
 func _is_king_in_check_from_state(board_state: Array[PieceInfo], player: Player) -> bool:
-		var king_positions: Array[Vector2i] = []
+	var king_positions: Array[Vector2i] = []
+	for info in board_state:
+		if info.owner == player and info.piece_base.is_royal:
+			king_positions.append(info.position)
+	var opponent = Player.Gote if player == Player.Sente else Player.Sente
+	for king_pos in king_positions:
 		for info in board_state:
-				if info.owner == player and info.piece_base.is_royal:
-						king_positions.append(info.position)
-		var opponent = Player.Gote if player == Player.Sente else Player.Sente
-		for king_pos in king_positions:
-				for info in board_state:
-						if info.owner == opponent:
-								if _piece_threatens_king_in_state(info, king_pos, board_state):
-										return true
-		return false
+			if info.owner == opponent:
+				if _piece_threatens_king_in_state(info, king_pos, board_state):
+					return true
+	return false  # ✅ Make sure this line exists and is indented
 
 func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> bool:
-		var temp_state: Array[PieceInfo] = []
-		for info in pieces_on_board:
-				var copy := PieceInfo.new()
-				copy.position = info.position
-				copy.owner = info.owner
-				copy.piece_type = info.piece_type
-				copy.piece_base = info.piece_base
-				copy.instance_id = info.instance_id
-				temp_state.append(copy)
-		var moving_id = piece.get_instance_id()
-		var captured_index := -1
-		for i in range(temp_state.size()):
-				var info = temp_state[i]
-				if info.instance_id == moving_id:
-						info.position = move
-				elif info.position == move:
-						captured_index = i
-		if captured_index != -1:
-				temp_state.remove_at(captured_index)
-		return _is_king_in_check_from_state(temp_state, piece.piece_owner)
+	var temp_state: Array[PieceInfo] = []
+	for info in pieces_on_board:
+		var copy := PieceInfo.new()
+		copy.position = info.position
+		copy.owner = info.owner
+		copy.piece_type = info.piece_type
+		copy.piece_base = info.piece_base
+		copy.instance_id = info.instance_id
+		temp_state.append(copy)
+		
+	var moving_id = piece.get_instance_id()
+	var captured_index := -1
+	
+	for i in range(temp_state.size()):
+		var info = temp_state[i]
+		if info.instance_id == moving_id:
+			info.position = move
+		elif info.position == move:
+			captured_index = i
+			
+	if captured_index != -1:
+		temp_state.remove_at(captured_index)
+		
+	return _is_king_in_check_from_state(temp_state, piece.piece_owner)
+
+
+func show_checkmate_indicator(pos: Vector2i) -> void:
+	if checkmate_highlight and is_instance_valid(checkmate_highlight):
+		checkmate_highlight.queue_free()
+		
+	checkmate_highlight = BoardSquareMarker.new()
+	checkmate_highlight.game_manager = self
+	checkmate_highlight.texture = load("res://Images/UI/BoardUI/square_highlight.png")
+	checkmate_highlight.modulate = Color(1, 0, 0, 0.6)
+	add_child(checkmate_highlight)
+	checkmate_highlight.set_board_position(pos)
+
+
+func check_for_checkmate() -> void:
+	if not game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE):
+		return
+	var king_pos = find_kings(player_turn)[0]
+	var checking = determine_checks(king_pos, player_turn)
+	if checking.size() == 0:
+		return
+		
+	var state = ai_player._create_state()
+	for m in ai_player._generate_all_moves(state, player_turn):
+		var new_state = ai_player._apply_move(state, m)
+		if not ai_player._is_in_check(new_state, player_turn):
+			return
+	allow_input = false
+	show_checkmate_indicator(king_pos)
