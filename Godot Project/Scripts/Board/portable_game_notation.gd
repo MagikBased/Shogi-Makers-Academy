@@ -18,16 +18,7 @@ func _ready() -> void:
 	forward_button.pressed.connect(_on_forward_pressed)
 	last_button.pressed.connect(_on_last_pressed)
 	set_anchors_preset(Control.PRESET_TOP_LEFT)
-	$Panel.set_anchors_preset(Control.PRESET_FULL_RECT)
-	$Panel/ScrollContainer.set_anchors_preset(Control.PRESET_FULL_RECT)
-	$Panel/ButtonsHBox.anchor_left = 0.0
-	$Panel/ButtonsHBox.anchor_right = 1.0
-	$Panel/ButtonsHBox.anchor_top = 1.0
-	$Panel/ButtonsHBox.anchor_bottom = 1.0
-	$Panel/ButtonsHBox.offset_left = 0.0
-	$Panel/ButtonsHBox.offset_right = 0.0
-	$Panel/ButtonsHBox.offset_top = -40.0
-	$Panel/ButtonsHBox.offset_bottom = 0.0
+	_setup_layout()
 	_align_to_viewport()
 	get_viewport().size_changed.connect(_align_to_viewport)
 
@@ -174,7 +165,33 @@ func _is_player_piece(char: String, player: GameManager.Player) -> bool:
 	return (player == GameManager.Player.Sente and char == char.to_upper()) or (player == GameManager.Player.Gote and char == char.to_lower())
 
 func _strip_plus(char: String) -> String:
-	return char.substr(1) if char.begins_with("+") else char
+return char.substr(1) if char.begins_with("+") else char
+
+func _setup_layout() -> void:
+	$Panel.anchor_left = 0.0
+	$Panel.anchor_top = 0.0
+	$Panel.anchor_right = 1.0
+	$Panel.anchor_bottom = 1.0
+	$Panel.offset_left = 0.0
+	$Panel.offset_top = 0.0
+	$Panel.offset_right = 0.0
+	$Panel.offset_bottom = 0.0
+	$Panel/ScrollContainer.anchor_left = 0.0
+	$Panel/ScrollContainer.anchor_top = 0.0
+	$Panel/ScrollContainer.anchor_right = 1.0
+	$Panel/ScrollContainer.anchor_bottom = 1.0
+	$Panel/ScrollContainer.offset_left = 0.0
+	$Panel/ScrollContainer.offset_top = 0.0
+	$Panel/ScrollContainer.offset_right = 0.0
+	$Panel/ScrollContainer.offset_bottom = -40.0
+	$Panel/ButtonsHBox.anchor_left = 0.0
+	$Panel/ButtonsHBox.anchor_right = 1.0
+	$Panel/ButtonsHBox.anchor_top = 1.0
+	$Panel/ButtonsHBox.anchor_bottom = 1.0
+	$Panel/ButtonsHBox.offset_left = 0.0
+	$Panel/ButtonsHBox.offset_right = 0.0
+	$Panel/ButtonsHBox.offset_top = -40.0
+	$Panel/ButtonsHBox.offset_bottom = 0.0
 
 func _align_to_viewport() -> void:
 	var viewport_size = get_viewport_rect().size
