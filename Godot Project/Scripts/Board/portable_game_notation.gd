@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name PortableGameNotation
 
 @onready var move_list: VBoxContainer = $Panel/ScrollContainer/MovesVBox
