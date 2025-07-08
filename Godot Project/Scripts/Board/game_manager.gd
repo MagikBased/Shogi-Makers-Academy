@@ -8,6 +8,11 @@ enum Player{
 	Both,
 }
 
+enum PlayerType {
+	Human,
+	AI,
+	}
+
 var game_variant: GameVariant
 var board: Board
 var square_size: float
@@ -21,6 +26,8 @@ var fen_manager: FenManager
 var debug_manager: DebugManager
 var notation_manager: PortableGameNotation
 var allow_input: bool = true
+var sente_player_type: PlayerType = PlayerType.Human
+var gote_player_type: PlayerType = PlayerType.Human
 
 var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
