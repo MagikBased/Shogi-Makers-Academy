@@ -611,13 +611,18 @@ func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> b
 func show_checkmate_indicator(pos: Vector2i) -> void:
 	if checkmate_highlight and is_instance_valid(checkmate_highlight):
 		checkmate_highlight.queue_free()
-		
+
 	checkmate_highlight = BoardSquareMarker.new()
 	checkmate_highlight.game_manager = self
 	checkmate_highlight.texture = load("res://Images/UI/BoardUI/square_highlight.png")
 	checkmate_highlight.modulate = Color(1, 0, 0, 0.6)
-	add_child(checkmate_highlight)
-	checkmate_highlight.set_board_position(pos)
+
+	var king_piece := get_piece_instance_at(pos)
+	var scale_factor := square_size / checkmate_highlight.texture.get_width()
+	if king_piece:
+		king_piece.add_child(checkmate_highlight)
+		checkmate_highlight.position = Vector2.ZERO
+		checkmate_highlight.set_board_position(pos)
 
 func check_for_checkmate() -> void:
 	if not game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE):
