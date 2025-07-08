@@ -177,27 +177,27 @@ func _generate_all_moves(state: Dictionary, player: GameManager.Player) -> Array
 
 func _generate_moves_for_piece(info: PieceInfo, state: Dictionary) -> Array:
 	var result := []
-	var owner: GameManager.Player = info.owner as GameManager.Player
+	var piece_owner: GameManager.Player = info.owner as GameManager.Player
 	for move in info.piece_base.moves:
 		if move is StampMove:
 			for dir in move.move_directions:
 				var d = dir
-				if owner == GameManager.Player.Gote:
+				if piece_owner == GameManager.Player.Gote:
 					d = Vector2i(-dir.x, -dir.y)
 				var target = info.position + d
 				if not game_manager.is_inside_board(target):
 					continue
-				if _move_allowed(target, owner, move.restriction, state):
+				if _move_allowed(target, piece_owner, move.restriction, state):
 					result.append(target)
 		elif move is SwingMove:
 			var d = move.move_direction
-			if owner == GameManager.Player.Gote:
+			if piece_owner == GameManager.Player.Gote:
 				d = Vector2i(-d.x, -d.y)
 			var max_dist = move.max_distance
 			var target = info.position + d
 			var dist = 0
 			while game_manager.is_inside_board(target) and (max_dist == -1 or dist < max_dist):
-				if not _move_allowed(target, owner, move.restriction, state):
+				if not _move_allowed(target, piece_owner, move.restriction, state):
 					break
 				result.append(target)
 				if _is_space_taken_in_state(target, state.pieces):
