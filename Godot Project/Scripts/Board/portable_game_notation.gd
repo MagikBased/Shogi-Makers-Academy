@@ -161,11 +161,11 @@ func _parse_hand(hand_str: String) -> Dictionary:
 func _coord_to_string(pos: Vector2i) -> String:
 	return str(pos.x) + str(pos.y)
 
-func _is_player_piece(char: String, player: GameManager.Player) -> bool:
-	return (player == GameManager.Player.Sente and char == char.to_upper()) or (player == GameManager.Player.Gote and char == char.to_lower())
+func _is_player_piece(character: String, player: GameManager.Player) -> bool:
+	return (player == GameManager.Player.Sente and character == character.to_upper()) or (player == GameManager.Player.Gote and character == character.to_lower())
 
-func _strip_plus(char: String) -> String:
-	return char.substr(1) if char.begins_with("+") else char
+func _strip_plus(character: String) -> String:
+	return character.substr(1) if character.begins_with("+") else character
 
 func _setup_layout() -> void:
 	$Panel.anchor_left = 0.0
