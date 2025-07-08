@@ -98,6 +98,7 @@ func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 	var prev_hand = _parse_hand(prev_parts[2] if prev_parts.size() > 2 else "-")
 	var new_hand = _parse_hand(new_parts[2] if new_parts.size() > 2 else "-")
 	var player = GameManager.Player.Sente if prev_parts[1] == "b" else GameManager.Player.Gote
+	
 	var drop_piece = ""
 	for piece in prev_hand.keys():
 		var prev_count = prev_hand[piece]
@@ -132,21 +133,25 @@ func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 			break
 	if from_square == null or to_square == null:
 		return ""
-	var capture = prev_board.has(to_square) and prev_board[to_square] != "" and not _is_player_piece(prev_board[to_square], player)
+	var capture = (
+		prev_board.has(to_square)
+		and prev_board[to_square] != ""
+		and not _is_player_piece(prev_board[to_square], player)
+	)
 	var piece_type = _strip_plus(from_char).to_upper()
 	var show_from := _is_ambiguous_move(prev_board, from_char, from_square, to_square, player)
 	var notation = piece_type
 	if show_from:
 		notation += _coord_to_string(from_square)
 	notation += ("x" if capture else "-") + _coord_to_string(to_square)
-		var could_promote = false
+	var could_promote = false
 	var idx = game_manager.fen_manager.get_piece_type_from_symbol(piece_type)
-		if idx != -1:
-	var piece_base: PieceBase = game_manager.game_variant.pieces[idx]
+	if idx != -1:
+		var piece_base: PieceBase = game_manager.game_variant.pieces[idx]
 		could_promote = _can_promote_move(piece_base, from_square, to_square, player)
 	var promoted = not from_char.begins_with("+") and to_char.begins_with("+")
-		if could_promote:
-	notation += "+" if promoted else "="
+	if could_promote:
+		notation += "+" if promoted else "="
 	return notation
 
 func _parse_board(board_str: String) -> Dictionary:
