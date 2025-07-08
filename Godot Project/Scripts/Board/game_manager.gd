@@ -579,7 +579,7 @@ func _is_king_in_check_from_state(board_state: Array[PieceInfo], player: Player)
 			if info.owner == opponent:
 				if _piece_threatens_king_in_state(info, king_pos, board_state):
 					return true
-	return false  # ✅ Make sure this line exists and is indented
+	return false
 
 func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> bool:
 	var temp_state: Array[PieceInfo] = []
@@ -618,7 +618,6 @@ func show_checkmate_indicator(pos: Vector2i) -> void:
 	checkmate_highlight.modulate = Color(1, 0, 0, 0.6)
 	add_child(checkmate_highlight)
 	checkmate_highlight.set_board_position(pos)
-
 
 func check_for_checkmate() -> void:
 	if not game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE):
