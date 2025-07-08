@@ -6,6 +6,7 @@ var search_depth: int = 2
 
 func play_turn(player: GameManager.Player) -> void:
 	var move = choose_move(player)
+	print("AI selected move: ", move)
 	if move == null:
 		return
 	if move.has('drop_piece_base'):
@@ -22,6 +23,7 @@ func play_turn(player: GameManager.Player) -> void:
 func choose_move(player: GameManager.Player) -> Dictionary:
 	var state = _create_state()
 	var result = _alpha_beta(state, search_depth, -INF, INF, player, player)
+	print("AI choose_move result: ", result)
 	return result.get('move')
 
 func _create_state() -> Dictionary:
@@ -48,6 +50,7 @@ func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, curre
 		for move in _generate_all_moves(state, current_player):
 			var new_state = _apply_move(state, move)
 			var result = _alpha_beta(new_state, depth - 1, alpha, beta, _opponent(current_player), maximizing)
+	print("AI choose_move result: ", result)
 			if result.score > value:
 				value = result.score
 				best_move = move
@@ -60,6 +63,7 @@ func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, curre
 		for move in _generate_all_moves(state, current_player):
 			var new_state = _apply_move(state, move)
 			var result = _alpha_beta(new_state, depth - 1, alpha, beta, _opponent(current_player), maximizing)
+	print("AI choose_move result: ", result)
 			if result.score < value:
 				value = result.score
 				best_move = move
@@ -102,7 +106,7 @@ func _generate_all_moves(state: Dictionary, player: GameManager.Player) -> Array
 		for move_pos in _generate_moves_for_piece(info, state):
 			moves.append({'piece_id': info.instance_id, 'piece_base': info.piece_base, 'from': info.position, 'to': move_pos, 'player': player})
 	if game_manager.game_variant.in_hand_pieces:
-		var hand := state.sente_hand if player == GameManager.Player.Sente else state.gote_hand
+		var hand: Dictionary = state.sente_hand if player == GameManager.Player.Sente else state.gote_hand
 		for fen_char in hand.keys():
 			if hand[fen_char] > 0:
 				var piece_base = game_manager.in_hand_manager.get_piece_base_from_fen_char(fen_char if player == GameManager.Player.Sente else fen_char.to_lower())
@@ -115,26 +119,27 @@ func _generate_all_moves(state: Dictionary, player: GameManager.Player) -> Array
 
 func _generate_moves_for_piece(info: PieceInfo, state: Dictionary) -> Array:
 	var result := []
+	var owner: GameManager.Player = GameManager.Player(info.owner)
 	for move in info.piece_base.moves:
 		if move is StampMove:
 			for dir in move.move_directions:
 				var d = dir
-				if info.owner == GameManager.Player.Gote:
+				if owner == GameManager.Player.Gote:
 					d = Vector2i(-dir.x, -dir.y)
 				var target = info.position + d
 				if not game_manager.is_inside_board(target):
 					continue
-				if _move_allowed(target, info.owner, move.restriction, state):
+				if _move_allowed(target, owner, move.restriction, state):
 					result.append(target)
 		elif move is SwingMove:
 			var d = move.move_direction
-			if info.owner == GameManager.Player.Gote:
+			if owner == GameManager.Player.Gote:
 				d = Vector2i(-d.x, -d.y)
 			var max_dist = move.max_distance
 			var target = info.position + d
 			var dist = 0
 			while game_manager.is_inside_board(target) and (max_dist == -1 or dist < max_dist):
-				if not _move_allowed(target, info.owner, move.restriction, state):
+				if not _move_allowed(target, owner, move.restriction, state):
 					break
 				result.append(target)
 				if _is_space_taken_in_state(target, state.pieces):
@@ -143,9 +148,9 @@ func _generate_moves_for_piece(info: PieceInfo, state: Dictionary) -> Array:
 				dist += 1
 	return result
 
-func _move_allowed(pos: Vector2i, owner: GameManager.Player, restriction: MovementBase.MoveRestriction, state: Dictionary) -> bool:
+func _move_allowed(pos: Vector2i, player: GameManager.Player, restriction: MovementBase.MoveRestriction, state: Dictionary) -> bool:
 	var taken = _is_space_taken_in_state(pos, state.pieces)
-	var ally = _is_space_taken_by_player(pos, owner, state.pieces)
+	var ally = _is_space_taken_by_player(pos, player, state.pieces)
 	match restriction:
 		MovementBase.MoveRestriction.CAPTURE_ONLY:
 			return taken and not ally
@@ -204,8 +209,8 @@ func _is_space_taken_in_state(pos: Vector2i, pieces: Array) -> bool:
 			return true
 	return false
 
-func _is_space_taken_by_player(pos: Vector2i, owner: GameManager.Player, pieces: Array) -> bool:
+func _is_space_taken_by_player(pos: Vector2i, player: GameManager.Player, pieces: Array) -> bool:
 	for p in pieces:
-		if p.position == pos and p.owner == owner:
+		if p.position == pos and p.owner == player:
 			return true
 	return false
