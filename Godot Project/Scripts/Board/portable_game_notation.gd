@@ -134,7 +134,11 @@ func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 		return ""
 	var capture = prev_board.has(to_square) and prev_board[to_square] != "" and not _is_player_piece(prev_board[to_square], player)
 	var piece_type = _strip_plus(from_char).to_upper()
-	var notation = piece_type + ("x" if capture else "-") + _coord_to_string(to_square)
+	var show_from := _is_ambiguous_move(prev_board, from_char, from_square, to_square, player)
+	var notation = piece_type
+	if show_from:
+		notation += _coord_to_string(from_square)
+	notation += ("x" if capture else "-") + _coord_to_string(to_square)
 	var could_promote = false
 	var idx = game_manager.fen_manager.get_piece_type_from_symbol(piece_type)
 	if idx != -1:
@@ -189,7 +193,67 @@ func _is_player_piece(character: String, player: GameManager.Player) -> bool:
 	return (player == GameManager.Player.Sente and character == character.to_upper()) or (player == GameManager.Player.Gote and character == character.to_lower())
 
 func _strip_plus(character: String) -> String:
-	return character.substr(1) if character.begins_with("+") else character
+return character.substr(1) if character.begins_with("+") else character
+
+func _is_inside_board(pos: Vector2i) -> bool:
+	return pos.x > 0 and pos.x <= game_manager.board.board_size.x and pos.y > 0 and pos.y <= game_manager.board.board_size.y
+
+func _piece_can_move_to(board: Dictionary, piece_char: String, from_pos: Vector2i, to_pos: Vector2i, player: GameManager.Player) -> bool:
+	var idx = game_manager.fen_manager.get_piece_type_from_symbol(_strip_plus(piece_char).to_upper())
+	if idx == -1:
+		return false
+	var piece_base: PieceBase = game_manager.game_variant.pieces[idx]
+	for move in piece_base.moves:
+		if move is StampMove:
+			for dir in move.move_directions:
+				var direction = dir
+				if player == GameManager.Player.Gote:
+					direction = Vector2i(-dir.x, -dir.y)
+				var target = from_pos + direction
+				if target != to_pos:
+					continue
+				if not _is_inside_board(target):
+					continue
+				match move.restriction:
+					MovementBase.MoveRestriction.CAPTURE_ONLY:
+						return board.has(target) and not _is_player_piece(board.get(target, ""), player)
+					MovementBase.MoveRestriction.MOVE_ONLY:
+						return not board.has(target)
+					MovementBase.MoveRestriction.NONE:
+						return not _is_player_piece(board.get(target, ""), player)
+		elif move is SwingMove:
+			var direction = move.move_direction
+			if player == GameManager.Player.Gote:
+				direction = Vector2i(-direction.x, -direction.y)
+			var target = from_pos + direction
+			var distance = 0
+			while _is_inside_board(target) and (move.max_distance == -1 or distance < move.max_distance):
+				if target == to_pos:
+					var occupied = board.has(target)
+					if move.restriction == MovementBase.MoveRestriction.CAPTURE_ONLY:
+						return occupied and not _is_player_piece(board.get(target, ""), player)
+					if move.restriction == MovementBase.MoveRestriction.MOVE_ONLY and occupied:
+						return false
+					return not (occupied and _is_player_piece(board.get(target, ""), player))
+				if board.has(target):
+					break
+				target += direction
+				distance += 1
+	return false
+
+func _is_ambiguous_move(board: Dictionary, piece_char: String, from_pos: Vector2i, to_pos: Vector2i, player: GameManager.Player) -> bool:
+	var piece_type = _strip_plus(piece_char).to_upper()
+	for pos in board.keys():
+		if pos == from_pos:
+			continue
+		var char = board[pos]
+		if _strip_plus(char).to_upper() != piece_type:
+			continue
+		if not _is_player_piece(char, player):
+			continue
+		if _piece_can_move_to(board, char, pos, to_pos, player):
+			return true
+	return false
 
 func _setup_layout() -> void:
 	$Panel.anchor_left = 0.0
