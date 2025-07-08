@@ -618,10 +618,15 @@ func show_checkmate_indicator(pos: Vector2i) -> void:
 	checkmate_highlight.modulate = Color(1, 0, 0, 0.6)
 
 	var king_piece := get_piece_instance_at(pos)
+	var scale_factor := square_size / checkmate_highlight.texture.get_width()
 	if king_piece:
 		king_piece.add_child(checkmate_highlight)
 		checkmate_highlight.position = Vector2.ZERO
-		checkmate_highlight.scale = Vector2.ONE * (square_size / checkmate_highlight.texture.get_width())
+		var global_scale := king_piece.global_scale.x
+		if global_scale != 0:
+			checkmate_highlight.scale = Vector2.ONE * (scale_factor / global_scale)
+		else:
+			checkmate_highlight.scale = Vector2.ONE * scale_factor
 		checkmate_highlight.z_index = -1
 	else:
 		add_child(checkmate_highlight)
