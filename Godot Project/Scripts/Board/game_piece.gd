@@ -51,11 +51,7 @@ func _input(event) -> void:
 
 		if event.is_pressed() and is_click_on_piece:
 			was_selected_on_press = selected
-			if selected:
-				destroy_all_highlights()
-				set_selected(false)
-				game_manager.selected_piece = null
-			else:
+			if not selected:
 				if game_manager.selected_piece != null:
 					game_manager.selected_piece.destroy_all_highlights()
 					game_manager.selected_piece.set_selected(false)
@@ -91,6 +87,7 @@ func _input(event) -> void:
 					_on_move_piece(drop_square)
 				else:
 					if was_selected_on_press:
+						destroy_all_highlights()
 						set_selected(false)
 						game_manager.selected_piece = null
 					else:
