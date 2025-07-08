@@ -128,9 +128,6 @@ func position_hand_containers() -> void:
 	var sente_size := _get_container_size(sente_container)
 	var gote_size := _get_container_size(gote_container)
 	label_width = 0
-	print("board right: ", board_right, " label width: ", label_width, " container_margin: ", container_margin, " board_bottom: ", board_bottom, " sente size: ", sente_size, " gote size: ", gote_size)
-	#sente_container.position = Vector2(board_right + label_width + container_margin, board_bottom)
-	#gote_container.position = Vector2(board_left - label_width - container_margin, board_top)
 	sente_container.position = Vector2(board_right + label_width + container_margin + (sente_size.x / 4.0),board_bottom)
 	gote_container.position = Vector2(board_left - label_width - container_margin - (gote_size.x / 4.0),board_top)
 

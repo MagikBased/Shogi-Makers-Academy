@@ -28,6 +28,7 @@ var notation_manager: PortableGameNotation
 var allow_input: bool = true
 var sente_player_type: PlayerType = PlayerType.Human
 var gote_player_type: PlayerType = PlayerType.Human
+var ai_player: AlphaBetaAI
 
 var selected_piece: BaseGamePiece = null
 var is_promoting:bool = false
@@ -47,6 +48,9 @@ var active_piece_set: PieceSet
 
 func _ready() -> void:
 	active_piece_set = game_variant.piece_sets[0]
+	ai_player = AlphaBetaAI.new()
+	ai_player.game_manager = self
+	add_child(ai_player)
 	initialize_values()
 	if game_variant.debug_fen.strip_edges() != "":
 		fen_manager.create_board_from_fen(game_variant.debug_fen)
@@ -54,8 +58,10 @@ func _ready() -> void:
 		fen_manager.create_board_from_fen(game_variant.starting_fen)
 	record_move()
 	initialize_attack_cache()
-	#print(attack_cache)
+	   #print(attack_cache)
 	start_phase()
+	if (player_turn == Player.Sente and sente_player_type == PlayerType.AI) or (player_turn == Player.Gote and gote_player_type == PlayerType.AI):
+		ai_player.play_turn(player_turn)
 
 func initialize_values() -> void:
 	square_size = (board.texture.get_width()) / float(board.board_size.x)
@@ -133,6 +139,8 @@ func switch_turn() -> void:
 	var phase_index = (turn_count - 1) % game_variant.turn_phases.size()
 	current_phase = game_variant.turn_phases[phase_index]
 	start_phase()
+	if (player_turn == Player.Sente and sente_player_type == PlayerType.AI) or (player_turn == Player.Gote and gote_player_type == PlayerType.AI):
+		ai_player.play_turn(player_turn)
 	if game_variant.win_conditions.has(GameVariant.WinConditions.CHECKMATE) or game_variant.win_conditions.has(GameVariant.WinConditions.NUMBER_OF_CHECKS):
 		var king_position = find_kings(player_turn)[0]
 		determine_pins(king_position, player_turn)
