@@ -53,7 +53,7 @@ func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, curre
 		for move in _generate_all_moves(state, current_player):
 			var new_state = _apply_move(state, move)
 			var result = _alpha_beta(new_state, depth - 1, alpha, beta, _opponent(current_player), maximizing)
-	print("AI choose_move result: ", result)
+			print("AI choose_move result: ", result)
 			if result.score > value:
 				value = result.score
 				best_move = move
@@ -66,7 +66,7 @@ func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, curre
 		for move in _generate_all_moves(state, current_player):
 			var new_state = _apply_move(state, move)
 			var result = _alpha_beta(new_state, depth - 1, alpha, beta, _opponent(current_player), maximizing)
-	print("AI choose_move result: ", result)
+			print("AI choose_move result: ", result)
 			if result.score < value:
 				value = result.score
 				best_move = move
@@ -122,7 +122,7 @@ func _generate_all_moves(state: Dictionary, player: GameManager.Player) -> Array
 
 func _generate_moves_for_piece(info: PieceInfo, state: Dictionary) -> Array:
 	var result := []
-	var owner: GameManager.Player = GameManager.Player(info.owner)
+	var owner: GameManager.Player = info.owner as GameManager.Player
 	for move in info.piece_base.moves:
 		if move is StampMove:
 			for dir in move.move_directions:
