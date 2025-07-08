@@ -60,12 +60,16 @@ func _add_move_button(number: int, notation: String) -> void:
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var number_label = Label.new()
 	number_label.text = str(number)
+	var margin = MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 4)
+	margin.add_child(number_label)
 	var move_button = Button.new()
 	move_button.text = notation
 	move_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	move_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	move_button.pressed.connect(_on_move_button_pressed.bind(number))
-	row.add_child(number_label)
+	move_button.focus_mode = Control.FOCUS_NONE
+	row.add_child(margin)
 	row.add_child(move_button)
 	move_list.add_child(row)
 	move_buttons.append(move_button)
