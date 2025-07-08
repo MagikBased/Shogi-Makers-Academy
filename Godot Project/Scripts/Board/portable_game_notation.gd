@@ -19,6 +19,15 @@ func _ready() -> void:
 	last_button.pressed.connect(_on_last_pressed)
 	set_anchors_preset(Control.PRESET_TOP_LEFT)
 	$Panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	$Panel/ScrollContainer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	$Panel/ButtonsHBox.anchor_left = 0.0
+	$Panel/ButtonsHBox.anchor_right = 1.0
+	$Panel/ButtonsHBox.anchor_top = 1.0
+	$Panel/ButtonsHBox.anchor_bottom = 1.0
+	$Panel/ButtonsHBox.offset_left = 0.0
+	$Panel/ButtonsHBox.offset_right = 0.0
+	$Panel/ButtonsHBox.offset_top = -40.0
+	$Panel/ButtonsHBox.offset_bottom = 0.0
 	_align_to_viewport()
 	get_viewport().size_changed.connect(_align_to_viewport)
 
