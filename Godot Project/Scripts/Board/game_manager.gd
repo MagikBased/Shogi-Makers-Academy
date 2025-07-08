@@ -610,7 +610,7 @@ func simulate_move_puts_king_in_check(piece: BaseGamePiece, move: Vector2i) -> b
 
 func show_checkmate_indicator(pos: Vector2i) -> void:
 	if checkmate_highlight and is_instance_valid(checkmate_highlight):
-	checkmate_highlight.queue_free()
+		checkmate_highlight.queue_free()
 
 	checkmate_highlight = BoardSquareMarker.new()
 	checkmate_highlight.game_manager = self
@@ -622,14 +622,6 @@ func show_checkmate_indicator(pos: Vector2i) -> void:
 	if king_piece:
 		king_piece.add_child(checkmate_highlight)
 		checkmate_highlight.position = Vector2.ZERO
-		var global_scale := king_piece.global_scale.x
-		if global_scale != 0:
-			checkmate_highlight.scale = Vector2.ONE * (scale_factor / global_scale)
-		else:
-			checkmate_highlight.scale = Vector2.ONE * scale_factor
-		checkmate_highlight.z_index = -1
-	else:
-		add_child(checkmate_highlight)
 		checkmate_highlight.set_board_position(pos)
 
 func check_for_checkmate() -> void:
