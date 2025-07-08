@@ -11,6 +11,8 @@ var game_manager: GameManager
 var history: Array[String] = []
 var move_notations: Array[String] = []
 var current_index: int = 0
+var move_buttons: Array[Button] = []
+var selected_color: Color = Color(0.4, 0.6, 1.0)
 
 func _ready() -> void:
 	first_button.pressed.connect(_on_first_pressed)
@@ -45,26 +47,44 @@ func _on_last_pressed() -> void:
 func _set_board_to_index(index: int) -> void:
 	game_manager.cancel_promotion()
 	if index < 0 or index >= history.size():
-		return
+	return
 	current_index = index
 	var sfen = history[index]
 	game_manager.fen_manager.create_board_from_fen(sfen)
 	game_manager.start_phase()
 	game_manager.allow_input = index == history.size() - 1
+	_update_button_selection()
 
 func _add_move_button(number: int, notation: String) -> void:
 	var row = HBoxContainer.new()
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var number_label = Label.new()
+	number_label.text = str(number)
 	var move_button = Button.new()
-	move_button.text = str(number)
+	move_button.text = notation
+	move_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	move_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	move_button.pressed.connect(_on_move_button_pressed.bind(number))
-	var label = Label.new()
-	label.text = notation
+	row.add_child(number_label)
 	row.add_child(move_button)
-	row.add_child(label)
 	move_list.add_child(row)
+	move_buttons.append(move_button)
+	_scroll_to_bottom_if_needed()
 
 func _on_move_button_pressed(index: int) -> void:
 	_set_board_to_index(index)
+
+func _scroll_to_bottom_if_needed() -> void:
+	var bar: VScrollBar = $Panel/ScrollContainer.get_v_scroll_bar()
+	var at_bottom: bool = bar.value >= bar.max_value - bar.page
+	await get_tree().process_frame
+	if at_bottom:
+	bar.value = bar.max_value
+
+func _update_button_selection() -> void:
+	for i in range(move_buttons.size()):
+	var button: Button = move_buttons[i]
+	button.modulate = selected_color if i + 1 == current_index else Color.WHITE
 
 func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 	var prev_parts = prev_sfen.split(" ")
