@@ -44,13 +44,14 @@ func _create_state() -> Dictionary:
 func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, current_player: GameManager.Player, maximizing: GameManager.Player) -> Dictionary:
 	if depth == 0 or _is_game_over(state):
 		return {'score': _evaluate_state(state, maximizing)}
+
 	var best_move
 	if current_player == maximizing:
 		var value = -INF
 		for move in _generate_all_moves(state, current_player):
 			var new_state = _apply_move(state, move)
 			var result = _alpha_beta(new_state, depth - 1, alpha, beta, _opponent(current_player), maximizing)
-	print("AI choose_move result: ", result)
+			print("AI choose_move result: ", result)
 			if result.score > value:
 				value = result.score
 				best_move = move
@@ -63,7 +64,7 @@ func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, curre
 		for move in _generate_all_moves(state, current_player):
 			var new_state = _apply_move(state, move)
 			var result = _alpha_beta(new_state, depth - 1, alpha, beta, _opponent(current_player), maximizing)
-	print("AI choose_move result: ", result)
+			print("AI choose_move result: ", result)
 			if result.score < value:
 				value = result.score
 				best_move = move
@@ -71,6 +72,7 @@ func _alpha_beta(state: Dictionary, depth: int, alpha: float, beta: float, curre
 			if beta <= alpha:
 				break
 		return {'score': value, 'move': best_move}
+
 
 func _opponent(player: GameManager.Player) -> GameManager.Player:
 	return GameManager.Player.Gote if player == GameManager.Player.Sente else GameManager.Player.Sente
@@ -119,7 +121,7 @@ func _generate_all_moves(state: Dictionary, player: GameManager.Player) -> Array
 
 func _generate_moves_for_piece(info: PieceInfo, state: Dictionary) -> Array:
 	var result := []
-	var owner: GameManager.Player = GameManager.Player(info.owner)
+	var owner: GameManager.Player = info.owner as GameManager.Player
 	for move in info.piece_base.moves:
 		if move is StampMove:
 			for dir in move.move_directions:
