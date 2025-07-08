@@ -272,12 +272,12 @@ func _is_ambiguous_move(board: Dictionary, piece_char: String, from_pos: Vector2
 	for pos in temp_board.keys():
 		if pos == from_pos:
 			continue
-		var char = temp_board[pos]
-		if _strip_plus(char).to_upper() != piece_type:
+		var character = temp_board[pos]
+		if _strip_plus(character).to_upper() != piece_type:
 			continue
-		if not _is_player_piece(char, player):
+		if not _is_player_piece(character, player):
 			continue
-		if _piece_can_move_to(temp_board, char, pos, to_pos, player):
+		if _piece_can_move_to(temp_board, character, pos, to_pos, player):
 			return true
 	return false
 func _setup_layout() -> void:
@@ -312,4 +312,4 @@ func _align_to_viewport() -> void:
 	var height = viewport_size.y * 2.0 / 3.0
 	position = Vector2(viewport_size.x - width, (viewport_size.y - height) / 2.0)
 	size = Vector2(width, height)
-	$Panel.size = size
+	$Panel.set_deferred("size", size)
