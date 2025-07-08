@@ -17,6 +17,10 @@ func _ready() -> void:
 	back_button.pressed.connect(_on_back_pressed)
 	forward_button.pressed.connect(_on_forward_pressed)
 	last_button.pressed.connect(_on_last_pressed)
+	set_anchors_preset(Control.PRESET_TOP_LEFT)
+	$Panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_align_to_viewport()
+	get_viewport().size_changed.connect(_align_to_viewport)
 
 func add_sfen(sfen: String) -> void:
 	history.append(sfen)
@@ -162,3 +166,11 @@ func _is_player_piece(char: String, player: GameManager.Player) -> bool:
 
 func _strip_plus(char: String) -> String:
 	return char.substr(1) if char.begins_with("+") else char
+
+func _align_to_viewport() -> void:
+	var viewport_size = get_viewport_rect().size
+	var width = 200.0
+	var height = viewport_size.y * 2.0 / 3.0
+	position = Vector2(viewport_size.x - width, (viewport_size.y - height) / 2.0)
+	size = Vector2(width, height)
+	$Panel.size = size
