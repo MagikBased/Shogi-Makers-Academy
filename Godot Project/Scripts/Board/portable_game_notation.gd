@@ -47,7 +47,7 @@ func _on_last_pressed() -> void:
 func _set_board_to_index(index: int) -> void:
 	game_manager.cancel_promotion()
 	if index < 0 or index >= history.size():
-	return
+		return
 	current_index = index
 	var sfen = history[index]
 	game_manager.fen_manager.create_board_from_fen(sfen)
@@ -83,7 +83,7 @@ func _scroll_to_bottom_if_needed() -> void:
 	var at_bottom: bool = bar.value >= bar.max_value - bar.page
 	await get_tree().process_frame
 	if at_bottom:
-	bar.value = bar.max_value
+		bar.value = bar.max_value
 
 func _update_button_selection() -> void:
 	for i in range(move_buttons.size()):
@@ -193,7 +193,7 @@ func _is_player_piece(character: String, player: GameManager.Player) -> bool:
 	return (player == GameManager.Player.Sente and character == character.to_upper()) or (player == GameManager.Player.Gote and character == character.to_lower())
 
 func _strip_plus(character: String) -> String:
-return character.substr(1) if character.begins_with("+") else character
+	return character.substr(1) if character.begins_with("+") else character
 
 func _is_inside_board(pos: Vector2i) -> bool:
 	return pos.x > 0 and pos.x <= game_manager.board.board_size.x and pos.y > 0 and pos.y <= game_manager.board.board_size.y
@@ -243,18 +243,19 @@ func _piece_can_move_to(board: Dictionary, piece_char: String, from_pos: Vector2
 
 func _is_ambiguous_move(board: Dictionary, piece_char: String, from_pos: Vector2i, to_pos: Vector2i, player: GameManager.Player) -> bool:
 	var piece_type = _strip_plus(piece_char).to_upper()
-	for pos in board.keys():
+	var temp_board: Dictionary = board.duplicate()
+	temp_board.erase(from_pos)
+	for pos in temp_board.keys():
 		if pos == from_pos:
 			continue
-		var char = board[pos]
+		var char = temp_board[pos]
 		if _strip_plus(char).to_upper() != piece_type:
 			continue
 		if not _is_player_piece(char, player):
 			continue
-		if _piece_can_move_to(board, char, pos, to_pos, player):
+		if _piece_can_move_to(temp_board, char, pos, to_pos, player):
 			return true
 	return false
-
 func _setup_layout() -> void:
 	$Panel.anchor_left = 0.0
 	$Panel.anchor_top = 0.0
