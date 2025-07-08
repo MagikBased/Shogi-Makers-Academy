@@ -165,7 +165,7 @@ func _is_player_piece(char: String, player: GameManager.Player) -> bool:
 	return (player == GameManager.Player.Sente and char == char.to_upper()) or (player == GameManager.Player.Gote and char == char.to_lower())
 
 func _strip_plus(char: String) -> String:
-return char.substr(1) if char.begins_with("+") else char
+	return char.substr(1) if char.begins_with("+") else char
 
 func _setup_layout() -> void:
 	$Panel.anchor_left = 0.0
