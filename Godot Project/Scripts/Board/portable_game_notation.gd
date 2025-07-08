@@ -87,8 +87,8 @@ func _scroll_to_bottom_if_needed() -> void:
 
 func _update_button_selection() -> void:
 	for i in range(move_buttons.size()):
-	var button: Button = move_buttons[i]
-	button.modulate = selected_color if i + 1 == current_index else Color.WHITE
+		var button: Button = move_buttons[i]
+		button.modulate = selected_color if i + 1 == current_index else Color.WHITE
 
 func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 	var prev_parts = prev_sfen.split(" ")
@@ -139,14 +139,14 @@ func _compute_move_notation(prev_sfen: String, new_sfen: String) -> String:
 	if show_from:
 		notation += _coord_to_string(from_square)
 	notation += ("x" if capture else "-") + _coord_to_string(to_square)
-	var could_promote = false
+		var could_promote = false
 	var idx = game_manager.fen_manager.get_piece_type_from_symbol(piece_type)
-	if idx != -1:
-		var piece_base: PieceBase = game_manager.game_variant.pieces[idx]
-		could_promote = piece_base.can_promote and not piece_base.is_promoted
+		if idx != -1:
+	var piece_base: PieceBase = game_manager.game_variant.pieces[idx]
+		could_promote = _can_promote_move(piece_base, from_square, to_square, player)
 	var promoted = not from_char.begins_with("+") and to_char.begins_with("+")
-	if could_promote:
-		notation += "+" if promoted else "="
+		if could_promote:
+	notation += "+" if promoted else "="
 	return notation
 
 func _parse_board(board_str: String) -> Dictionary:
@@ -197,6 +197,26 @@ func _strip_plus(character: String) -> String:
 
 func _is_inside_board(pos: Vector2i) -> bool:
 	return pos.x > 0 and pos.x <= game_manager.board.board_size.x and pos.y > 0 and pos.y <= game_manager.board.board_size.y
+	
+	func _can_promote_move(piece_base: PieceBase, from_pos: Vector2i, to_pos: Vector2i, player: GameManager.Player) -> bool:
+	if not piece_base.can_promote or piece_base.is_promoted:
+		return false
+	for square in piece_base.promotion_squares:
+		if square.player != PromotionSquare.Player.Both and square.player != player:
+	continue
+		var in_start = square.position == from_pos
+	var in_end = square.position == to_pos
+		match square.promotion_move_rule:
+	PromotionSquare.PromotionMove.Both:
+		if in_start or in_end:
+	return true
+		PromotionSquare.PromotionMove.MovesInto:
+	if not in_start and in_end:
+		return true
+	PromotionSquare.PromotionMove.MovesOutOf:
+		if in_start and not in_end:
+	return true
+		return false
 
 func _piece_can_move_to(board: Dictionary, piece_char: String, from_pos: Vector2i, to_pos: Vector2i, player: GameManager.Player) -> bool:
 	var idx = game_manager.fen_manager.get_piece_type_from_symbol(_strip_plus(piece_char).to_upper())
