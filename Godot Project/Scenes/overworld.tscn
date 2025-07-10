@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq116aobqghi5"]
+
+[ext_resource type="TileSet" uid="uid://c50bqfbji2lya" path="res://Resources/TileMaps/overworld.tres" id="1_l45s6"]
+
+[node name="OverWorld" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_set = ExtResource("1_l45s6")
