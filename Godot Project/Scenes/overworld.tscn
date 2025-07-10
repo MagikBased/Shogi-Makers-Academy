@@ -6,4 +6,5 @@
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
+tile_map_data = PackedByteArray(0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 32, 0, 0, 0, 4, 0, 1, 0, 1, 0, 0, 0, 37, 0, 0, 0)
 tile_set = ExtResource("1_l45s6")
